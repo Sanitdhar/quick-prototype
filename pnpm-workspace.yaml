@@ -1,0 +1,7 @@
+# Naming convention: TS/JS workspace members are prefixed `ts-`, so this glob
+# never accidentally swallows a Python-only folder that lacks a package.json.
+# See docs/STACK.md for the full rationale.
+packages:
+  - 'templates/ts-*'
+  - 'packages/ts-*'
+  - 'prototypes/ts-*'

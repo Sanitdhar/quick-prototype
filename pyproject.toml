@@ -1,0 +1,12 @@
+[tool.uv.workspace]
+# Naming convention: Python workspace members are prefixed `py-`, mirroring
+# the `ts-` convention in pnpm-workspace.yaml. See docs/STACK.md.
+members = ["templates/py-*", "packages/py-*", "prototypes/py-*"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+show_error_codes = true
+plugins = ["pydantic.mypy"]

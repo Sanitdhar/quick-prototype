@@ -1,0 +1,30 @@
+# Node / TS
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+.eslintcache
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local databases used by prototypes
+*.sqlite3
+*.db
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

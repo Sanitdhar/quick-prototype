@@ -1,0 +1,38 @@
+# Repo-wide Ruff config. Ruff walks up from whatever file it's linting to
+# find this, so `uv run ruff check .` works the same from repo root or from
+# inside a single prototype folder — no per-package duplication needed.
+target-version = "py312"
+line-length = 100
+
+extend-exclude = [".venv", "**/alembic/versions"]
+
+[lint]
+select = [
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "I",   # isort
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "SIM", # flake8-simplify
+  "C4",  # flake8-comprehensions
+  "RUF", # ruff-specific
+]
+
+[lint.isort]
+known-first-party = ["py_shared", "py_service"]
+
+[lint.per-file-ignores]
+# Each scaffolded prototype's package is only added to `known-first-party`
+# above for the two permanent packages (py_shared, py_service) — a freshly
+# named prototype (see scripts/new-prototype.sh) isn't, so isort can't tell
+# whether its imports here are first- or third-party. Import order in this
+# one boilerplate file isn't worth per-prototype config to fix.
+"**/alembic/env.py" = ["I001"]
+
+[lint.flake8-bugbear]
+# FastAPI's DI pattern relies on calling Depends()/Query()/etc. in argument
+# defaults — that's idiomatic here, not the mutable-default footgun B008 flags.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path", "fastapi.Body"]
+
+[format]
+quote-style = "double"
