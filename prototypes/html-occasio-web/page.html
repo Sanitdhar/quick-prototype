@@ -1418,7 +1418,7 @@
     position: relative;
     border-radius: var(--img-radius);
     overflow: hidden;
-    min-height: 300px;
+    min-height: 344px;
     display: flex;
     cursor: pointer;
     border: 1px solid var(--occasio-color-border);
@@ -1435,6 +1435,13 @@
     inset: 0;
     border-radius: 0;
     transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Faces sit high in these crops, and a centred `cover` was cutting heads off.
+     Favour the upper third so the subject drops into frame, clear of the caption. */
+  .story .photo img,
+  .hero .photo img {
+    object-position: 50% 22%;
   }
 
   .story:hover .photo {
@@ -1463,7 +1470,7 @@
     grid-template-columns: 84px 1fr;
     gap: 18px;
     padding: 16px;
-    border-radius: var(--occasio-radius-md);
+    border-radius: var(--btn-radius);
     align-items: start;
     transition: background 180ms ease;
   }
@@ -1565,9 +1572,9 @@
   .react {
     appearance: none;
     cursor: pointer;
-    border-radius: 999px;
-    border: 1px solid var(--occasio-color-border);
-    background: var(--occasio-color-surface);
+    border-radius: var(--chip-radius);
+    border: var(--chip-border-w) solid var(--occasio-color-border);
+    background: var(--chip-bg);
     color: var(--occasio-color-text);
     padding: 5px 12px;
     font-size: var(--occasio-type-caption-size);
@@ -1606,7 +1613,7 @@
   .checkbox {
     width: 22px;
     height: 22px;
-    border-radius: 7px;
+    border-radius: min(var(--chip-radius), 7px);
     border: 1.5px solid var(--occasio-color-borderStrong);
     flex: none;
     margin-top: 2px;
@@ -2876,7 +2883,9 @@
   });
 
   document.getElementById('tabs').addEventListener('click', (e) => {
-    const b = e.target.closest('.tab');
+    /* Match the data attribute, not the class: the rail has been renamed once
+       already, and that silently killed every tab. */
+    const b = e.target.closest('[data-tab]');
     if (!b) return;
     state.tab = b.dataset.tab;
     render();
