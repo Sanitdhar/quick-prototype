@@ -17,6 +17,10 @@ export default tseslint.config(
       '**/coverage/**',
       '**/.venv/**',
       '**/__pycache__/**',
+      /* `html-*` prototypes are plain files opened in a browser — no package, no tsconfig,
+         nothing to typecheck. Their scripts often target another repo's workspace entirely
+         (see prototypes/README.md), so type-aware linting here has no project to resolve. */
+      'prototypes/html-*/**',
     ],
   },
   js.configs.recommended,

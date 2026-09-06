@@ -11,6 +11,13 @@ The prefix isn't cosmetic — `pnpm-workspace.yaml` and the root `pyproject.toml
 on `ts-*`/`py-*` to decide what's a workspace member, so a prototype is wired into
 the repo's lint/typecheck/test/build tooling the moment it's created.
 
+There's a third, deliberately un-globbed prefix: **`html-<name>`**, for a prototype that is
+just files you open in a browser — no package, no install, no build tooling. It has no
+workspace membership precisely because there is nothing to install or typecheck, and it's
+excluded from the repo's lint and format gates for the same reason. Use it when the fastest
+honest answer to "what are we building" is a page rather than an app
+(see [`html-occasio-web`](./html-occasio-web/)).
+
 ## Lift-and-shift
 
 When a prototype is worth turning into its own product, take the whole `ts-<name>`

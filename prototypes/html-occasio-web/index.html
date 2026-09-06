@@ -1,0 +1,3177 @@
+<title>Occasio Attendee Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;700&family=Nunito:wght@400;600;700&family=Outfit:wght@500;600;700;800&family=Patrick+Hand&family=Sora:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+/>
+
+<style>
+  /* ============================================================================
+     1. TENANT TOKENS — generated from Occasio's real theme resolver.
+     ========================================================================== */
+  [data-tenant='sanit-riyanks'] {
+  --occasio-color-bg: #fcfbfc;
+  --occasio-color-surface: #f8f6f7;
+  --occasio-color-surfaceRaised: #f1edef;
+  --occasio-color-surfaceSunken: #fcfbfc;
+  --occasio-color-text: #302d2e;
+  --occasio-color-textMuted: #6e666a;
+  --occasio-color-textFaint: #7f767a;
+  --occasio-color-textInverse: #fcfbfc;
+  --occasio-color-brand: #b46c8d;
+  --occasio-color-onBrand: #1a191a;
+  --occasio-color-brandSubtle: #ffe7f1;
+  --occasio-color-onBrandSubtle: #3e2530;
+  --occasio-color-brandBorder: #e7aec6;
+  --occasio-color-accent: #a670a5;
+  --occasio-color-onAccent: #1a191a;
+  --occasio-color-accentSubtle: #fae8f9;
+  --occasio-color-border: #d4cdd0;
+  --occasio-color-borderStrong: #a9a0a4;
+  --occasio-color-divider: #dfd9db;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #242122;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #1e1b1c;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #141314;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #1e1b1c;
+  --occasio-color-interactive-rest: #b46c8d;
+  --occasio-color-interactive-hover: #a4607f;
+  --occasio-color-interactive-pressed: #8c556e;
+  --occasio-color-interactive-disabled: #dfd9db;
+  --occasio-color-interactive-onDisabled: #61585c;
+  --occasio-color-interactive-focusRing: #b46c8d;
+  --occasio-ramp-brand-1: #fffafc;
+  --occasio-ramp-brand-2: #fff3f8;
+  --occasio-ramp-brand-3: #ffe7f1;
+  --occasio-ramp-brand-4: #fcdae8;
+  --occasio-ramp-brand-5: #f7cddf;
+  --occasio-ramp-brand-6: #f0bfd4;
+  --occasio-ramp-brand-7: #e7aec6;
+  --occasio-ramp-brand-8: #d694b1;
+  --occasio-ramp-brand-9: #b46c8d;
+  --occasio-ramp-brand-10: #a4607f;
+  --occasio-ramp-brand-11: #8c556e;
+  --occasio-ramp-brand-12: #3e2530;
+  --occasio-ramp-neutral-1: #fcfbfc;
+  --occasio-ramp-neutral-2: #f8f6f7;
+  --occasio-ramp-neutral-3: #f1edef;
+  --occasio-ramp-neutral-4: #e8e3e5;
+  --occasio-ramp-neutral-5: #dfd9db;
+  --occasio-ramp-neutral-6: #d4cdd0;
+  --occasio-ramp-neutral-7: #c6bec1;
+  --occasio-ramp-neutral-8: #b1a8ac;
+  --occasio-ramp-neutral-9: #8d8387;
+  --occasio-ramp-neutral-10: #7f767a;
+  --occasio-ramp-neutral-11: #6e666a;
+  --occasio-ramp-neutral-12: #302d2e;
+  --occasio-ramp-accent-1: #fffaff;
+  --occasio-ramp-accent-2: #fef3fd;
+  --occasio-ramp-accent-3: #fae8f9;
+  --occasio-ramp-accent-4: #f4dbf3;
+  --occasio-ramp-accent-5: #eecfed;
+  --occasio-ramp-accent-6: #e6c2e5;
+  --occasio-ramp-accent-7: #dbb1da;
+  --occasio-ramp-accent-8: #c998c8;
+  --occasio-ramp-accent-9: #a670a5;
+  --occasio-ramp-accent-10: #976497;
+  --occasio-ramp-accent-11: #815881;
+  --occasio-ramp-accent-12: #392639;
+  --occasio-radius-xs: 8px;
+  --occasio-radius-sm: 14px;
+  --occasio-radius-md: 20px;
+  --occasio-radius-lg: 28px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 24px;
+  --occasio-space-1: 4px;
+  --occasio-space-2: 8px;
+  --occasio-space-3: 12px;
+  --occasio-space-4: 16px;
+  --occasio-space-5: 20px;
+  --occasio-space-6: 24px;
+  --occasio-space-8: 32px;
+  --occasio-space-10: 40px;
+  --occasio-space-12: 48px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Cormorant Garamond', Georgia, serif;
+  --occasio-font-body: 'Nunito', system-ui, sans-serif;
+  --occasio-font-mono: system-ui, ui-monospace, monospace;
+  --occasio-type-display1-size: 49px;
+  --occasio-type-display1-line-height: 52px;
+  --occasio-type-display1-tracking: -1.08px;
+  --occasio-type-display1-weight: 600;
+  --occasio-type-display2-size: 38px;
+  --occasio-type-display2-line-height: 42px;
+  --occasio-type-display2-tracking: -0.68px;
+  --occasio-type-display2-weight: 600;
+  --occasio-type-title1-size: 27px;
+  --occasio-type-title1-line-height: 32px;
+  --occasio-type-title1-tracking: -0.32px;
+  --occasio-type-title1-weight: 600;
+  --occasio-type-title2-size: 20px;
+  --occasio-type-title2-line-height: 26px;
+  --occasio-type-title2-tracking: -0.12px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 0.8;
+  --occasio-image-radius: 24px;
+  --occasio-image-treatment: warm;
+  --occasio-scrim-from: rgba(4, 1, 2, 0);
+  --occasio-scrim-to: rgba(4, 1, 2, 0.55);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 140ms;
+  --occasio-motion-base: 200ms;
+  --occasio-motion-slow: 280ms;
+  --occasio-max-content-width: 680px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+[data-tenant='anandhara'] {
+  --occasio-color-bg: #0f100f;
+  --occasio-color-surface: #151616;
+  --occasio-color-surfaceRaised: #1e2120;
+  --occasio-color-surfaceSunken: #0f100f;
+  --occasio-color-text: #e6edeb;
+  --occasio-color-textMuted: #abb7b3;
+  --occasio-color-textFaint: #899793;
+  --occasio-color-textInverse: #0f100f;
+  --occasio-color-brand: #4b9682;
+  --occasio-color-onBrand: #0f100f;
+  --occasio-color-brandSubtle: #13241f;
+  --occasio-color-onBrandSubtle: #d5f3e9;
+  --occasio-color-brandBorder: #23584a;
+  --occasio-color-accent: #9e76a4;
+  --occasio-color-onAccent: #0f100f;
+  --occasio-color-accentSubtle: #261d28;
+  --occasio-color-border: #373f3d;
+  --occasio-color-borderStrong: #606c68;
+  --occasio-color-divider: #2d3331;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #0f100f;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #0f100f;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #0f100f;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #0f100f;
+  --occasio-color-interactive-rest: #4b9682;
+  --occasio-color-interactive-hover: #5aa48f;
+  --occasio-color-interactive-pressed: #88c2b1;
+  --occasio-color-interactive-disabled: #2d3331;
+  --occasio-color-interactive-onDisabled: #92a19c;
+  --occasio-color-interactive-focusRing: #4b9682;
+  --occasio-ramp-brand-1: #0c110f;
+  --occasio-ramp-brand-2: #0f1815;
+  --occasio-ramp-brand-3: #13241f;
+  --occasio-ramp-brand-4: #152e27;
+  --occasio-ramp-brand-5: #173930;
+  --occasio-ramp-brand-6: #1c463b;
+  --occasio-ramp-brand-7: #23584a;
+  --occasio-ramp-brand-8: #367765;
+  --occasio-ramp-brand-9: #4b9682;
+  --occasio-ramp-brand-10: #5aa48f;
+  --occasio-ramp-brand-11: #88c2b1;
+  --occasio-ramp-brand-12: #d5f3e9;
+  --occasio-ramp-neutral-1: #0f100f;
+  --occasio-ramp-neutral-2: #151616;
+  --occasio-ramp-neutral-3: #1e2120;
+  --occasio-ramp-neutral-4: #252a28;
+  --occasio-ramp-neutral-5: #2d3331;
+  --occasio-ramp-neutral-6: #373f3d;
+  --occasio-ramp-neutral-7: #46504c;
+  --occasio-ramp-neutral-8: #606c68;
+  --occasio-ramp-neutral-9: #7c8a85;
+  --occasio-ramp-neutral-10: #899793;
+  --occasio-ramp-neutral-11: #abb7b3;
+  --occasio-ramp-neutral-12: #e6edeb;
+  --occasio-ramp-accent-1: #110e12;
+  --occasio-ramp-accent-2: #19141a;
+  --occasio-ramp-accent-3: #261d28;
+  --occasio-ramp-accent-4: #312333;
+  --occasio-ramp-accent-5: #3c2a3f;
+  --occasio-ramp-accent-6: #4a344d;
+  --occasio-ramp-accent-7: #5d4261;
+  --occasio-ramp-accent-8: #7d5b82;
+  --occasio-ramp-accent-9: #9e76a4;
+  --occasio-ramp-accent-10: #ab83b1;
+  --occasio-ramp-accent-11: #c8a7ce;
+  --occasio-ramp-accent-12: #f7e4f9;
+  --occasio-radius-xs: 0px;
+  --occasio-radius-sm: 2px;
+  --occasio-radius-md: 4px;
+  --occasio-radius-lg: 6px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 0px;
+  --occasio-space-1: 5px;
+  --occasio-space-2: 10px;
+  --occasio-space-3: 15px;
+  --occasio-space-4: 20px;
+  --occasio-space-5: 25px;
+  --occasio-space-6: 30px;
+  --occasio-space-8: 40px;
+  --occasio-space-10: 50px;
+  --occasio-space-12: 60px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Anton', Georgia, serif;
+  --occasio-font-body: 'Work Sans', system-ui, sans-serif;
+  --occasio-font-mono: system-ui, ui-monospace, monospace;
+  --occasio-type-display1-size: 49px;
+  --occasio-type-display1-line-height: 52px;
+  --occasio-type-display1-tracking: -1.08px;
+  --occasio-type-display1-weight: 400;
+  --occasio-type-display2-size: 38px;
+  --occasio-type-display2-line-height: 42px;
+  --occasio-type-display2-tracking: -0.68px;
+  --occasio-type-display2-weight: 400;
+  --occasio-type-title1-size: 27px;
+  --occasio-type-title1-line-height: 32px;
+  --occasio-type-title1-tracking: -0.32px;
+  --occasio-type-title1-weight: 400;
+  --occasio-type-title2-size: 20px;
+  --occasio-type-title2-line-height: 26px;
+  --occasio-type-title2-tracking: -0.12px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 1.7777777777777777;
+  --occasio-image-radius: 0px;
+  --occasio-image-treatment: duotone;
+  --occasio-scrim-from: rgba(41, 35, 33, 0);
+  --occasio-scrim-to: rgba(41, 35, 33, 0.78);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 180ms;
+  --occasio-motion-base: 280ms;
+  --occasio-motion-slow: 420ms;
+  --occasio-max-content-width: 860px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+[data-tenant='devcon-25'] {
+  --occasio-color-bg: #fbfcfc;
+  --occasio-color-surface: #f6f7f7;
+  --occasio-color-surfaceRaised: #eeeeef;
+  --occasio-color-surfaceSunken: #fbfcfc;
+  --occasio-color-text: #2d2e2f;
+  --occasio-color-textMuted: #68696b;
+  --occasio-color-textFaint: #77797b;
+  --occasio-color-textInverse: #fbfcfc;
+  --occasio-color-brand: #5182e5;
+  --occasio-color-onBrand: #1b1c1d;
+  --occasio-color-brandSubtle: #e6efff;
+  --occasio-color-onBrandSubtle: #1b2d4f;
+  --occasio-color-brandBorder: #a0c1ff;
+  --occasio-color-accent: #878d28;
+  --occasio-color-onAccent: #1b1c1d;
+  --occasio-color-accentSubtle: #eef2d6;
+  --occasio-color-border: #cecfd1;
+  --occasio-color-borderStrong: #a1a3a5;
+  --occasio-color-divider: #dadbdc;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #212223;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #1b1c1d;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #131414;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #1b1c1d;
+  --occasio-color-interactive-rest: #5182e5;
+  --occasio-color-interactive-hover: #4574d4;
+  --occasio-color-interactive-pressed: #4066b2;
+  --occasio-color-interactive-disabled: #dadbdc;
+  --occasio-color-interactive-onDisabled: #5a5b5d;
+  --occasio-color-interactive-focusRing: #5182e5;
+  --occasio-ramp-brand-1: #fafcff;
+  --occasio-ramp-brand-2: #f3f7ff;
+  --occasio-ramp-brand-3: #e6efff;
+  --occasio-ramp-brand-4: #d7e5ff;
+  --occasio-ramp-brand-5: #c8dbff;
+  --occasio-ramp-brand-6: #b7d0ff;
+  --occasio-ramp-brand-7: #a0c1ff;
+  --occasio-ramp-brand-8: #7da9ff;
+  --occasio-ramp-brand-9: #5182e5;
+  --occasio-ramp-brand-10: #4574d4;
+  --occasio-ramp-brand-11: #4066b2;
+  --occasio-ramp-brand-12: #1b2d4f;
+  --occasio-ramp-neutral-1: #fbfcfc;
+  --occasio-ramp-neutral-2: #f6f7f7;
+  --occasio-ramp-neutral-3: #eeeeef;
+  --occasio-ramp-neutral-4: #e4e4e6;
+  --occasio-ramp-neutral-5: #dadbdc;
+  --occasio-ramp-neutral-6: #cecfd1;
+  --occasio-ramp-neutral-7: #c0c1c3;
+  --occasio-ramp-neutral-8: #a9abad;
+  --occasio-ramp-neutral-9: #858689;
+  --occasio-ramp-neutral-10: #77797b;
+  --occasio-ramp-neutral-11: #68696b;
+  --occasio-ramp-neutral-12: #2d2e2f;
+  --occasio-ramp-accent-1: #fcfdf4;
+  --occasio-ramp-accent-2: #f7f9e8;
+  --occasio-ramp-accent-3: #eef2d6;
+  --occasio-ramp-accent-4: #e4e9c2;
+  --occasio-ramp-accent-5: #dbe0b0;
+  --occasio-ramp-accent-6: #cfd59c;
+  --occasio-ramp-accent-7: #c1c783;
+  --occasio-ramp-accent-8: #abb25f;
+  --occasio-ramp-accent-9: #878d28;
+  --occasio-ramp-accent-10: #7a7f19;
+  --occasio-ramp-accent-11: #6a6e23;
+  --occasio-ramp-accent-12: #2e300f;
+  --occasio-radius-xs: 4px;
+  --occasio-radius-sm: 8px;
+  --occasio-radius-md: 12px;
+  --occasio-radius-lg: 16px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 12px;
+  --occasio-space-1: 3px;
+  --occasio-space-2: 7px;
+  --occasio-space-3: 10px;
+  --occasio-space-4: 14px;
+  --occasio-space-5: 17px;
+  --occasio-space-6: 20px;
+  --occasio-space-8: 27px;
+  --occasio-space-10: 34px;
+  --occasio-space-12: 41px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Sora', Georgia, serif;
+  --occasio-font-body: 'Inter', system-ui, sans-serif;
+  --occasio-font-mono: system-ui, ui-monospace, monospace;
+  --occasio-type-display1-size: 40px;
+  --occasio-type-display1-line-height: 42px;
+  --occasio-type-display1-tracking: -0.88px;
+  --occasio-type-display1-weight: 600;
+  --occasio-type-display2-size: 32px;
+  --occasio-type-display2-line-height: 35px;
+  --occasio-type-display2-tracking: -0.58px;
+  --occasio-type-display2-weight: 600;
+  --occasio-type-title1-size: 24px;
+  --occasio-type-title1-line-height: 29px;
+  --occasio-type-title1-tracking: -0.29px;
+  --occasio-type-title1-weight: 600;
+  --occasio-type-title2-size: 19px;
+  --occasio-type-title2-line-height: 25px;
+  --occasio-type-title2-tracking: -0.11px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 1.7777777777777777;
+  --occasio-image-radius: 12px;
+  --occasio-image-treatment: none;
+  --occasio-scrim-from: rgba(4, 1, 3, 0);
+  --occasio-scrim-to: rgba(4, 1, 3, 0.35);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 140ms;
+  --occasio-motion-base: 200ms;
+  --occasio-motion-slow: 280ms;
+  --occasio-max-content-width: 960px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+[data-tenant='maple-1999'] {
+  --occasio-color-bg: #fcfcfc;
+  --occasio-color-surface: #f7f7f6;
+  --occasio-color-surfaceRaised: #efeeee;
+  --occasio-color-surfaceSunken: #fcfcfc;
+  --occasio-color-text: #2e2e2d;
+  --occasio-color-textMuted: #696968;
+  --occasio-color-textFaint: #7a7878;
+  --occasio-color-textInverse: #fcfcfc;
+  --occasio-color-brand: #d45d35;
+  --occasio-color-onBrand: #141414;
+  --occasio-color-brandSubtle: #ffe9e2;
+  --occasio-color-onBrandSubtle: #492013;
+  --occasio-color-brandBorder: #ffa88c;
+  --occasio-color-accent: #d45d35;
+  --occasio-color-onAccent: #141414;
+  --occasio-color-accentSubtle: #ffe9e2;
+  --occasio-color-border: #d0cfcf;
+  --occasio-color-borderStrong: #a3a2a2;
+  --occasio-color-divider: #dbdada;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #222221;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #1a1a1a;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #141414;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #1c1c1b;
+  --occasio-color-interactive-rest: #d45d35;
+  --occasio-color-interactive-hover: #c35029;
+  --occasio-color-interactive-pressed: #a54a2c;
+  --occasio-color-interactive-disabled: #dbdada;
+  --occasio-color-interactive-onDisabled: #5c5b5a;
+  --occasio-color-interactive-focusRing: #d45d35;
+  --occasio-ramp-brand-1: #fffbf9;
+  --occasio-ramp-brand-2: #fff4f1;
+  --occasio-ramp-brand-3: #ffe9e2;
+  --occasio-ramp-brand-4: #ffdcd0;
+  --occasio-ramp-brand-5: #ffcebe;
+  --occasio-ramp-brand-6: #ffbea9;
+  --occasio-ramp-brand-7: #ffa88c;
+  --occasio-ramp-brand-8: #f58966;
+  --occasio-ramp-brand-9: #d45d35;
+  --occasio-ramp-brand-10: #c35029;
+  --occasio-ramp-brand-11: #a54a2c;
+  --occasio-ramp-brand-12: #492013;
+  --occasio-ramp-neutral-1: #fcfcfc;
+  --occasio-ramp-neutral-2: #f7f7f6;
+  --occasio-ramp-neutral-3: #efeeee;
+  --occasio-ramp-neutral-4: #e5e4e4;
+  --occasio-ramp-neutral-5: #dbdada;
+  --occasio-ramp-neutral-6: #d0cfcf;
+  --occasio-ramp-neutral-7: #c1c0c0;
+  --occasio-ramp-neutral-8: #abaaaa;
+  --occasio-ramp-neutral-9: #878685;
+  --occasio-ramp-neutral-10: #7a7878;
+  --occasio-ramp-neutral-11: #696968;
+  --occasio-ramp-neutral-12: #2e2e2d;
+  --occasio-ramp-accent-1: #fffbf9;
+  --occasio-ramp-accent-2: #fff4f1;
+  --occasio-ramp-accent-3: #ffe9e2;
+  --occasio-ramp-accent-4: #ffdcd0;
+  --occasio-ramp-accent-5: #ffcebe;
+  --occasio-ramp-accent-6: #ffbea9;
+  --occasio-ramp-accent-7: #ffa88c;
+  --occasio-ramp-accent-8: #f58966;
+  --occasio-ramp-accent-9: #d45d35;
+  --occasio-ramp-accent-10: #c35029;
+  --occasio-ramp-accent-11: #a54a2c;
+  --occasio-ramp-accent-12: #492013;
+  --occasio-radius-xs: 0px;
+  --occasio-radius-sm: 2px;
+  --occasio-radius-md: 4px;
+  --occasio-radius-lg: 6px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 0px;
+  --occasio-space-1: 4px;
+  --occasio-space-2: 8px;
+  --occasio-space-3: 12px;
+  --occasio-space-4: 16px;
+  --occasio-space-5: 20px;
+  --occasio-space-6: 24px;
+  --occasio-space-8: 32px;
+  --occasio-space-10: 40px;
+  --occasio-space-12: 48px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Fraunces', Georgia, serif;
+  --occasio-font-body: 'DM Sans', system-ui, sans-serif;
+  --occasio-font-mono: system-ui, ui-monospace, monospace;
+  --occasio-type-display1-size: 40px;
+  --occasio-type-display1-line-height: 42px;
+  --occasio-type-display1-tracking: -0.88px;
+  --occasio-type-display1-weight: 600;
+  --occasio-type-display2-size: 32px;
+  --occasio-type-display2-line-height: 35px;
+  --occasio-type-display2-tracking: -0.58px;
+  --occasio-type-display2-weight: 600;
+  --occasio-type-title1-size: 24px;
+  --occasio-type-title1-line-height: 29px;
+  --occasio-type-title1-tracking: -0.29px;
+  --occasio-type-title1-weight: 600;
+  --occasio-type-title2-size: 19px;
+  --occasio-type-title2-line-height: 25px;
+  --occasio-type-title2-tracking: -0.11px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 1.5;
+  --occasio-image-radius: 0px;
+  --occasio-image-treatment: mono;
+  --occasio-scrim-from: rgba(5, 1, 1, 0);
+  --occasio-scrim-to: rgba(5, 1, 1, 0.35);
+  --occasio-motion-enabled: 0;
+  --occasio-motion-fast: 0ms;
+  --occasio-motion-base: 0ms;
+  --occasio-motion-slow: 0ms;
+  --occasio-max-content-width: 760px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+  /* ============================================================================
+     2. ALTERNATE SKINS — chalk + CRED. Colour still comes from the resolver;
+        typography and a few surface values are art direction on top.
+     ========================================================================== */
+  .app[data-skin='chalk-slate'] {
+  --occasio-color-bg: #0f100f;
+  --occasio-color-surface: #151616;
+  --occasio-color-surfaceRaised: #1e2120;
+  --occasio-color-surfaceSunken: #0f100f;
+  --occasio-color-text: #e7edea;
+  --occasio-color-textMuted: #acb7b2;
+  --occasio-color-textFaint: #8a9791;
+  --occasio-color-textInverse: #0f100f;
+  --occasio-color-brand: #489878;
+  --occasio-color-onBrand: #0f100f;
+  --occasio-color-brandSubtle: #13251d;
+  --occasio-color-onBrandSubtle: #d4f4e4;
+  --occasio-color-brandBorder: #215943;
+  --occasio-color-accent: #9a75af;
+  --occasio-color-onAccent: #0f100f;
+  --occasio-color-accentSubtle: #251c2a;
+  --occasio-color-border: #383f3c;
+  --occasio-color-borderStrong: #616c67;
+  --occasio-color-divider: #2d3330;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #0f100f;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #0f100f;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #0f100f;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #0f100f;
+  --occasio-color-interactive-rest: #489878;
+  --occasio-color-interactive-hover: #58a685;
+  --occasio-color-interactive-pressed: #86c4a8;
+  --occasio-color-interactive-disabled: #2d3330;
+  --occasio-color-interactive-onDisabled: #93a19a;
+  --occasio-color-interactive-focusRing: #489878;
+  --occasio-ramp-brand-1: #0c110e;
+  --occasio-ramp-brand-2: #0f1914;
+  --occasio-ramp-brand-3: #13251d;
+  --occasio-ramp-brand-4: #142f24;
+  --occasio-ramp-brand-5: #16392b;
+  --occasio-ramp-brand-6: #1a4735;
+  --occasio-ramp-brand-7: #215943;
+  --occasio-ramp-brand-8: #33785d;
+  --occasio-ramp-brand-9: #489878;
+  --occasio-ramp-brand-10: #58a685;
+  --occasio-ramp-brand-11: #86c4a8;
+  --occasio-ramp-brand-12: #d4f4e4;
+  --occasio-ramp-neutral-1: #0f100f;
+  --occasio-ramp-neutral-2: #151616;
+  --occasio-ramp-neutral-3: #1e2120;
+  --occasio-ramp-neutral-4: #262a28;
+  --occasio-ramp-neutral-5: #2d3330;
+  --occasio-ramp-neutral-6: #383f3c;
+  --occasio-ramp-neutral-7: #474f4b;
+  --occasio-ramp-neutral-8: #616c67;
+  --occasio-ramp-neutral-9: #7d8a83;
+  --occasio-ramp-neutral-10: #8a9791;
+  --occasio-ramp-neutral-11: #acb7b2;
+  --occasio-ramp-neutral-12: #e7edea;
+  --occasio-ramp-accent-1: #110e12;
+  --occasio-ramp-accent-2: #19141c;
+  --occasio-ramp-accent-3: #251c2a;
+  --occasio-ramp-accent-4: #302337;
+  --occasio-ramp-accent-5: #3a2a44;
+  --occasio-ramp-accent-6: #483453;
+  --occasio-ramp-accent-7: #5a4169;
+  --occasio-ramp-accent-8: #7a5a8c;
+  --occasio-ramp-accent-9: #9a75af;
+  --occasio-ramp-accent-10: #a883bd;
+  --occasio-ramp-accent-11: #c5a6d8;
+  --occasio-ramp-accent-12: #f5e4ff;
+  --occasio-radius-xs: 8px;
+  --occasio-radius-sm: 14px;
+  --occasio-radius-md: 20px;
+  --occasio-radius-lg: 28px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 24px;
+  --occasio-space-1: 5px;
+  --occasio-space-2: 10px;
+  --occasio-space-3: 15px;
+  --occasio-space-4: 20px;
+  --occasio-space-5: 25px;
+  --occasio-space-6: 30px;
+  --occasio-space-8: 40px;
+  --occasio-space-10: 50px;
+  --occasio-space-12: 60px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Caveat', 'Segoe Script', cursive;
+  --occasio-font-body: 'Patrick Hand', 'Comic Sans MS', cursive;
+  --occasio-font-mono: System, ui-monospace, monospace;
+  --occasio-type-display1-size: 49px;
+  --occasio-type-display1-line-height: 52px;
+  --occasio-type-display1-tracking: -1.08px;
+  --occasio-type-display1-weight: 400;
+  --occasio-type-display2-size: 38px;
+  --occasio-type-display2-line-height: 42px;
+  --occasio-type-display2-tracking: -0.68px;
+  --occasio-type-display2-weight: 400;
+  --occasio-type-title1-size: 27px;
+  --occasio-type-title1-line-height: 32px;
+  --occasio-type-title1-tracking: -0.32px;
+  --occasio-type-title1-weight: 400;
+  --occasio-type-title2-size: 20px;
+  --occasio-type-title2-line-height: 26px;
+  --occasio-type-title2-tracking: -0.12px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 0.8;
+  --occasio-image-radius: 24px;
+  --occasio-image-treatment: duotone;
+  --occasio-scrim-from: rgba(42, 35, 32, 0);
+  --occasio-scrim-to: rgba(42, 35, 32, 0.78);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 180ms;
+  --occasio-motion-base: 280ms;
+  --occasio-motion-slow: 420ms;
+  --occasio-max-content-width: 860px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+.app[data-skin='chalk-ink'] {
+  --occasio-color-bg: #0f0f10;
+  --occasio-color-surface: #151617;
+  --occasio-color-surfaceRaised: #1f2123;
+  --occasio-color-surfaceSunken: #0f0f10;
+  --occasio-color-text: #e8ebf0;
+  --occasio-color-textMuted: #afb5be;
+  --occasio-color-textFaint: #8d949f;
+  --occasio-color-textInverse: #0f0f10;
+  --occasio-color-brand: #5587cf;
+  --occasio-color-onBrand: #0f0f10;
+  --occasio-color-brandSubtle: #152132;
+  --occasio-color-onBrandSubtle: #e0ecff;
+  --occasio-color-brandBorder: #2c4d7e;
+  --occasio-color-accent: #c16c42;
+  --occasio-color-onAccent: #0f0f10;
+  --occasio-color-accentSubtle: #2f1b11;
+  --occasio-color-border: #3a3d43;
+  --occasio-color-borderStrong: #636972;
+  --occasio-color-divider: #2f3236;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #0f0f10;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #0f0f10;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #0f0f10;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #0f0f10;
+  --occasio-color-interactive-rest: #5587cf;
+  --occasio-color-interactive-hover: #6495dd;
+  --occasio-color-interactive-pressed: #8db6f3;
+  --occasio-color-interactive-disabled: #2f3236;
+  --occasio-color-interactive-onDisabled: #979ea8;
+  --occasio-color-interactive-focusRing: #5587cf;
+  --occasio-ramp-brand-1: #0c1015;
+  --occasio-ramp-brand-2: #101620;
+  --occasio-ramp-brand-3: #152132;
+  --occasio-ramp-brand-4: #182942;
+  --occasio-ramp-brand-5: #1c3252;
+  --occasio-ramp-brand-6: #223d65;
+  --occasio-ramp-brand-7: #2c4d7e;
+  --occasio-ramp-brand-8: #3f69a6;
+  --occasio-ramp-brand-9: #5587cf;
+  --occasio-ramp-brand-10: #6495dd;
+  --occasio-ramp-brand-11: #8db6f3;
+  --occasio-ramp-brand-12: #e0ecff;
+  --occasio-ramp-neutral-1: #0f0f10;
+  --occasio-ramp-neutral-2: #151617;
+  --occasio-ramp-neutral-3: #1f2123;
+  --occasio-ramp-neutral-4: #27292d;
+  --occasio-ramp-neutral-5: #2f3236;
+  --occasio-ramp-neutral-6: #3a3d43;
+  --occasio-ramp-neutral-7: #494d54;
+  --occasio-ramp-neutral-8: #636972;
+  --occasio-ramp-neutral-9: #808791;
+  --occasio-ramp-neutral-10: #8d949f;
+  --occasio-ramp-neutral-11: #afb5be;
+  --occasio-ramp-neutral-12: #e8ebf0;
+  --occasio-ramp-accent-1: #140e0b;
+  --occasio-ramp-accent-2: #1e130d;
+  --occasio-ramp-accent-3: #2f1b11;
+  --occasio-ramp-accent-4: #3d2012;
+  --occasio-ramp-accent-5: #4b2613;
+  --occasio-ramp-accent-6: #5d2f17;
+  --occasio-ramp-accent-7: #743b1e;
+  --occasio-ramp-accent-8: #9a532e;
+  --occasio-ramp-accent-9: #c16c42;
+  --occasio-ramp-accent-10: #cf7b51;
+  --occasio-ramp-accent-11: #e8a17e;
+  --occasio-ramp-accent-12: #ffe5d9;
+  --occasio-radius-xs: 8px;
+  --occasio-radius-sm: 14px;
+  --occasio-radius-md: 20px;
+  --occasio-radius-lg: 28px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 24px;
+  --occasio-space-1: 5px;
+  --occasio-space-2: 10px;
+  --occasio-space-3: 15px;
+  --occasio-space-4: 20px;
+  --occasio-space-5: 25px;
+  --occasio-space-6: 30px;
+  --occasio-space-8: 40px;
+  --occasio-space-10: 50px;
+  --occasio-space-12: 60px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Caveat', 'Segoe Script', cursive;
+  --occasio-font-body: 'Patrick Hand', 'Comic Sans MS', cursive;
+  --occasio-font-mono: System, ui-monospace, monospace;
+  --occasio-type-display1-size: 49px;
+  --occasio-type-display1-line-height: 52px;
+  --occasio-type-display1-tracking: -1.08px;
+  --occasio-type-display1-weight: 400;
+  --occasio-type-display2-size: 38px;
+  --occasio-type-display2-line-height: 42px;
+  --occasio-type-display2-tracking: -0.68px;
+  --occasio-type-display2-weight: 400;
+  --occasio-type-title1-size: 27px;
+  --occasio-type-title1-line-height: 32px;
+  --occasio-type-title1-tracking: -0.32px;
+  --occasio-type-title1-weight: 400;
+  --occasio-type-title2-size: 20px;
+  --occasio-type-title2-line-height: 26px;
+  --occasio-type-title2-tracking: -0.12px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 0.8;
+  --occasio-image-radius: 24px;
+  --occasio-image-treatment: duotone;
+  --occasio-scrim-from: rgba(39, 35, 39, 0);
+  --occasio-scrim-to: rgba(39, 35, 39, 0.78);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 180ms;
+  --occasio-motion-base: 280ms;
+  --occasio-motion-slow: 420ms;
+  --occasio-max-content-width: 860px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+.app[data-skin='chalk-rose'] {
+  --occasio-color-bg: #100f0f;
+  --occasio-color-surface: #171616;
+  --occasio-color-surfaceRaised: #222020;
+  --occasio-color-surfaceSunken: #100f0f;
+  --occasio-color-text: #efeaeb;
+  --occasio-color-textMuted: #bab1b4;
+  --occasio-color-textFaint: #9b9094;
+  --occasio-color-textInverse: #100f0f;
+  --occasio-color-brand: #b66c86;
+  --occasio-color-onBrand: #100f0f;
+  --occasio-color-brandSubtle: #2c1a20;
+  --occasio-color-onBrandSubtle: #ffe3eb;
+  --occasio-color-brandBorder: #6d3b4d;
+  --occasio-color-accent: #aa6f9f;
+  --occasio-color-onAccent: #100f0f;
+  --occasio-color-accentSubtle: #291b26;
+  --occasio-color-border: #413b3d;
+  --occasio-color-borderStrong: #6f6669;
+  --occasio-color-divider: #353031;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #100f0f;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #100f0f;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #100f0f;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #100f0f;
+  --occasio-color-interactive-rest: #b66c86;
+  --occasio-color-interactive-hover: #c47a94;
+  --occasio-color-interactive-pressed: #df9fb4;
+  --occasio-color-interactive-disabled: #353031;
+  --occasio-color-interactive-onDisabled: #a49a9d;
+  --occasio-color-interactive-focusRing: #b66c86;
+  --occasio-ramp-brand-1: #130e0f;
+  --occasio-ramp-brand-2: #1d1316;
+  --occasio-ramp-brand-3: #2c1a20;
+  --occasio-ramp-brand-4: #3a2029;
+  --occasio-ramp-brand-5: #472632;
+  --occasio-ramp-brand-6: #572f3d;
+  --occasio-ramp-brand-7: #6d3b4d;
+  --occasio-ramp-brand-8: #915269;
+  --occasio-ramp-brand-9: #b66c86;
+  --occasio-ramp-brand-10: #c47a94;
+  --occasio-ramp-brand-11: #df9fb4;
+  --occasio-ramp-brand-12: #ffe3eb;
+  --occasio-ramp-neutral-1: #100f0f;
+  --occasio-ramp-neutral-2: #171616;
+  --occasio-ramp-neutral-3: #222020;
+  --occasio-ramp-neutral-4: #2b2829;
+  --occasio-ramp-neutral-5: #353031;
+  --occasio-ramp-neutral-6: #413b3d;
+  --occasio-ramp-neutral-7: #524b4d;
+  --occasio-ramp-neutral-8: #6f6669;
+  --occasio-ramp-neutral-9: #8d8386;
+  --occasio-ramp-neutral-10: #9b9094;
+  --occasio-ramp-neutral-11: #bab1b4;
+  --occasio-ramp-neutral-12: #efeaeb;
+  --occasio-ramp-accent-1: #120e11;
+  --occasio-ramp-accent-2: #1b1319;
+  --occasio-ramp-accent-3: #291b26;
+  --occasio-ramp-accent-4: #352132;
+  --occasio-ramp-accent-5: #41273d;
+  --occasio-ramp-accent-6: #51304b;
+  --occasio-ramp-accent-7: #653d5e;
+  --occasio-ramp-accent-8: #87557e;
+  --occasio-ramp-accent-9: #aa6f9f;
+  --occasio-ramp-accent-10: #b87dad;
+  --occasio-ramp-accent-11: #d4a2ca;
+  --occasio-ramp-accent-12: #fde1f7;
+  --occasio-radius-xs: 8px;
+  --occasio-radius-sm: 14px;
+  --occasio-radius-md: 20px;
+  --occasio-radius-lg: 28px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 24px;
+  --occasio-space-1: 5px;
+  --occasio-space-2: 10px;
+  --occasio-space-3: 15px;
+  --occasio-space-4: 20px;
+  --occasio-space-5: 25px;
+  --occasio-space-6: 30px;
+  --occasio-space-8: 40px;
+  --occasio-space-10: 50px;
+  --occasio-space-12: 60px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Caveat', 'Segoe Script', cursive;
+  --occasio-font-body: 'Patrick Hand', 'Comic Sans MS', cursive;
+  --occasio-font-mono: System, ui-monospace, monospace;
+  --occasio-type-display1-size: 49px;
+  --occasio-type-display1-line-height: 52px;
+  --occasio-type-display1-tracking: -1.08px;
+  --occasio-type-display1-weight: 600;
+  --occasio-type-display2-size: 38px;
+  --occasio-type-display2-line-height: 42px;
+  --occasio-type-display2-tracking: -0.68px;
+  --occasio-type-display2-weight: 600;
+  --occasio-type-title1-size: 27px;
+  --occasio-type-title1-line-height: 32px;
+  --occasio-type-title1-tracking: -0.32px;
+  --occasio-type-title1-weight: 600;
+  --occasio-type-title2-size: 20px;
+  --occasio-type-title2-line-height: 26px;
+  --occasio-type-title2-tracking: -0.12px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 0.8;
+  --occasio-image-radius: 24px;
+  --occasio-image-treatment: warm;
+  --occasio-scrim-from: rgba(41, 35, 37, 0);
+  --occasio-scrim-to: rgba(41, 35, 37, 0.55);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 180ms;
+  --occasio-motion-base: 280ms;
+  --occasio-motion-slow: 420ms;
+  --occasio-max-content-width: 680px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+.app[data-skin='cred'] {
+  --occasio-color-bg: #0f0f0f;
+  --occasio-color-surface: #161616;
+  --occasio-color-surfaceRaised: #202020;
+  --occasio-color-surfaceSunken: #0f0f0f;
+  --occasio-color-text: #ebebeb;
+  --occasio-color-textMuted: #b4b4b3;
+  --occasio-color-textFaint: #939493;
+  --occasio-color-textInverse: #0f0f0f;
+  --occasio-color-brand: #729500;
+  --occasio-color-onBrand: #0f0f0f;
+  --occasio-color-brandSubtle: #1b2408;
+  --occasio-color-onBrandSubtle: #e1f4c3;
+  --occasio-color-brandBorder: #415600;
+  --occasio-color-accent: #729500;
+  --occasio-color-onAccent: #0f0f0f;
+  --occasio-color-accentSubtle: #1b2408;
+  --occasio-color-border: #3d3d3d;
+  --occasio-color-borderStrong: #696968;
+  --occasio-color-divider: #313231;
+  --occasio-color-success: #46996d;
+  --occasio-color-onSuccess: #0f0f0f;
+  --occasio-color-warning: #b5771c;
+  --occasio-color-onWarning: #0f0f0f;
+  --occasio-color-danger: #d55851;
+  --occasio-color-onDanger: #0f0f0f;
+  --occasio-color-info: #4989cf;
+  --occasio-color-onInfo: #0f0f0f;
+  --occasio-color-interactive-rest: #729500;
+  --occasio-color-interactive-hover: #7fa31d;
+  --occasio-color-interactive-pressed: #a2c263;
+  --occasio-color-interactive-disabled: #313231;
+  --occasio-color-interactive-onDisabled: #9d9d9c;
+  --occasio-color-interactive-focusRing: #729500;
+  --occasio-ramp-brand-1: #0e1109;
+  --occasio-ramp-brand-2: #131809;
+  --occasio-ramp-brand-3: #1b2408;
+  --occasio-ramp-brand-4: #222e02;
+  --occasio-ramp-brand-5: #293800;
+  --occasio-ramp-brand-6: #334400;
+  --occasio-ramp-brand-7: #415600;
+  --occasio-ramp-brand-8: #597500;
+  --occasio-ramp-brand-9: #729500;
+  --occasio-ramp-brand-10: #7fa31d;
+  --occasio-ramp-brand-11: #a2c263;
+  --occasio-ramp-brand-12: #e1f4c3;
+  --occasio-ramp-neutral-1: #0f0f0f;
+  --occasio-ramp-neutral-2: #161616;
+  --occasio-ramp-neutral-3: #202020;
+  --occasio-ramp-neutral-4: #292929;
+  --occasio-ramp-neutral-5: #313231;
+  --occasio-ramp-neutral-6: #3d3d3d;
+  --occasio-ramp-neutral-7: #4d4d4c;
+  --occasio-ramp-neutral-8: #696968;
+  --occasio-ramp-neutral-9: #868685;
+  --occasio-ramp-neutral-10: #939493;
+  --occasio-ramp-neutral-11: #b4b4b3;
+  --occasio-ramp-neutral-12: #ebebeb;
+  --occasio-ramp-accent-1: #0e1109;
+  --occasio-ramp-accent-2: #131809;
+  --occasio-ramp-accent-3: #1b2408;
+  --occasio-ramp-accent-4: #222e02;
+  --occasio-ramp-accent-5: #293800;
+  --occasio-ramp-accent-6: #334400;
+  --occasio-ramp-accent-7: #415600;
+  --occasio-ramp-accent-8: #597500;
+  --occasio-ramp-accent-9: #729500;
+  --occasio-ramp-accent-10: #7fa31d;
+  --occasio-ramp-accent-11: #a2c263;
+  --occasio-ramp-accent-12: #e1f4c3;
+  --occasio-radius-xs: 8px;
+  --occasio-radius-sm: 14px;
+  --occasio-radius-md: 20px;
+  --occasio-radius-lg: 28px;
+  --occasio-radius-pill: 999px;
+  --occasio-radius-hero: 24px;
+  --occasio-space-1: 5px;
+  --occasio-space-2: 10px;
+  --occasio-space-3: 15px;
+  --occasio-space-4: 20px;
+  --occasio-space-5: 25px;
+  --occasio-space-6: 30px;
+  --occasio-space-8: 40px;
+  --occasio-space-10: 50px;
+  --occasio-space-12: 60px;
+  --occasio-border-hairline: 1px;
+  --occasio-border-standard: 2px;
+  --occasio-font-display: 'Outfit', 'Segoe Script', cursive;
+  --occasio-font-body: 'Manrope', 'Comic Sans MS', cursive;
+  --occasio-font-mono: System, ui-monospace, monospace;
+  --occasio-type-display1-size: 40px;
+  --occasio-type-display1-line-height: 42px;
+  --occasio-type-display1-tracking: -0.88px;
+  --occasio-type-display1-weight: 600;
+  --occasio-type-display2-size: 32px;
+  --occasio-type-display2-line-height: 35px;
+  --occasio-type-display2-tracking: -0.58px;
+  --occasio-type-display2-weight: 600;
+  --occasio-type-title1-size: 24px;
+  --occasio-type-title1-line-height: 29px;
+  --occasio-type-title1-tracking: -0.29px;
+  --occasio-type-title1-weight: 600;
+  --occasio-type-title2-size: 19px;
+  --occasio-type-title2-line-height: 25px;
+  --occasio-type-title2-tracking: -0.11px;
+  --occasio-type-title2-weight: 600;
+  --occasio-type-body-size: 16px;
+  --occasio-type-body-line-height: 24px;
+  --occasio-type-body-tracking: 0px;
+  --occasio-type-body-weight: 400;
+  --occasio-type-bodyStrong-size: 16px;
+  --occasio-type-bodyStrong-line-height: 24px;
+  --occasio-type-bodyStrong-tracking: 0px;
+  --occasio-type-bodyStrong-weight: 600;
+  --occasio-type-caption-size: 13px;
+  --occasio-type-caption-line-height: 18px;
+  --occasio-type-caption-tracking: 0.03px;
+  --occasio-type-caption-weight: 400;
+  --occasio-type-overline-size: 11px;
+  --occasio-type-overline-line-height: 14px;
+  --occasio-type-overline-tracking: 0.88px;
+  --occasio-type-overline-weight: 600;
+  --occasio-image-hero-aspect: 1.5;
+  --occasio-image-radius: 24px;
+  --occasio-image-treatment: mono;
+  --occasio-scrim-from: rgba(45, 34, 31, 0);
+  --occasio-scrim-to: rgba(45, 34, 31, 0.35);
+  --occasio-motion-enabled: 1;
+  --occasio-motion-fast: 180ms;
+  --occasio-motion-base: 280ms;
+  --occasio-motion-slow: 420ms;
+  --occasio-max-content-width: 760px;
+  --occasio-breakpoint-sm: 480px;
+  --occasio-breakpoint-md: 768px;
+  --occasio-breakpoint-lg: 1200px;
+}
+
+  /* -- art direction over the generated skins ------------------------------- */
+
+  /* Real slate boards, not near-black: a chalkboard reads by its green/blue cast. */
+  .app[data-skin='chalk-slate'] {
+    --occasio-color-bg: #23312b;
+    --occasio-color-surface: #27362f;
+    --occasio-color-surfaceRaised: #2d3d35;
+    --occasio-color-surfaceSunken: #1e2a25;
+    --occasio-color-border: rgba(233, 240, 232, 0.16);
+    --occasio-color-borderStrong: rgba(233, 240, 232, 0.3);
+    --occasio-color-divider: rgba(233, 240, 232, 0.12);
+    --occasio-color-text: #eef3ea;
+    --occasio-color-textMuted: #bdc9bb;
+    --occasio-color-textFaint: #93a394;
+    --occasio-color-brand: #f4f7ef;
+    --occasio-color-onBrand: #23312b;
+    --occasio-color-brandSubtle: rgba(244, 247, 239, 0.14);
+    --occasio-color-onBrandSubtle: #f4f7ef;
+    --occasio-color-brandBorder: rgba(244, 247, 239, 0.34);
+    --occasio-color-interactive-rest: #f4f7ef;
+    --occasio-color-interactive-hover: #ffffff;
+  }
+
+  .app[data-skin='chalk-ink'] {
+    --occasio-color-bg: #1e2733;
+    --occasio-color-surface: #222c39;
+    --occasio-color-surfaceRaised: #283340;
+    --occasio-color-surfaceSunken: #19212b;
+    --occasio-color-border: rgba(232, 238, 246, 0.16);
+    --occasio-color-borderStrong: rgba(232, 238, 246, 0.3);
+    --occasio-color-divider: rgba(232, 238, 246, 0.12);
+    --occasio-color-text: #edf2f8;
+    --occasio-color-textMuted: #bcc7d4;
+    --occasio-color-textFaint: #91a0b1;
+    --occasio-color-brand: #f2f6fb;
+    --occasio-color-onBrand: #1e2733;
+    --occasio-color-brandSubtle: rgba(242, 246, 251, 0.14);
+    --occasio-color-onBrandSubtle: #f2f6fb;
+    --occasio-color-brandBorder: rgba(242, 246, 251, 0.34);
+    --occasio-color-interactive-rest: #f2f6fb;
+    --occasio-color-interactive-hover: #ffffff;
+  }
+
+  .app[data-skin='chalk-rose'] {
+    --occasio-color-bg: #2b2226;
+    --occasio-color-surface: #31272b;
+    --occasio-color-surfaceRaised: #382d32;
+    --occasio-color-surfaceSunken: #241c20;
+    --occasio-color-border: rgba(247, 234, 238, 0.16);
+    --occasio-color-borderStrong: rgba(247, 234, 238, 0.3);
+    --occasio-color-divider: rgba(247, 234, 238, 0.12);
+    --occasio-color-text: #f7eef1;
+    --occasio-color-textMuted: #d3bfc6;
+    --occasio-color-textFaint: #ab949c;
+    --occasio-color-brand: #f6d9e2;
+    --occasio-color-onBrand: #2b2226;
+    --occasio-color-brandSubtle: rgba(246, 217, 226, 0.16);
+    --occasio-color-onBrandSubtle: #f6d9e2;
+    --occasio-color-brandBorder: rgba(246, 217, 226, 0.36);
+    --occasio-color-interactive-rest: #f6d9e2;
+    --occasio-color-interactive-hover: #fdeaf0;
+  }
+
+  /* CRED: near-black, one vivid accent, geometric type, generous radii. */
+  .app[data-skin='cred'] {
+    --occasio-color-bg: #08090b;
+    --occasio-color-surface: #0e1013;
+    --occasio-color-surfaceRaised: #14171b;
+    --occasio-color-surfaceSunken: #050607;
+    --occasio-color-border: rgba(255, 255, 255, 0.08);
+    --occasio-color-borderStrong: rgba(255, 255, 255, 0.18);
+    --occasio-color-divider: rgba(255, 255, 255, 0.07);
+    --occasio-color-text: #f4f5f6;
+    --occasio-color-textMuted: #9ea3ab;
+    --occasio-color-textFaint: #6b7078;
+    --occasio-color-brand: #ccff33;
+    --occasio-color-onBrand: #0b0d07;
+    --occasio-color-brandSubtle: rgba(204, 255, 51, 0.12);
+    --occasio-color-onBrandSubtle: #ccff33;
+    --occasio-color-brandBorder: rgba(204, 255, 51, 0.32);
+    --occasio-color-interactive-rest: #ccff33;
+    --occasio-color-interactive-hover: #d9ff66;
+    --occasio-radius-lg: 22px;
+    --occasio-radius-md: 14px;
+    --occasio-image-radius: 22px;
+  }
+
+  .app[data-skin='cred'] .brandmark,
+  .app[data-skin='cred'] .t-display1,
+  .app[data-skin='cred'] .t-display2 {
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  /* ============================================================================
+     3. SHELL — a thin, collapsible chrome. Closed by default: the app is the point.
+     ========================================================================== */
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: #0a0b0d;
+    color: #e7eaef;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dock {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px 11px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(16, 18, 22, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: #f2f4f7;
+    font: 600 13px/1 'Inter', system-ui, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.46);
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .dock:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.32);
+  }
+
+  .dock:focus-visible {
+    outline: 2px solid #8ab4ff;
+    outline-offset: 3px;
+  }
+
+  .dock-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+  }
+
+  .drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(370px, 90vw);
+    z-index: 70;
+    background: #101216;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(101%);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 22px;
+    gap: 22px;
+  }
+
+  .drawer[data-open='true'] {
+    transform: translateX(0);
+  }
+
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 65;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 240ms ease;
+  }
+
+  .scrim[data-open='true'] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .drawer h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .drawer-group h3 {
+    margin: 0 0 9px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7d848f;
+    font-weight: 600;
+  }
+
+  .drawer-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: transparent;
+    color: #cfd4dc;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: #171a1f;
+    color: #d5dae2;
+    cursor: pointer;
+    font: 500 13px/1.35 'Inter', system-ui, sans-serif;
+    text-align: left;
+    margin-bottom: 7px;
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+
+  .opt:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: #1c2026;
+  }
+
+  .opt[aria-pressed='true'] {
+    border-color: #7ea2ff;
+    background: #1b2130;
+    color: #fff;
+  }
+
+  .opt:focus-visible {
+    outline: 2px solid #8ab4ff;
+    outline-offset: 2px;
+  }
+
+  .opt-sw {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    flex: none;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .opt small {
+    display: block;
+    color: #7d848f;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .drawer-foot {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #767c86;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 16px;
+  }
+
+  .drawer-foot code {
+    font-family: ui-monospace, Menlo, monospace;
+    color: #99a1ac;
+  }
+
+  /* ============================================================================
+     4. THE APP
+     ========================================================================== */
+
+  .app {
+    background: var(--occasio-color-bg);
+    color: var(--occasio-color-text);
+    font-family: var(--occasio-font-body);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: var(--occasio-max-content-width);
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+
+  /* -- type ---------------------------------------------------------------- */
+
+  .t-display1,
+  .t-display2,
+  .t-title1 {
+    font-family: var(--occasio-font-display);
+    margin: 0;
+  }
+
+  .t-title2,
+  .t-body,
+  .t-bodyStrong,
+  .t-caption,
+  .t-overline {
+    font-family: var(--occasio-font-body);
+    margin: 0;
+  }
+
+  .t-display1 {
+    font-size: calc(var(--occasio-type-display1-size) * 1.18);
+    line-height: 1.02;
+    letter-spacing: var(--occasio-type-display1-tracking);
+    font-weight: var(--occasio-type-display1-weight);
+    text-wrap: balance;
+  }
+
+  .t-display2 {
+    font-size: var(--occasio-type-display2-size);
+    line-height: 1.08;
+    letter-spacing: var(--occasio-type-display2-tracking);
+    font-weight: var(--occasio-type-display2-weight);
+    text-wrap: balance;
+  }
+
+  .t-title1 {
+    font-size: var(--occasio-type-title1-size);
+    line-height: var(--occasio-type-title1-line-height);
+    letter-spacing: var(--occasio-type-title1-tracking);
+    font-weight: var(--occasio-type-title1-weight);
+  }
+
+  .t-title2 {
+    font-size: var(--occasio-type-title2-size);
+    line-height: var(--occasio-type-title2-line-height);
+    font-weight: 600;
+  }
+
+  .t-body {
+    font-size: var(--occasio-type-body-size);
+    line-height: var(--occasio-type-body-line-height);
+  }
+
+  .t-bodyStrong {
+    font-size: var(--occasio-type-bodyStrong-size);
+    line-height: var(--occasio-type-bodyStrong-line-height);
+    font-weight: 600;
+  }
+
+  .t-caption {
+    font-size: var(--occasio-type-caption-size);
+    line-height: var(--occasio-type-caption-line-height);
+  }
+
+  .t-overline {
+    font-size: var(--occasio-type-overline-size);
+    line-height: var(--occasio-type-overline-line-height);
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .muted {
+    color: var(--occasio-color-textMuted);
+  }
+
+  .faint {
+    color: var(--occasio-color-textFaint);
+  }
+
+  /* -- nav ----------------------------------------------------------------- */
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: color-mix(in srgb, var(--occasio-color-bg) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid var(--occasio-color-border);
+  }
+
+  .nav-inner {
+    max-width: var(--occasio-max-content-width);
+    margin: 0 auto;
+    padding: 0 22px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .brandmark {
+    font-family: var(--occasio-font-display);
+    font-size: calc(var(--occasio-type-title1-size) * 0.86);
+    font-weight: 700;
+    margin-right: auto;
+    white-space: nowrap;
+    padding: 12px 0;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 9px 14px;
+    border-radius: 999px;
+    color: var(--occasio-color-textMuted);
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-caption-size);
+    font-weight: 600;
+    transition: color 160ms ease, background 160ms ease;
+  }
+
+  .tab:hover {
+    color: var(--occasio-color-text);
+    background: var(--occasio-color-brandSubtle);
+  }
+
+  .tab[aria-selected='true'] {
+    color: var(--occasio-color-onBrand);
+    background: var(--occasio-color-brand);
+  }
+
+  .tab:focus-visible {
+    outline: 2px solid var(--occasio-color-interactive-focusRing);
+    outline-offset: 2px;
+  }
+
+  /* -- imagery -------------------------------------------------------------
+     Scenes are inline SVG whose every fill is a theme ramp variable, so a
+     picture re-skins with the event instead of fighting it.                   */
+
+  .photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--occasio-image-radius);
+    background: var(--occasio-ramp-brand-4);
+    --s1: var(--occasio-ramp-brand-2);
+    --s2: var(--occasio-ramp-brand-4);
+    --s3: var(--occasio-ramp-brand-6);
+    --s4: var(--occasio-ramp-brand-8);
+    --s5: var(--occasio-ramp-brand-10);
+    --s6: var(--occasio-ramp-brand-12);
+    --ink: rgba(10, 8, 12, 0.82);
+    --rim: var(--occasio-ramp-brand-7);
+  }
+
+  /* On a dark scheme the ramp runs the other way, so the same scene would paint a
+     blazing sky. Flip the stops: dark overhead, the glow kept at the horizon. */
+  .app[data-scheme='dark'] .photo {
+    --s1: var(--occasio-ramp-brand-11);
+    --s2: var(--occasio-ramp-brand-9);
+    --s3: var(--occasio-ramp-brand-7);
+    --s4: var(--occasio-ramp-brand-5);
+    --s5: var(--occasio-ramp-brand-3);
+    --s6: var(--occasio-ramp-brand-2);
+    --ink: rgba(0, 0, 0, 0.72);
+    --rim: var(--occasio-ramp-brand-9);
+  }
+
+  .photo svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.13;
+    mix-blend-mode: overlay;
+  }
+
+  .app[data-treatment='mono'] .photo svg {
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .app[data-treatment='warm'] .photo svg {
+    filter: saturate(1.12) sepia(0.12);
+  }
+
+  /* Chalk skins redraw every scene as board drawing: flat board, chalk strokes. */
+  .app[data-skin^='chalk'] .photo {
+    background: var(--occasio-color-surfaceSunken);
+  }
+
+  /* A chalk board does not hold a photograph — it holds a drawing. Bleach the scene
+     down to a faint white ghost so the board reads through it. */
+  .app[data-skin^='chalk'] .photo svg {
+    filter: grayscale(1) brightness(2.6) contrast(0.45) opacity(0.34);
+    mix-blend-mode: screen;
+  }
+
+  .ratio-hero {
+    aspect-ratio: var(--occasio-image-hero-aspect);
+    max-height: 62vh;
+  }
+
+  .ratio-card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ratio-sq {
+    aspect-ratio: 1;
+  }
+
+  /* -- hero ---------------------------------------------------------------- */
+
+  .hero {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero .photo {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    animation: kenburns 26s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenburns {
+    from {
+      transform: scale(1.04) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.14) translate3d(-1.5%, -2%, 0);
+    }
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.62) 0%,
+        rgba(0, 0, 0, 0.28) 32%,
+        rgba(0, 0, 0, 0) 62%
+      ),
+      linear-gradient(
+        to top,
+        var(--occasio-scrim-to) 6%,
+        color-mix(in srgb, var(--occasio-scrim-to) 55%, transparent) 34%,
+        var(--occasio-scrim-from) 68%
+      );
+  }
+
+  .hero-content {
+    position: relative;
+    width: 100%;
+    max-width: var(--occasio-max-content-width);
+    margin: 0 auto;
+    padding: 0 22px 46px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hero-content .t-display1 {
+    color: #fff;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Countdown */
+  .count {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+  }
+
+  .count-cell {
+    min-width: 62px;
+    padding: 9px 12px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.13);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+  }
+
+  .count-num {
+    font-family: var(--occasio-font-display);
+    font-size: 25px;
+    line-height: 1.1;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .count-lab {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.82;
+  }
+
+  /* Falling petals / drifting motes — the "lively" layer, per event kind. */
+  .motes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .mote {
+    position: absolute;
+    top: -8%;
+    border-radius: 60% 40% 55% 45%;
+    opacity: 0.7;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translate3d(0, -10vh, 0) rotate(0deg);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.75;
+    }
+    100% {
+      transform: translate3d(var(--dx, 30px), 96vh, 0) rotate(420deg);
+      opacity: 0;
+    }
+  }
+
+  /* Festival: sweeping stage beams. */
+  .beams {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    mix-blend-mode: screen;
+  }
+
+  .beam {
+    position: absolute;
+    bottom: -12%;
+    left: 50%;
+    width: 16%;
+    height: 120%;
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--occasio-color-brand) 46%, transparent),
+      transparent 72%
+    );
+    transform-origin: 50% 100%;
+    filter: blur(9px);
+    animation: sweep 7s ease-in-out infinite alternate;
+  }
+
+  @keyframes sweep {
+    from {
+      transform: rotate(-24deg);
+    }
+    to {
+      transform: rotate(24deg);
+    }
+  }
+
+  /* -- surfaces & depth ----------------------------------------------------- */
+
+  .card {
+    background: var(--occasio-color-surfaceRaised);
+    border: 1px solid var(--occasio-color-border);
+    border-radius: var(--occasio-radius-lg);
+    padding: var(--occasio-space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--occasio-space-2);
+    /* Shadows are tinted toward the theme, never flat black. */
+    box-shadow: 0 1px 2px
+        color-mix(in srgb, var(--occasio-ramp-neutral-12) 8%, transparent),
+      0 12px 30px -14px color-mix(in srgb, var(--occasio-ramp-neutral-12) 26%, transparent);
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-3px);
+    border-color: var(--occasio-color-brandBorder);
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--occasio-ramp-neutral-12) 10%, transparent),
+      0 24px 48px -18px color-mix(in srgb, var(--occasio-ramp-neutral-12) 40%, transparent);
+  }
+
+  .glasscard {
+    background: color-mix(in srgb, var(--occasio-color-surfaceRaised) 70%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  hr.divider {
+    height: 1px;
+    background: var(--occasio-color-divider);
+    border: 0;
+    margin: 0;
+  }
+
+  /* -- chips ---------------------------------------------------------------- */
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    border: 1px solid var(--occasio-color-border);
+    background: var(--occasio-color-surfaceRaised);
+    color: var(--occasio-color-text);
+    padding: 5px 12px;
+    font-size: var(--occasio-type-caption-size);
+    font-family: var(--occasio-font-body);
+    white-space: nowrap;
+  }
+
+  .chip-brand {
+    background: var(--occasio-color-brandSubtle);
+    border-color: var(--occasio-color-brandBorder);
+    color: var(--occasio-color-onBrandSubtle);
+  }
+
+  .chip-solid {
+    background: var(--occasio-color-brand);
+    border-color: var(--occasio-color-brand);
+    color: var(--occasio-color-onBrand);
+    font-weight: 600;
+  }
+
+  .chip-success {
+    background: var(--occasio-color-success);
+    border-color: var(--occasio-color-success);
+    color: var(--occasio-color-onSuccess);
+  }
+
+  .chip-warning {
+    background: var(--occasio-color-warning);
+    border-color: var(--occasio-color-warning);
+    color: var(--occasio-color-onWarning);
+  }
+
+  .chip-danger {
+    background: var(--occasio-color-danger);
+    border-color: var(--occasio-color-danger);
+    color: var(--occasio-color-onDanger);
+  }
+
+  .chip-info {
+    background: var(--occasio-color-info);
+    border-color: var(--occasio-color-info);
+    color: var(--occasio-color-onInfo);
+  }
+
+  .chip-ghost {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.26);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* -- buttons -------------------------------------------------------------- */
+
+  .btn {
+    position: relative;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    padding: 12px 22px;
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-bodyStrong-size);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    overflow: hidden;
+    transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease,
+      background 180ms ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  /* A light sweeps across on hover — the small premium tell. */
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    transition: left 620ms ease;
+  }
+
+  .btn:hover::after {
+    left: 130%;
+  }
+
+  .btn-primary {
+    background: linear-gradient(
+      135deg,
+      var(--occasio-color-interactive-rest),
+      color-mix(in srgb, var(--occasio-color-interactive-rest) 74%, var(--occasio-color-accent))
+    );
+    color: var(--occasio-color-onBrand);
+    box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--occasio-color-brand) 72%, transparent);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 16px 34px -10px color-mix(in srgb, var(--occasio-color-brand) 84%, transparent);
+  }
+
+  .btn-secondary {
+    background: var(--occasio-color-surfaceRaised);
+    border-color: var(--occasio-color-border);
+    color: var(--occasio-color-text);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--occasio-color-borderStrong);
+  }
+
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--occasio-color-interactive-focusRing);
+    outline-offset: 3px;
+  }
+
+  .btn-sm {
+    padding: 8px 15px;
+    font-size: var(--occasio-type-caption-size);
+  }
+
+  /* -- screens & entrance --------------------------------------------------- */
+
+  .screen {
+    padding: 34px 0 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  .screen > * {
+    animation: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .screen > *:nth-child(1) {
+    animation-delay: 20ms;
+  }
+  .screen > *:nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .screen > *:nth-child(3) {
+    animation-delay: 120ms;
+  }
+  .screen > *:nth-child(4) {
+    animation-delay: 170ms;
+  }
+  .screen > *:nth-child(5) {
+    animation-delay: 220ms;
+  }
+  .screen > *:nth-child(n + 6) {
+    animation-delay: 270ms;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* -- schedule ------------------------------------------------------------- */
+
+  .viewtoggle {
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 4px;
+    gap: 3px;
+    background: var(--occasio-color-surfaceRaised);
+    border: 1px solid var(--occasio-color-border);
+  }
+
+  .viewtoggle button {
+    appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-caption-size);
+    font-weight: 600;
+    color: var(--occasio-color-textMuted);
+    transition: background 180ms ease, color 180ms ease;
+  }
+
+  .viewtoggle button[aria-pressed='true'] {
+    background: var(--occasio-color-brand);
+    color: var(--occasio-color-onBrand);
+  }
+
+  .stories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
+    gap: 16px;
+  }
+
+  .story {
+    position: relative;
+    border-radius: var(--occasio-image-radius);
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    cursor: pointer;
+    border: 1px solid var(--occasio-color-border);
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease;
+  }
+
+  .story:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 26px 50px -20px color-mix(in srgb, var(--occasio-ramp-neutral-12) 46%, transparent);
+  }
+
+  .story .photo {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .story:hover .photo {
+    transform: scale(1.07);
+  }
+
+  .story-body {
+    position: relative;
+    margin-top: auto;
+    width: 100%;
+    padding: 18px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: linear-gradient(
+      to top,
+      var(--occasio-scrim-to) 4%,
+      color-mix(in srgb, var(--occasio-scrim-to) 50%, transparent) 44%,
+      transparent 88%
+    );
+  }
+
+  .list-row {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 18px;
+    padding: 16px;
+    border-radius: var(--occasio-radius-md);
+    align-items: start;
+    transition: background 180ms ease;
+  }
+
+  .list-row:hover {
+    background: var(--occasio-color-surface);
+  }
+
+  .list-time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+
+  .day-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .day-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--occasio-color-divider);
+  }
+
+  .cancelled .list-title {
+    text-decoration: line-through;
+    color: var(--occasio-color-textFaint);
+  }
+
+  /* -- gossips -------------------------------------------------------------- */
+
+  .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    background: linear-gradient(
+      135deg,
+      var(--occasio-color-brandSubtle),
+      color-mix(in srgb, var(--occasio-color-accent) 34%, transparent)
+    );
+    color: var(--occasio-color-onBrandSubtle);
+    border: 1px solid var(--occasio-color-brandBorder);
+  }
+
+  .post-head {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .react {
+    appearance: none;
+    cursor: pointer;
+    border-radius: 999px;
+    border: 1px solid var(--occasio-color-border);
+    background: var(--occasio-color-surface);
+    color: var(--occasio-color-text);
+    padding: 5px 12px;
+    font-size: var(--occasio-type-caption-size);
+    font-family: var(--occasio-font-body);
+    transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms ease;
+  }
+
+  .react:hover {
+    transform: scale(1.09);
+    border-color: var(--occasio-color-brandBorder);
+  }
+
+  .react.popped {
+    animation: pop 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes pop {
+    40% {
+      transform: scale(1.32);
+    }
+  }
+
+  .pending {
+    border-style: dashed;
+  }
+
+  /* -- tasks ---------------------------------------------------------------- */
+
+  .task {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    padding: 13px 0;
+  }
+
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 1.5px solid var(--occasio-color-borderStrong);
+    flex: none;
+    margin-top: 2px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    color: var(--occasio-color-onBrand);
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .checkbox:hover {
+    transform: scale(1.1);
+    border-color: var(--occasio-color-brand);
+  }
+
+  .checkbox[data-done='true'] {
+    background: var(--occasio-color-brand);
+    border-color: var(--occasio-color-brand);
+  }
+
+  .task-done .task-title {
+    text-decoration: line-through;
+    color: var(--occasio-color-textFaint);
+  }
+
+  /* -- gallery -------------------------------------------------------------- */
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .gallery .photo {
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+  }
+
+  .gallery .photo:hover {
+    transform: scale(1.04) rotate(-0.6deg);
+  }
+
+  .kv {
+    display: grid;
+    grid-template-columns: minmax(110px, auto) 1fr;
+    gap: 9px 18px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    .hero .photo,
+    .mote,
+    .beam {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: 66vh;
+    }
+    .list-row {
+      grid-template-columns: 66px 1fr;
+      gap: 12px;
+      padding: 12px 8px;
+    }
+  }
+</style>
+
+<div class="app" id="app">
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="brandmark" id="brandmark"></span>
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </div>
+  </nav>
+  <div id="body"></div>
+</div>
+
+<button class="dock" id="dock" type="button" aria-label="Change event or theme">
+  <span class="dock-swatch" id="dock-swatch"></span>
+  <span id="dock-label">Theme</span>
+</button>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" data-open="false" aria-label="Event and theme">
+  <button class="drawer-close" id="drawer-close" type="button" aria-label="Close">✕</button>
+  <h2>Preview</h2>
+
+  <div class="drawer-group">
+    <h3>Event</h3>
+    <div id="opt-events"></div>
+  </div>
+
+  <div class="drawer-group">
+    <h3>Skin</h3>
+    <div id="opt-skins"></div>
+  </div>
+
+  <p class="drawer-foot">
+    Colour, type and spacing come from Occasio's real resolver
+    (<code>packages/theme</code>) run over each fixture's own published config. Chalk and CRED are
+    proposed new presets in the same token shape. Pictures are drawn from the active theme's
+    ramp, so they re-skin with the event.
+  </p>
+</aside>
+
+<script>
+  const NOW0 = new Date('2026-07-01T09:00:00.000Z').getTime();
+  const T0 = Date.now();
+  const now = () => NOW0 + (Date.now() - T0);
+
+  /* --------------------------------------------------------------- scenes --
+     Every fill is a theme variable, so one scene works in every skin.        */
+  let uid = 0;
+  const SCENES = {
+    mandap: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="sky${u}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--s6)"/><stop offset="42%" stop-color="var(--s5)"/>
+            <stop offset="70%" stop-color="var(--s4)"/><stop offset="100%" stop-color="var(--s2)"/>
+          </linearGradient>
+          <radialGradient id="sun${u}" cx="50%" cy="82%" r="46%">
+            <stop offset="0%" stop-color="#fff" stop-opacity=".92"/>
+            <stop offset="42%" stop-color="var(--s2)" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="var(--s2)" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="800" height="560" fill="url(#sky${u})"/>
+        <ellipse cx="400" cy="460" rx="360" ry="230" fill="url(#sun${u})"/>
+        <path d="M0 430 Q120 392 210 424 T400 414 T610 428 T800 404 L800 560 L0 560Z" fill="var(--ink)" opacity=".34"/>
+        <g fill="var(--ink)">
+          <rect x="196" y="212" width="19" height="250" rx="9"/>
+          <rect x="585" y="212" width="19" height="250" rx="9"/>
+          <path d="M196 226 Q400 108 604 226 L604 250 Q400 140 196 250Z"/>
+        </g>
+        <g fill="var(--rim)" opacity=".85">
+          <circle cx="206" cy="214" r="15"/><circle cx="594" cy="214" r="15"/>
+          <circle cx="300" cy="166" r="12"/><circle cx="400" cy="150" r="14"/><circle cx="500" cy="166" r="12"/>
+          <circle cx="250" cy="184" r="9"/><circle cx="350" cy="155" r="9"/><circle cx="450" cy="155" r="9"/><circle cx="550" cy="184" r="9"/>
+        </g>
+        <g fill="#fff">
+          <circle cx="150" cy="120" r="3.4" opacity=".9"><animate attributeName="opacity" values=".25;1;.25" dur="3.1s" repeatCount="indefinite"/></circle>
+          <circle cx="250" cy="96" r="3" opacity=".7"><animate attributeName="opacity" values="1;.3;1" dur="4.2s" repeatCount="indefinite"/></circle>
+          <circle cx="360" cy="80" r="3.2" opacity=".8"><animate attributeName="opacity" values=".4;1;.4" dur="3.6s" repeatCount="indefinite"/></circle>
+          <circle cx="470" cy="84" r="2.8" opacity=".7"><animate attributeName="opacity" values="1;.35;1" dur="5s" repeatCount="indefinite"/></circle>
+          <circle cx="585" cy="98" r="3.3" opacity=".85"><animate attributeName="opacity" values=".3;1;.3" dur="3.9s" repeatCount="indefinite"/></circle>
+          <circle cx="678" cy="126" r="3" opacity=".7"><animate attributeName="opacity" values="1;.4;1" dur="4.6s" repeatCount="indefinite"/></circle>
+        </g>
+        <g fill="var(--ink)">
+          <ellipse cx="368" cy="466" rx="26" ry="60"/><circle cx="368" cy="392" r="20"/>
+          <ellipse cx="432" cy="470" rx="29" ry="58"/><circle cx="432" cy="398" r="20"/>
+        </g>
+        <g fill="var(--s1)" opacity=".5">
+          <circle cx="120" cy="300" r="26"/><circle cx="700" cy="250" r="20"/><circle cx="640" cy="330" r="14"/>
+        </g>
+      </svg>`;
+    },
+    mehendi: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="mg${u}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--s4)"/><stop offset="100%" stop-color="var(--s2)"/></linearGradient></defs>
+        <rect width="800" height="560" fill="url(#mg${u})"/>
+        <g fill="var(--s5)" opacity=".55">
+          <circle cx="80" cy="60" r="26"/><circle cx="180" cy="40" r="22"/><circle cx="280" cy="66" r="25"/>
+          <circle cx="380" cy="38" r="21"/><circle cx="480" cy="64" r="26"/><circle cx="580" cy="42" r="22"/>
+          <circle cx="680" cy="66" r="25"/><circle cx="760" cy="40" r="20"/>
+        </g>
+        <g stroke="var(--s6)" stroke-width="7" fill="none" opacity=".5">
+          <path d="M0 96 Q100 140 200 96 T400 96 T600 96 T800 96"/>
+        </g>
+        <ellipse cx="400" cy="400" rx="230" ry="150" fill="var(--s3)" opacity=".55"/>
+        <g fill="var(--ink)" opacity=".8">
+          <ellipse cx="330" cy="392" rx="62" ry="86"/><ellipse cx="470" cy="392" rx="62" ry="86"/>
+        </g>
+        <g stroke="var(--s1)" stroke-width="3.4" fill="none" opacity=".92">
+          <circle cx="330" cy="380" r="26"/><circle cx="330" cy="380" r="13"/>
+          <circle cx="470" cy="380" r="26"/><circle cx="470" cy="380" r="13"/>
+          <path d="M300 430 q30 22 60 0"/><path d="M440 430 q30 22 60 0"/>
+        </g>
+        <g fill="var(--s1)" opacity=".85">
+          <circle cx="140" cy="470" r="12"/><circle cx="660" cy="452" r="14"/><circle cx="600" cy="500" r="9"/>
+        </g>
+      </svg>`;
+    },
+    sangeet: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><radialGradient id="sg${u}" cx="50%" cy="34%" r="72%">
+          <stop offset="0%" stop-color="var(--s4)"/><stop offset="100%" stop-color="var(--s6)"/></radialGradient></defs>
+        <rect width="800" height="560" fill="url(#sg${u})"/>
+        <g stroke="var(--s3)" stroke-width="2" fill="none" opacity=".55">
+          <path d="M-20 70 Q200 150 400 70 T820 80"/><path d="M-20 130 Q200 40 400 130 T820 120"/>
+        </g>
+        <g fill="#fff">
+          <circle cx="90" cy="104" r="4"><animate attributeName="opacity" values=".3;1;.3" dur="2.6s" repeatCount="indefinite"/></circle>
+          <circle cx="200" cy="122" r="4"><animate attributeName="opacity" values="1;.3;1" dur="3.4s" repeatCount="indefinite"/></circle>
+          <circle cx="320" cy="104" r="4"><animate attributeName="opacity" values=".4;1;.4" dur="2.9s" repeatCount="indefinite"/></circle>
+          <circle cx="450" cy="98" r="4"><animate attributeName="opacity" values="1;.35;1" dur="3.8s" repeatCount="indefinite"/></circle>
+          <circle cx="580" cy="118" r="4"><animate attributeName="opacity" values=".3;1;.3" dur="3.1s" repeatCount="indefinite"/></circle>
+          <circle cx="700" cy="100" r="4"><animate attributeName="opacity" values="1;.4;1" dur="4.3s" repeatCount="indefinite"/></circle>
+        </g>
+        <ellipse cx="400" cy="530" rx="330" ry="80" fill="var(--s3)" opacity=".4"/>
+        <g fill="var(--ink)">
+          <ellipse cx="250" cy="440" rx="24" ry="72"/><circle cx="250" cy="352" r="18"/>
+          <ellipse cx="340" cy="452" rx="22" ry="64"/><circle cx="340" cy="372" r="17"/>
+          <ellipse cx="430" cy="438" rx="25" ry="76"/><circle cx="430" cy="346" r="19"/>
+          <ellipse cx="520" cy="454" rx="22" ry="62"/><circle cx="520" cy="376" r="17"/>
+          <ellipse cx="600" cy="446" rx="21" ry="66"/><circle cx="600" cy="364" r="16"/>
+        </g>
+        <g fill="var(--rim)" opacity=".6">
+          <circle cx="160" cy="300" r="30"/><circle cx="670" cy="270" r="24"/>
+        </g>
+      </svg>`;
+    },
+    stage: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="st${u}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--s6)"/><stop offset="62%" stop-color="var(--s5)"/>
+          <stop offset="100%" stop-color="var(--s4)"/></linearGradient></defs>
+        <rect width="800" height="560" fill="url(#st${u})"/>
+        <g opacity=".5" fill="var(--rim)">
+          <path d="M400 470 L250 40 L300 40Z"/><path d="M400 470 L560 40 L610 40Z"/><path d="M400 470 L400 40 L440 40Z"/>
+        </g>
+        <g fill="var(--ink)">
+          <rect x="120" y="150" width="560" height="16" rx="6"/>
+          <rect x="150" y="166" width="12" height="150"/><rect x="638" y="166" width="12" height="150"/>
+          <rect x="120" y="316" width="560" height="12" rx="4"/>
+        </g>
+        <g fill="var(--rim)">
+          <circle cx="220" cy="180" r="8"><animate attributeName="opacity" values="1;.2;1" dur="1.9s" repeatCount="indefinite"/></circle>
+          <circle cx="330" cy="180" r="8"><animate attributeName="opacity" values=".2;1;.2" dur="2.3s" repeatCount="indefinite"/></circle>
+          <circle cx="470" cy="180" r="8"><animate attributeName="opacity" values="1;.25;1" dur="2.1s" repeatCount="indefinite"/></circle>
+          <circle cx="580" cy="180" r="8"><animate attributeName="opacity" values=".3;1;.3" dur="2.7s" repeatCount="indefinite"/></circle>
+        </g>
+        <ellipse cx="400" cy="360" rx="180" ry="46" fill="var(--rim)" opacity=".28"/>
+        <g fill="var(--ink)">
+          <ellipse cx="400" cy="330" rx="20" ry="46"/><circle cx="400" cy="278" r="16"/>
+        </g>
+        <g fill="var(--ink)" opacity=".92">
+          <circle cx="60" cy="500" r="30"/><circle cx="130" cy="486" r="28"/><circle cx="200" cy="504" r="31"/>
+          <circle cx="270" cy="484" r="27"/><circle cx="340" cy="502" r="30"/><circle cx="410" cy="488" r="28"/>
+          <circle cx="480" cy="504" r="31"/><circle cx="550" cy="486" r="27"/><circle cx="620" cy="502" r="30"/>
+          <circle cx="690" cy="488" r="28"/><circle cx="760" cy="502" r="30"/>
+          <rect x="0" y="514" width="800" height="46"/>
+        </g>
+      </svg>`;
+    },
+    grove: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="gv${u}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--s5)"/><stop offset="100%" stop-color="var(--s3)"/></linearGradient></defs>
+        <rect width="800" height="560" fill="url(#gv${u})"/>
+        <g fill="var(--ink)" opacity=".8">
+          <rect x="70" y="120" width="26" height="440" rx="10"/><rect x="300" y="80" width="30" height="480" rx="10"/>
+          <rect x="540" y="140" width="24" height="420" rx="10"/><rect x="720" y="100" width="28" height="460" rx="10"/>
+          <ellipse cx="83" cy="120" rx="80" ry="52"/><ellipse cx="315" cy="80" rx="96" ry="60"/>
+          <ellipse cx="552" cy="140" rx="76" ry="50"/><ellipse cx="734" cy="100" rx="88" ry="56"/>
+        </g>
+        <g stroke="var(--s2)" stroke-width="2" fill="none" opacity=".6">
+          <path d="M83 200 Q200 268 315 196"/><path d="M315 196 Q430 266 552 208"/><path d="M552 208 Q640 262 734 190"/>
+        </g>
+        <g fill="#fff">
+          <circle cx="140" cy="232" r="4.5"><animate attributeName="opacity" values=".3;1;.3" dur="3s" repeatCount="indefinite"/></circle>
+          <circle cx="200" cy="250" r="4.5"><animate attributeName="opacity" values="1;.35;1" dur="3.7s" repeatCount="indefinite"/></circle>
+          <circle cx="262" cy="238" r="4.5"><animate attributeName="opacity" values=".4;1;.4" dur="2.8s" repeatCount="indefinite"/></circle>
+          <circle cx="380" cy="240" r="4.5"><animate attributeName="opacity" values="1;.3;1" dur="4.1s" repeatCount="indefinite"/></circle>
+          <circle cx="460" cy="248" r="4.5"><animate attributeName="opacity" values=".35;1;.35" dur="3.3s" repeatCount="indefinite"/></circle>
+          <circle cx="620" cy="238" r="4.5"><animate attributeName="opacity" values="1;.4;1" dur="3.9s" repeatCount="indefinite"/></circle>
+          <circle cx="690" cy="224" r="4.5"><animate attributeName="opacity" values=".3;1;.3" dur="2.6s" repeatCount="indefinite"/></circle>
+        </g>
+        <ellipse cx="400" cy="540" rx="360" ry="70" fill="var(--ink)" opacity=".5"/>
+      </svg>`;
+    },
+    aula: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="au${u}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--s5)"/><stop offset="100%" stop-color="var(--s6)"/></linearGradient>
+          <linearGradient id="scr${u}" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--s2)"/><stop offset="100%" stop-color="var(--s4)"/></linearGradient>
+        </defs>
+        <rect width="800" height="560" fill="url(#au${u})"/>
+        <rect x="140" y="70" width="520" height="240" rx="10" fill="url(#scr${u})"/>
+        <rect x="140" y="70" width="520" height="240" rx="10" fill="none" stroke="var(--rim)" stroke-width="2" opacity=".6"/>
+        <g fill="var(--s6)" opacity=".55">
+          <rect x="180" y="118" width="300" height="16" rx="8"/><rect x="180" y="152" width="220" height="12" rx="6"/>
+          <rect x="180" y="182" width="260" height="12" rx="6"/><rect x="180" y="212" width="160" height="12" rx="6"/>
+        </g>
+        <ellipse cx="400" cy="330" rx="330" ry="60" fill="var(--rim)" opacity=".16"/>
+        <g fill="var(--ink)">
+          <rect x="40" y="392" width="720" height="26" rx="12"/>
+          <rect x="20" y="450" width="760" height="28" rx="12"/>
+          <rect x="0" y="512" width="800" height="30" rx="12"/>
+        </g>
+        <g fill="var(--ink)">
+          <circle cx="110" cy="374" r="17"/><circle cx="200" cy="374" r="17"/><circle cx="290" cy="374" r="17"/>
+          <circle cx="380" cy="374" r="17"/><circle cx="470" cy="374" r="17"/><circle cx="560" cy="374" r="17"/><circle cx="650" cy="374" r="17"/>
+          <circle cx="150" cy="432" r="18"/><circle cx="250" cy="432" r="18"/><circle cx="350" cy="432" r="18"/>
+          <circle cx="450" cy="432" r="18"/><circle cx="550" cy="432" r="18"/><circle cx="650" cy="432" r="18"/>
+        </g>
+      </svg>`;
+    },
+    hall: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="hl${u}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--s4)"/><stop offset="100%" stop-color="var(--s2)"/></linearGradient></defs>
+        <rect width="800" height="560" fill="url(#hl${u})"/>
+        <g fill="var(--s1)" opacity=".5">
+          <rect x="90" y="70" width="120" height="180" rx="58"/><rect x="590" y="70" width="120" height="180" rx="58"/>
+        </g>
+        <g stroke="var(--s5)" stroke-width="3" fill="none" opacity=".6"><path d="M0 96 Q200 150 400 96 T800 96"/></g>
+        <g fill="var(--rim)" opacity=".85">
+          <path d="M60 100 l26 0 -13 30Z"/><path d="M160 118 l26 0 -13 30Z"/><path d="M260 104 l26 0 -13 30Z"/>
+          <path d="M360 96 l26 0 -13 30Z"/><path d="M460 104 l26 0 -13 30Z"/><path d="M560 118 l26 0 -13 30Z"/>
+          <path d="M660 100 l26 0 -13 30Z"/>
+        </g>
+        <rect x="120" y="330" width="560" height="26" rx="8" fill="var(--s1)" opacity=".9"/>
+        <rect x="150" y="356" width="500" height="150" fill="var(--ink)" opacity=".55"/>
+        <g fill="var(--s1)" opacity=".95">
+          <circle cx="220" cy="316" r="9"/><circle cx="330" cy="316" r="9"/><circle cx="440" cy="316" r="9"/><circle cx="550" cy="316" r="9"/>
+        </g>
+        <g fill="var(--ink)">
+          <circle cx="200" cy="286" r="22"/><circle cx="300" cy="278" r="22"/><circle cx="400" cy="286" r="22"/>
+          <circle cx="500" cy="278" r="22"/><circle cx="600" cy="286" r="22"/>
+        </g>
+      </svg>`;
+    },
+    type: () => {
+      const u = ++uid;
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="ty${u}" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="var(--s3)"/><stop offset="100%" stop-color="var(--s5)"/></linearGradient></defs>
+        <rect width="800" height="560" fill="url(#ty${u})"/>
+        <g fill="var(--s2)" opacity=".4">
+          <circle cx="140" cy="130" r="90"/><circle cx="660" cy="440" r="120"/>
+        </g>
+      </svg>`;
+    },
+  };
+
+  const photo = (scene, alt, cls) =>
+    `<div class="photo ${cls || ''}" role="img" aria-label="${esc(alt || '')}">${(SCENES[scene] || SCENES.type)()}</div>`;
+
+  /* ----------------------------------------------------------------- data -- */
+
+  const TENANTS = {
+    'sanit-riyanks': {
+      name: 'Sanit & Riya', kind: 'wedding', preset: 'Romantic', swatch: '#b46c8d',
+      treatment: 'warm', mote: 'petal', scheme: 'light',
+      when: '20–21 November 2026', where: 'Bengaluru', tz: 'Asia/Kolkata (IST)',
+      startsOn: '2026-11-20T10:30:00+05:30', visibility: 'unlisted', joinCode: 'SANRIY26',
+      nav: ['schedule', 'gossips', 'media', 'info'],
+      features: { schedule: true, gossips: true, media: true, info: true },
+      defaultView: 'stories', tracks: false,
+      copy: { 'gossips.title': 'Whispers', 'gossips.empty': 'No whispers yet. Be the first.' },
+      hero: { scene: 'mandap', alt: 'The couple under the mandap at dusk' },
+      heroEyebrow: 'Saturday 21 November · 10:30',
+      heroTitle: 'Sanit & Riya',
+      heroSub: 'Two days, one courtyard, and far too much food.',
+      days: [
+        { label: 'Friday 20 November', items: [
+          { time: '16:00', end: '19:00', title: 'Mehendi', venue: 'The Courtyard', desc: 'Bring an appetite and sleeves you can push up.', scene: 'mehendi', alt: 'Hands painted with mehendi' },
+          { time: '20:00', end: '23:30', title: 'Sangeet', venue: 'Lakeview Hall', desc: 'Dancing, and a slideshow nobody has been allowed to preview.', scene: 'sangeet', alt: 'The family mid-dance under string lights' },
+        ] },
+        { label: 'Saturday 21 November', items: [
+          { time: '10:30', end: '12:30', title: 'The Ceremony', venue: 'The Courtyard', desc: 'Seating from 10:00. It starts on time, which nobody believes.', scene: 'mandap', alt: 'The couple under the mandap at dusk' },
+          { time: '19:00', end: '23:00', title: 'Reception', venue: 'Lakeview Hall' },
+        ] },
+      ],
+      announcements: [
+        { pinned: true, title: 'Parking is behind the temple', body: 'The driveway fills by ten. There is space behind the temple, two minutes on foot.' },
+        { title: 'Rain plan', body: 'If it rains the ceremony moves indoors to Lakeview Hall. We will post here by 08:00.' },
+      ],
+      people: [
+        { name: 'Sanit Dhar', role: 'Groom', bio: 'Grew up two streets from the venue and still gets lost in it.' },
+        { name: 'Riya Kapoor', role: 'Bride', bio: 'Will be the one telling the band to play one more.' },
+        { name: 'Vikram Kapoor', role: "Bride's father", bio: 'Master of ceremonies, self-appointed.' },
+      ],
+      gossips: [
+        { persona: 'Curious Lantern', body: 'The groom practised his entrance for an hour. It shows, and not in the way he hoped.', reactions: [['😂', 14], ['❤️', 6]] },
+        { persona: 'Restless Peacock', body: 'Whoever made the gulab jamun: marry me instead.', reactions: [['😂', 22]] },
+      ],
+      pendingGossip: { persona: 'Curious Lantern', body: 'Table 4 has started a conga line. It is 6pm.' },
+      myTasks: [{ title: 'Send the band the do-not-play list', due: 'Due Fri 20 Nov, 12:00', status: 'todo', priority: 'low' }],
+      crewTasks: [
+        { title: 'Confirm the flowers for the mandap', who: 'Arjun Rao', status: 'done', priority: 'high' },
+        { title: 'Chase the shuttle driver for a pickup time', who: 'Arjun Rao', status: 'doing', note: 'Reminds 2 hours before The Ceremony' },
+        { title: 'Write the speech', who: 'You', status: 'blocked', note: 'Blocked on remembering how they met.' },
+      ],
+      rsvps: [{ session: 'The Ceremony', status: 'going', guests: 2 }, { session: 'Reception', status: 'maybe', guests: 1 }],
+      gallery: [
+        { scene: 'mandap', alt: 'The couple under the mandap at dusk' },
+        { scene: 'mehendi', alt: 'Hands painted with mehendi' },
+        { scene: 'sangeet', alt: 'The family mid-dance under string lights' },
+        { scene: 'hall', alt: 'Lakeview Hall set for the reception' },
+        { scene: 'grove', alt: 'The garden path at golden hour' },
+        { scene: 'type', alt: 'A quiet corner of the courtyard' },
+      ],
+      venues: [
+        { name: 'The Courtyard', address: '14 Rosewood Lane, Bengaluru', notes: 'Enter through the garden gate; the driveway is for vendors.' },
+        { name: 'Lakeview Hall', address: 'Lakeview Estate, Bengaluru' },
+      ],
+      units: [
+        { label: 'Table 1', detail: 'Lakeview Hall · seats 8', you: 'Near the front, away from the speakers.' },
+        { label: 'Hotel shuttle · 09:15', detail: 'Departs Rosewood Hotel lobby · 14 seats', you: 'You are on this shuttle.' },
+      ],
+    },
+
+    anandhara: {
+      name: 'Anandhara', kind: 'festival', preset: 'Festival', swatch: '#4b9682',
+      treatment: 'duotone', mote: 'beam', scheme: 'dark',
+      when: '19 September 2026', where: 'Goa', tz: 'Asia/Kolkata (IST)',
+      startsOn: '2026-09-19T12:00:00+05:30', visibility: 'public', joinCode: null,
+      nav: ['schedule', 'media', 'gossips', 'info'],
+      features: { schedule: true, gossips: true, media: true, info: true },
+      defaultView: 'list', tracks: false,
+      copy: { 'gossips.title': 'The Wall' },
+      hero: { scene: 'stage', alt: 'The mainstage crowd at dusk' },
+      heroEyebrow: 'Saturday 19 September · 21:00',
+      heroTitle: 'Anandhara',
+      heroSub: 'Three stages, one field, until the shuttles stop.',
+      days: [
+        { label: 'Saturday 19 September', items: [
+          { time: '07:00', title: 'Sunset yoga', cancelled: true, desc: 'Cancelled — the field is under water.' },
+          { time: '12:00', title: 'Gates open' },
+          { time: '15:30', end: '16:30', title: 'Moss Telegraph', venue: 'The Grove', scene: 'grove', alt: 'Strings of lights through trees' },
+          { time: '18:00', end: '19:30', title: 'Ruhi', venue: 'Bass Dome' },
+          { time: '21:00', end: '22:30', title: 'Kavi & the Long Way Home', venue: 'Mainstage', desc: 'The one everybody came for.', scene: 'stage', alt: 'The mainstage crowd at dusk' },
+          { time: '21:30', end: '23:59', title: 'Late set · Bass Dome', venue: 'Bass Dome', clash: true },
+        ] },
+      ],
+      announcements: [{ pinned: true, title: 'Water is free at every bar', body: 'Ask at any bar for tap water. You do not need to queue at the water point for it.' }],
+      people: [
+        { name: 'Kavi & the Long Way Home', role: 'Headliner' },
+        { name: 'Moss Telegraph', role: 'Live' },
+        { name: 'Ruhi', role: 'DJ set' },
+      ],
+      gossips: [
+        { persona: 'Neon Owl', body: 'Whoever is running the chai stall has saved this festival.', reactions: [['🔥', 31], ['☕', 12]] },
+        { persona: 'Damp Fern', body: 'Lost a green jacket at the Grove. It has my keys in it.', reactions: [] },
+      ],
+      pendingGossip: { persona: 'Damp Fern', body: 'Queue for water is twenty minutes.' },
+      myTasks: [],
+      crewTasks: [
+        { title: 'Open the second water point', who: 'Rafi Ahmed', status: 'doing', priority: 'high', note: 'Due 19 Sep, 14:00' },
+        { title: 'Tape the cable run at the Dome', who: 'Rafi Ahmed', status: 'todo' },
+      ],
+      rsvps: [],
+      gallery: [
+        { scene: 'stage', alt: 'The mainstage crowd at dusk' },
+        { scene: 'grove', alt: 'Strings of lights through trees' },
+        { scene: 'sangeet', alt: 'The Bass Dome at midnight' },
+        { scene: 'type', alt: 'Sunrise over the campsite' },
+      ],
+      venues: [
+        { name: 'Mainstage', address: 'Aravalli Grounds, Goa' },
+        { name: 'The Grove', notes: 'Acoustic only. Bring a blanket.' },
+        { name: 'Bass Dome', notes: 'Ear protection at the door.' },
+      ],
+      units: [
+        { label: 'Shuttle A · every 20 min', detail: '30 seats' },
+        { label: 'Shuttle B · last at 01:00', detail: '30 seats' },
+      ],
+    },
+
+    'devcon-25': {
+      name: 'DevCon 25', kind: 'conference', preset: 'Conference', swatch: '#5182e5',
+      treatment: 'none', mote: 'none', scheme: 'light',
+      when: '6–7 October 2026', where: 'Berlin', tz: 'Europe/Berlin (CEST)',
+      startsOn: '2026-10-06T09:30:00+02:00', visibility: 'public', joinCode: null,
+      nav: ['schedule', 'info', 'gossips', 'media'],
+      features: { schedule: true, gossips: true, media: false, info: true },
+      defaultView: 'list', tracks: true,
+      copy: { 'gossips.title': 'Backchannel' },
+      hero: { scene: 'aula', alt: 'The Aula, filling up before the keynote' },
+      heroEyebrow: 'Tuesday 6 October · 09:30',
+      heroTitle: 'DevCon 25',
+      heroSub: 'Two days, three tracks, one very good coffee cart.',
+      days: [
+        { label: 'Tuesday 6 October', items: [
+          { time: '09:30', end: '10:30', title: 'Opening keynote', venue: 'Aula', track: 'Main', desc: 'Where the platform goes next, and what we got wrong last year.', scene: 'aula', alt: 'The Aula, filling up before the keynote' },
+          { time: '11:00', end: '11:45', title: 'Types at the edges', venue: 'Studio 2', track: 'Platform' },
+          { time: '11:00', end: '11:45', title: 'Offline-first, actually', venue: 'Aula', track: 'Product' },
+          { time: '12:30', end: '13:30', title: 'Lunch', track: 'Main' },
+        ] },
+        { label: 'Wednesday 7 October', items: [
+          { time: '10:00', end: '13:00', title: 'Workshop · migrating a monolith', venue: 'Studio 2', track: 'Platform', desc: 'Bring a laptop. Numbers are capped at thirty.' },
+          { time: '16:30', end: '17:00', title: 'Closing remarks', venue: 'Aula', track: 'Main' },
+        ] },
+      ],
+      announcements: [{ pinned: true, title: 'Wi-Fi is devcon / devcon25', body: 'One network, no captive portal. If it drops, the schedule works offline.' }],
+      people: [
+        { name: 'Ada Okonkwo', role: 'Keynote', bio: 'Works on type systems and refuses to say which one is best.' },
+        { name: 'Tomás Ferreira', role: 'Speaker' },
+        { name: 'Yuki Tanaka', role: 'Speaker' },
+      ],
+      gossips: [{ persona: 'Quiet Kite', body: 'The coffee is better than last year. Low bar, cleared.', reactions: [['☕', 9]] }],
+      pendingGossip: { persona: 'Quiet Kite', body: 'Studio 2 is freezing. Bring a jumper.' },
+      myTasks: [],
+      crewTasks: [
+        { title: 'Swap the lapel mic in Studio 2', who: 'Sam Okafor', status: 'todo', priority: 'high', note: 'Reminds 30 min before Types at the edges' },
+        { title: 'Reprint the badges with the right pronouns', who: 'Sam Okafor', status: 'done' },
+      ],
+      rsvps: [{ session: 'Workshop · migrating a monolith', status: 'going', guests: 1 }],
+      gallery: [],
+      venues: [
+        { name: 'Aula', address: 'Haus der Technik, Berlin' },
+        { name: 'Studio 2', address: 'Haus der Technik, Berlin' },
+      ],
+      units: [
+        { label: 'Quiet room', detail: 'Aula · 12 places' },
+        { label: 'Workshop room', detail: 'Studio 2 · 30 places', you: 'Workshop seat 14.' },
+      ],
+    },
+
+    'maple-1999': {
+      name: 'Maple Grove, Class of 1999', kind: 'reunion', preset: 'Minimal', swatch: '#d45d35',
+      treatment: 'mono', mote: 'none', scheme: 'light',
+      when: '15 August 2026', where: 'Bristol', tz: 'Europe/London (BST)',
+      startsOn: '2026-08-15T18:30:00+01:00', visibility: 'private', joinCode: 'MAPLE99',
+      nav: ['schedule', 'info'],
+      features: { schedule: true, gossips: false, media: false, info: true },
+      defaultView: 'list', tracks: false, copy: {},
+      hero: { scene: 'hall', alt: 'The assembly hall, set for dinner' },
+      heroEyebrow: 'Saturday 15 August · 18:30',
+      heroTitle: 'Class of 1999',
+      heroSub: 'Twenty-seven years later, same assembly hall.',
+      days: [
+        { label: 'Saturday 15 August', items: [
+          { time: '18:30', end: '20:00', title: 'Drinks in the hall', venue: 'The Old Assembly Hall', scene: 'hall', alt: 'The assembly hall, set for dinner' },
+          { time: '20:00', end: '22:30', title: 'Dinner', venue: 'The Old Assembly Hall' },
+        ] },
+      ],
+      announcements: [{ title: 'Park on the road, not the field', body: 'The field is soft after the rain and the school has asked us to keep off it.' }],
+      people: [{ name: 'Harriet Bell', role: 'Organiser', bio: 'Has been organising this since 2019.' }],
+      gossips: [], pendingGossip: null, myTasks: [],
+      crewTasks: [{ title: 'Print the name tags with the 1999 photos', who: 'Harriet Bell', status: 'doing', note: 'Due 15 Aug, 12:00' }],
+      rsvps: [], gallery: [],
+      venues: [{ name: 'The Old Assembly Hall', address: 'Maple Grove School, Bristol', notes: 'The side door by the bike sheds is unlocked from six.' }],
+      units: [{ label: 'Long table', detail: 'Seats 24' }],
+    },
+  };
+
+  const SKINS = [
+    { id: '', label: "The event's own theme", sub: 'From its published config', sw: 'auto' },
+    { id: 'chalk-slate', label: 'Chalk · Slate', sub: 'Handwritten on a green board', sw: '#2d3d35' },
+    { id: 'chalk-ink', label: 'Chalk · Ink', sub: 'Navy board, white chalk', sw: '#283340' },
+    { id: 'chalk-rose', label: 'Chalk · Rose', sub: 'Warm board, blush chalk', sw: '#382d32' },
+    { id: 'cred', label: 'CRED', sub: 'Near-black, one vivid accent', sw: '#ccff33' },
+  ];
+
+  const TAB_LABEL = { home: 'Home', schedule: 'Schedule', gossips: 'Gossips', media: 'Gallery', info: 'Info', tasks: 'Tasks' };
+
+  const esc = (s) =>
+    String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+  const state = { slug: 'sanit-riyanks', skin: '', tab: 'home', view: null };
+
+  const tabsFor = (t) => ['home', ...t.nav.filter((k) => t.features[k]), 'tasks'];
+  const labelFor = (t, k) => (k === 'gossips' ? t.copy['gossips.title'] || 'Gossips' : TAB_LABEL[k]);
+  const chip = (l, tone) => `<span class="chip ${tone ? 'chip-' + tone : ''}">${esc(l)}</span>`;
+  const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+
+  /* ---------------------------------------------------------------- screens -- */
+
+  function heroBlock(t) {
+    const motes =
+      t.mote === 'petal'
+        ? `<div class="motes">${Array.from({ length: 14 }, (_, i) => {
+            const l = (i * 7.3 + 4) % 96;
+            const d = 9 + ((i * 13) % 11);
+            const s = 7 + ((i * 5) % 9);
+            return `<span class="mote" style="left:${l}%;width:${s}px;height:${s * 0.72}px;background:var(--occasio-ramp-brand-${5 + (i % 4)});animation-duration:${d}s;animation-delay:${-(i * 1.7).toFixed(1)}s;--dx:${(i % 2 ? 1 : -1) * (30 + (i % 5) * 16)}px"></span>`;
+          }).join('')}</div>`
+        : t.mote === 'beam'
+          ? `<div class="beams"><span class="beam" style="left:26%;animation-delay:-1.4s"></span><span class="beam" style="left:52%"></span><span class="beam" style="left:70%;animation-delay:-3.1s"></span></div>`
+          : '';
+
+    return `<header class="hero">
+      ${photo(t.hero.scene, t.hero.alt)}
+      <div class="hero-scrim"></div>
+      ${motes}
+      <div class="hero-content">
+        <span class="t-overline">${esc(t.heroEyebrow)}</span>
+        <h1 class="t-display1">${esc(t.heroTitle)}</h1>
+        <p class="t-body" style="max-width:46ch">${esc(t.heroSub)}</p>
+        <div class="count" id="count"></div>
+        <div class="row" style="margin-top:6px">
+          <button class="btn btn-primary" type="button">RSVP</button>
+          <button class="btn btn-ghost" type="button" data-goto="schedule">See the schedule</button>
+        </div>
+      </div>
+    </header>`;
+  }
+
+  function screenHome(t) {
+    const next = t.days[0].items.find((i) => !i.cancelled) || t.days[0].items[0];
+    return `
+      <section class="section">
+        <div class="section-head"><h2 class="t-title1">Happening next</h2>
+          <button class="btn btn-secondary btn-sm" type="button" data-goto="schedule">All of it</button></div>
+        <div class="card card-hover" style="flex-direction:row;gap:16px;align-items:center">
+          <div class="photo ratio-sq" style="width:104px;flex:none">${(SCENES[next.scene] || SCENES.type)()}</div>
+          <div class="stack" style="gap:5px">
+            <span class="t-overline muted">${esc(t.days[0].label)}</span>
+            <span class="t-title2">${esc(next.title)}</span>
+            <span class="t-caption muted">${esc(next.time)}${next.end ? '–' + esc(next.end) : ''}${next.venue ? ' · ' + esc(next.venue) : ''}</span>
+          </div>
+        </div>
+      </section>
+
+      ${t.announcements.length ? `<section class="section">
+        <h2 class="t-title1">Announcements</h2>
+        <div class="stack">${t.announcements.map((a) => `
+          <div class="card card-hover">
+            <div class="row">${a.pinned ? chip('📌 Pinned', 'brand') : ''}<span class="t-title2">${esc(a.title)}</span></div>
+            <p class="t-body muted">${esc(a.body)}</p>
+          </div>`).join('')}</div>
+      </section>` : ''}
+
+      ${t.rsvps.length ? `<section class="section">
+        <h2 class="t-title1">Your RSVP</h2>
+        <div class="card">
+          ${t.rsvps.map((r) => `<div class="row" style="justify-content:space-between">
+            <span class="t-body">${esc(r.session)}</span>
+            <span class="row">${chip(r.status === 'going' ? 'Going' : 'Maybe', r.status === 'going' ? 'success' : 'warning')}${chip(r.guests + (r.guests === 1 ? ' guest' : ' guests'))}</span>
+          </div>`).join('<hr class="divider" />')}
+          <div class="row" style="margin-top:6px"><button class="btn btn-primary btn-sm" type="button">Change RSVP</button></div>
+        </div>
+      </section>` : ''}
+
+      <section class="section">
+        <h2 class="t-title1">${t.kind === 'conference' ? 'Speakers' : t.kind === 'festival' ? 'Line-up' : 'Your hosts'}</h2>
+        <div class="stack">${t.people.map((p) => `
+          <div class="card card-hover">
+            <div class="post-head">
+              <span class="avatar">${esc(initials(p.name))}</span>
+              <span><span class="t-bodyStrong" style="display:block">${esc(p.name)}</span>
+              <span class="t-caption muted">${esc(p.role)}</span></span>
+            </div>
+            ${p.bio ? `<p class="t-body muted">${esc(p.bio)}</p>` : ''}
+          </div>`).join('')}</div>
+      </section>
+
+      ${t.gallery.length ? `<section class="section">
+        <div class="section-head"><h2 class="t-title1">Gallery</h2>
+          <button class="btn btn-secondary btn-sm" type="button" data-goto="media">Open</button></div>
+        <div class="gallery">${t.gallery.slice(0, 3).map((g) => photo(g.scene, g.alt, 'ratio-sq')).join('')}</div>
+      </section>` : ''}`;
+  }
+
+  function screenSchedule(t) {
+    const view = state.view || t.defaultView;
+    const list = t.days.map((d) => `
+      <div class="section">
+        <div class="day-head"><h3 class="t-title1">${esc(d.label)}</h3></div>
+        <div>${d.items.map((i) => `
+          <div class="list-row ${i.cancelled ? 'cancelled' : ''}">
+            <div class="list-time t-bodyStrong">${esc(i.time)}${i.end ? `<span class="t-caption faint" style="display:block;font-weight:400">–${esc(i.end)}</span>` : ''}</div>
+            <div class="stack" style="gap:7px">
+              <span class="t-title2 list-title">${esc(i.title)}</span>
+              <div class="row">
+                ${i.venue ? chip(i.venue) : ''}
+                ${t.tracks && i.track ? chip(i.track, 'brand') : ''}
+                ${i.cancelled ? chip('Cancelled', 'danger') : ''}
+                ${i.clash ? chip('Clashes with the headliner', 'warning') : ''}
+              </div>
+              ${i.desc ? `<p class="t-body muted">${esc(i.desc)}</p>` : ''}
+            </div>
+          </div>`).join('')}</div>
+      </div>`).join('');
+
+    const stories = t.days.map((d) => `
+      <div class="section">
+        <div class="day-head"><h3 class="t-title1">${esc(d.label)}</h3></div>
+        <div class="stories">${d.items.map((i) => `
+          <article class="story">
+            ${photo(i.scene || 'type', i.alt || i.title)}
+            <div class="story-body">
+              <span class="t-overline">${esc(i.time)}${i.end ? '–' + esc(i.end) : ''}</span>
+              <span class="t-title1">${esc(i.title)}</span>
+              ${i.venue ? `<span class="t-caption">${esc(i.venue)}</span>` : ''}
+              ${i.cancelled ? `<span class="row">${chip('Cancelled', 'danger')}</span>` : ''}
+            </div>
+          </article>`).join('')}</div>
+      </div>`).join('');
+
+    return `
+      <div class="section-head">
+        <h2 class="t-display2">Schedule</h2>
+        <div class="viewtoggle" role="group" aria-label="View">
+          <button type="button" data-view="stories" aria-pressed="${view === 'stories'}">Stories</button>
+          <button type="button" data-view="list" aria-pressed="${view === 'list'}">List</button>
+        </div>
+      </div>
+      ${view === 'stories' ? stories : list}`;
+  }
+
+  function screenGossips(t) {
+    const title = t.copy['gossips.title'] || 'Gossips';
+    return `
+      <h2 class="t-display2">${esc(title)}</h2>
+      <div class="card glasscard">
+        <p class="t-caption muted">Nobody — not the hosts, not us — can see who posted. Posts are rate-limited and blockable by device, and a host approves every one before it appears.</p>
+      </div>
+      <div class="card">
+        <span class="t-caption muted">Posting as <strong>${esc((t.pendingGossip || t.gossips[0] || { persona: 'Golden Peacock' }).persona)}</strong></span>
+        <div class="row" style="justify-content:space-between">
+          <span class="t-body faint">Say something…</span>
+          <span class="row"><button class="btn btn-secondary btn-sm" type="button">New mask</button><button class="btn btn-primary btn-sm" type="button">Post</button></span>
+        </div>
+      </div>
+      ${t.pendingGossip ? `<div class="card pending">
+        <div class="post-head"><span class="avatar">${esc(initials(t.pendingGossip.persona))}</span>
+          <span><span class="t-bodyStrong" style="display:block">${esc(t.pendingGossip.persona)}</span><span class="t-caption muted">Your post</span></span></div>
+        <p class="t-body">${esc(t.pendingGossip.body)}</p>
+        <div class="row">${chip('Waiting for a host to approve', 'warning')}</div>
+      </div>` : ''}
+      <div class="stack">${t.gossips.map((g) => `
+        <div class="card card-hover">
+          <div class="post-head"><span class="avatar">${esc(initials(g.persona))}</span><span class="t-bodyStrong">${esc(g.persona)}</span></div>
+          <p class="t-body">${esc(g.body)}</p>
+          <div class="row">${g.reactions.map(([e, n]) => `<button class="react" type="button" data-react>${e} ${n}</button>`).join('')}
+          <button class="react" type="button" data-react>＋</button></div>
+        </div>`).join('')}</div>
+      ${!t.gossips.length && !t.pendingGossip ? `<div class="card"><p class="t-body muted">${esc(t.copy['gossips.empty'] || 'Nothing here yet.')}</p></div>` : ''}`;
+  }
+
+  const taskRow = (task) => {
+    const done = task.status === 'done';
+    return `<div class="task ${done ? 'task-done' : ''}">
+      <span class="checkbox" data-done="${done}" data-check>${done ? '✓' : ''}</span>
+      <div class="stack" style="gap:6px">
+        <span class="t-body task-title">${esc(task.title)}</span>
+        <div class="row">
+          ${chip(task.status === 'todo' ? 'To do' : task.status === 'doing' ? 'Doing' : task.status === 'blocked' ? 'Blocked' : 'Done', task.status === 'blocked' ? 'danger' : task.status === 'doing' ? 'info' : undefined)}
+          ${task.priority === 'high' ? chip('High', 'warning') : ''}
+          ${task.who ? chip(task.who) : ''}${task.due ? chip(task.due) : ''}
+        </div>
+        ${task.note ? `<p class="t-caption muted">${esc(task.note)}</p>` : ''}
+      </div>
+    </div>`;
+  };
+
+  const screenTasks = (t) => `
+    <h2 class="t-display2">My action items</h2>
+    <p class="t-body muted">What you personally need to do, and when it is due.</p>
+    <div class="card">${t.myTasks.length ? t.myTasks.map(taskRow).join('<hr class="divider" />') : '<p class="t-body muted">Nothing is waiting on you.</p>'}</div>
+    <section class="section">
+      <div class="section-head"><h3 class="t-title1">Crew board</h3><span class="t-caption faint">Crew and hosts only</span></div>
+      <div class="card">${t.crewTasks.map(taskRow).join('<hr class="divider" />')}</div>
+    </section>`;
+
+  const screenMedia = (t) => `
+    <h2 class="t-display2">Gallery</h2>
+    <p class="t-body muted">Photos share the board's approval queue, so nothing appears unseen.</p>
+    <div class="gallery">${t.gallery.map((g) => photo(g.scene, g.alt, 'ratio-sq')).join('')}</div>
+    <div class="row"><button class="btn btn-primary" type="button">Add photos</button></div>`;
+
+  const screenInfo = (t) => `
+    <h2 class="t-display2">Venue and travel</h2>
+    <div class="stack">${t.venues.map((v) => `
+      <div class="card card-hover">
+        <span class="t-title2">${esc(v.name)}</span>
+        ${v.address ? `<span class="t-body muted">${esc(v.address)}</span>` : ''}
+        ${v.notes ? `<p class="t-caption muted">${esc(v.notes)}</p>` : ''}
+        <div class="row"><button class="btn btn-secondary btn-sm" type="button">Directions</button></div>
+      </div>`).join('')}</div>
+    <section class="section">
+      <h3 class="t-title1">${t.kind === 'wedding' ? 'Your table and shuttle' : t.kind === 'conference' ? 'Rooms' : 'Getting about'}</h3>
+      <div class="card">${t.units.map((u) => `
+        <div class="row" style="justify-content:space-between">
+          <span><span class="t-bodyStrong" style="display:block">${esc(u.label)}</span><span class="t-caption muted">${esc(u.detail)}</span></span>
+          ${u.you ? chip(u.you, 'brand') : ''}
+        </div>`).join('<hr class="divider" />')}</div>
+    </section>
+    <section class="section">
+      <h3 class="t-title1">This event</h3>
+      <div class="card"><div class="kv t-body">
+        <span class="muted">Dates</span><span>${esc(t.when)}</span>
+        <span class="muted">Time zone</span><span>${esc(t.tz)}</span>
+        <span class="muted">Visibility</span><span>${esc(t.visibility)}</span>
+        ${t.joinCode ? `<span class="muted">Join code</span><span>${esc(t.joinCode)}</span>` : ''}
+      </div></div>
+    </section>`;
+
+  /* ----------------------------------------------------------------- render -- */
+
+  let countTimer = null;
+
+  function renderCount(t) {
+    const el = document.getElementById('count');
+    if (!el) return;
+    const tick = () => {
+      const diff = Math.max(0, new Date(t.startsOn).getTime() - now());
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff / 3600000) % 24);
+      const m = Math.floor((diff / 60000) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      el.innerHTML = [[d, 'days'], [h, 'hrs'], [m, 'min'], [s, 'sec']]
+        .map(([n, l]) => `<div class="count-cell"><div class="count-num">${String(n).padStart(2, '0')}</div><div class="count-lab">${l}</div></div>`)
+        .join('');
+    };
+    tick();
+    countTimer = setInterval(tick, 1000);
+  }
+
+  function render() {
+    const t = TENANTS[state.slug];
+    const app = document.getElementById('app');
+    app.dataset.tenant = state.slug;
+    app.dataset.treatment = t.treatment;
+    /* Alternate skins are all dark boards. */
+    app.dataset.scheme = state.skin ? 'dark' : t.scheme;
+    if (state.skin) app.dataset.skin = state.skin;
+    else delete app.dataset.skin;
+
+    document.getElementById('brandmark').textContent = t.name;
+    const tabs = tabsFor(t);
+    if (!tabs.includes(state.tab)) state.tab = 'home';
+    document.getElementById('tabs').innerHTML = tabs
+      .map((k) => `<button class="tab" role="tab" type="button" data-tab="${k}" aria-selected="${k === state.tab}">${esc(labelFor(t, k))}</button>`)
+      .join('');
+
+    const screens = { home: screenHome, schedule: screenSchedule, gossips: screenGossips, tasks: screenTasks, media: screenMedia, info: screenInfo };
+    const body = document.getElementById('body');
+    if (countTimer) clearInterval(countTimer);
+    body.innerHTML =
+      (state.tab === 'home' ? heroBlock(t) : '') +
+      `<div class="wrap"><div class="screen">${screens[state.tab](t)}</div></div>`;
+    if (state.tab === 'home') renderCount(t);
+
+    document.getElementById('dock-swatch').style.background = state.skin
+      ? SKINS.find((s) => s.id === state.skin).sw
+      : t.swatch;
+    document.getElementById('dock-label').textContent = state.skin
+      ? SKINS.find((s) => s.id === state.skin).label
+      : t.preset;
+
+    document.querySelectorAll('#opt-events .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.slug === state.slug)));
+    document.querySelectorAll('#opt-skins .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.skin || '') === state.skin)));
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  document.getElementById('opt-events').innerHTML = Object.entries(TENANTS)
+    .map(([slug, t]) => `<button class="opt" type="button" data-slug="${slug}" aria-pressed="false">
+      <span class="opt-sw" style="background:${t.swatch}"></span>
+      <span>${esc(t.name)}<small>${esc(t.kind)} · ${esc(t.preset)}</small></span></button>`)
+    .join('');
+
+  document.getElementById('opt-skins').innerHTML = SKINS.map((s) => `
+    <button class="opt" type="button" data-skin="${s.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:${s.sw === 'auto' ? 'linear-gradient(135deg,#b46c8d,#4b9682,#5182e5)' : s.sw}"></span>
+      <span>${esc(s.label)}<small>${esc(s.sub)}</small></span></button>`).join('');
+
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const setDrawer = (open) => {
+    drawer.dataset.open = String(open);
+    scrim.dataset.open = String(open);
+  };
+  document.getElementById('dock').addEventListener('click', () => setDrawer(drawer.dataset.open !== 'true'));
+  document.getElementById('drawer-close').addEventListener('click', () => setDrawer(false));
+  scrim.addEventListener('click', () => setDrawer(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setDrawer(false);
+  });
+
+  document.getElementById('opt-events').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.slug = b.dataset.slug;
+    state.view = null;
+    render();
+  });
+
+  document.getElementById('opt-skins').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.skin = b.dataset.skin || '';
+    render();
+  });
+
+  document.getElementById('tabs').addEventListener('click', (e) => {
+    const b = e.target.closest('.tab');
+    if (!b) return;
+    state.tab = b.dataset.tab;
+    render();
+  });
+
+  document.getElementById('body').addEventListener('click', (e) => {
+    const v = e.target.closest('[data-view]');
+    if (v) {
+      state.view = v.dataset.view;
+      render();
+      return;
+    }
+    const g = e.target.closest('[data-goto]');
+    if (g) {
+      state.tab = g.dataset.goto;
+      render();
+      return;
+    }
+    const r = e.target.closest('[data-react]');
+    if (r) {
+      r.classList.remove('popped');
+      void r.offsetWidth;
+      r.classList.add('popped');
+      return;
+    }
+    const c = e.target.closest('[data-check]');
+    if (c) {
+      const done = c.dataset.done !== 'true';
+      c.dataset.done = String(done);
+      c.textContent = done ? '✓' : '';
+      c.closest('.task').classList.toggle('task-done', done);
+    }
+  });
+
+  render();
+</script>

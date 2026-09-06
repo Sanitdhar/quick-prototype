@@ -4,3 +4,8 @@ dist
 build
 coverage
 pnpm-lock.yaml
+
+# `html-*` prototypes are hand-authored pages plus generated output (index.html is built
+# from page.html + tokens.css). Formatting the generated file would churn on every rebuild.
+# See prototypes/README.md.
+prototypes/html-*
