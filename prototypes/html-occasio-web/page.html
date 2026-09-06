@@ -308,19 +308,189 @@
      4. THE APP
      ========================================================================== */
 
+  /* Shell: an icon rail beside the content. Depth is a hairline and a tonal fill —
+     no shadows anywhere, which is both the reference's habit and Occasio's own rule. */
   .app {
     background: var(--occasio-color-bg);
     color: var(--occasio-color-text);
     font-family: var(--occasio-font-body);
     min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .rail {
+    width: 104px;
+    flex: none;
+    align-self: stretch;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: var(--occasio-color-surface);
+    border-right: 1px solid var(--occasio-color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 22px 10px;
+  }
+
+  .railbtn {
+    appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+    padding: 8px 0 11px;
+    display: grid;
+    justify-items: center;
+    gap: 7px;
+    color: var(--occasio-color-textMuted);
+    font-family: var(--occasio-font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .railbtn .ic-wrap {
+    width: 58px;
+    height: 44px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    transition: background var(--occasio-motion-fast) ease, color var(--occasio-motion-fast) ease;
+  }
+
+  .railbtn:hover .ic-wrap {
+    background: var(--occasio-color-surfaceRaised);
+  }
+
+  .railbtn[aria-selected='true'] {
+    color: var(--occasio-color-text);
+  }
+
+  .railbtn[aria-selected='true'] .ic-wrap {
+    background: var(--occasio-color-text);
+    color: var(--occasio-color-bg);
+  }
+
+  .railbtn:focus-visible {
+    outline: 2px solid var(--occasio-color-interactive-focusRing);
+    outline-offset: -3px;
+    border-radius: 16px;
+  }
+
+  /* One column governs the whole page, so the hero and the content below it share
+     an edge instead of floating at different widths. */
+  .main {
+    flex: 1;
+    min-width: 0;
+    max-width: calc(var(--occasio-max-content-width) + 120px);
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 26px 34px 6px;
+  }
+
+  .topbar-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+    color: var(--occasio-color-textMuted);
+  }
+
+  .iconbtn {
+    appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    color: inherit;
+  }
+
+  .iconbtn:hover {
+    background: var(--occasio-color-surfaceRaised);
+    color: var(--occasio-color-text);
   }
 
   .wrap {
-    max-width: var(--occasio-max-content-width);
-    margin: 0 auto;
-    padding: 0 22px;
+    margin: 0;
+    padding: 0 34px;
+  }
+
+  /* Icons ---------------------------------------------------------------- */
+
+  .ic {
+    width: 24px;
+    height: 24px;
+    display: block;
+    flex: none;
+  }
+
+  .ic path,
+  .ic circle,
+  .ic rect,
+  .ic line,
+  .ic polyline,
+  .ic polygon {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--ic-weight, 1.7);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .app[data-icons='bold'] {
+    --ic-weight: 2.5;
+  }
+
+  .app[data-icons='none'] .ic {
+    display: none;
+  }
+
+  .app[data-icons='none'] .railbtn .ic-wrap {
+    height: 0;
+  }
+
+  @media (max-width: 780px) {
+    .app {
+      display: block;
+    }
+
+    .rail {
+      position: fixed;
+      inset: auto 0 0 0;
+      width: auto;
+      height: auto;
+      flex-direction: row;
+      justify-content: space-around;
+      border-right: 0;
+      border-top: 1px solid var(--occasio-color-border);
+      padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 40;
+    }
+
+    .railbtn .ic-wrap {
+      width: 46px;
+      height: 34px;
+    }
+
+    .main {
+      padding-bottom: 92px;
+    }
+
+    .topbar,
+    .wrap {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
   }
 
   /* -- type ---------------------------------------------------------------- */
@@ -404,69 +574,12 @@
 
   /* -- nav ----------------------------------------------------------------- */
 
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    background: color-mix(in srgb, var(--occasio-color-bg) 78%, transparent);
-    backdrop-filter: blur(18px) saturate(1.4);
-    -webkit-backdrop-filter: blur(18px) saturate(1.4);
-    border-bottom: 1px solid var(--occasio-color-border);
-  }
-
-  .nav-inner {
-    max-width: var(--occasio-max-content-width);
-    margin: 0 auto;
-    padding: 0 22px;
-    min-height: 64px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-
   .brandmark {
     font-family: var(--occasio-font-display);
-    font-size: calc(var(--occasio-type-title1-size) * 0.86);
+    font-size: calc(var(--occasio-type-title1-size) * 0.9);
     font-weight: 700;
-    margin-right: auto;
+    letter-spacing: -0.02em;
     white-space: nowrap;
-    padding: 12px 0;
-  }
-
-  .tabs {
-    display: flex;
-    gap: 3px;
-    flex-wrap: wrap;
-  }
-
-  .tab {
-    appearance: none;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    padding: 9px 14px;
-    border-radius: 999px;
-    color: var(--occasio-color-textMuted);
-    font-family: var(--occasio-font-body);
-    font-size: var(--occasio-type-caption-size);
-    font-weight: 600;
-    transition: color 160ms ease, background 160ms ease;
-  }
-
-  .tab:hover {
-    color: var(--occasio-color-text);
-    background: var(--occasio-color-brandSubtle);
-  }
-
-  .tab[aria-selected='true'] {
-    color: var(--occasio-color-onBrand);
-    background: var(--occasio-color-brand);
-  }
-
-  .tab:focus-visible {
-    outline: 2px solid var(--occasio-color-interactive-focusRing);
-    outline-offset: 2px;
   }
 
   /* -- imagery -------------------------------------------------------------
@@ -841,27 +954,23 @@
 
   /* -- surfaces & depth ----------------------------------------------------- */
 
+  /* One card recipe: a tonal fill inside a hairline, generously rounded. Hover
+     changes the fill, not the elevation — nothing lifts off the page. */
   .card {
-    background: var(--occasio-color-surfaceRaised);
+    background: var(--occasio-color-surface);
     border: 1px solid var(--occasio-color-border);
-    border-radius: var(--occasio-radius-lg);
-    padding: var(--occasio-space-4);
+    border-radius: calc(var(--occasio-radius-lg) + 4px);
+    padding: 22px;
     display: flex;
     flex-direction: column;
-    gap: var(--occasio-space-2);
-    /* Shadows are tinted toward the theme, never flat black. */
-    box-shadow: 0 1px 2px
-        color-mix(in srgb, var(--occasio-ramp-neutral-12) 8%, transparent),
-      0 12px 30px -14px color-mix(in srgb, var(--occasio-ramp-neutral-12) 26%, transparent);
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease,
-      border-color 220ms ease;
+    gap: 10px;
+    transition: background var(--occasio-motion-fast) ease,
+      border-color var(--occasio-motion-fast) ease;
   }
 
   .card-hover:hover {
-    transform: translateY(-3px);
-    border-color: var(--occasio-color-brandBorder);
-    box-shadow: 0 2px 4px color-mix(in srgb, var(--occasio-ramp-neutral-12) 10%, transparent),
-      0 24px 48px -18px color-mix(in srgb, var(--occasio-ramp-neutral-12) 40%, transparent);
+    background: var(--occasio-color-surfaceRaised);
+    border-color: var(--occasio-color-borderStrong);
   }
 
   .glasscard {
@@ -947,78 +1056,84 @@
 
   /* -- buttons -------------------------------------------------------------- */
 
+  /* Buttons are a configurable set. `--btn-radius` is the only thing the four
+     shapes disagree about; everything else stays constant so swapping shape never
+     moves a layout. */
+  .app {
+    --btn-radius: 16px;
+  }
+
+  .app[data-buttons='pill'] {
+    --btn-radius: 999px;
+  }
+
+  .app[data-buttons='square'] {
+    --btn-radius: 4px;
+  }
+
+  .app[data-buttons='outline'] {
+    --btn-radius: 14px;
+  }
+
   .btn {
-    position: relative;
     appearance: none;
     cursor: pointer;
-    border-radius: 999px;
+    border-radius: var(--btn-radius);
     border: 1px solid transparent;
-    padding: 12px 22px;
+    padding: 17px 26px;
     font-family: var(--occasio-font-body);
     font-size: var(--occasio-type-bodyStrong-size);
     font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1;
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    overflow: hidden;
-    transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease,
-      background 180ms ease;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-  }
-
-  .btn:active {
-    transform: translateY(0);
-  }
-
-  /* A light sweeps across on hover — the small premium tell. */
-  .btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.42), transparent);
-    transition: left 620ms ease;
-  }
-
-  .btn:hover::after {
-    left: 130%;
+    justify-content: center;
+    gap: 10px;
+    transition: background var(--occasio-motion-fast) ease,
+      border-color var(--occasio-motion-fast) ease, color var(--occasio-motion-fast) ease;
   }
 
   .btn-primary {
-    background: linear-gradient(
-      135deg,
-      var(--occasio-color-interactive-rest),
-      color-mix(in srgb, var(--occasio-color-interactive-rest) 74%, var(--occasio-color-accent))
-    );
+    background: var(--occasio-color-interactive-rest);
+    border-color: var(--occasio-color-interactive-rest);
     color: var(--occasio-color-onBrand);
-    box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--occasio-color-brand) 72%, transparent);
   }
 
   .btn-primary:hover {
-    box-shadow: 0 16px 34px -10px color-mix(in srgb, var(--occasio-color-brand) 84%, transparent);
+    background: var(--occasio-color-interactive-hover);
+    border-color: var(--occasio-color-interactive-hover);
   }
 
   .btn-secondary {
-    background: var(--occasio-color-surfaceRaised);
+    background: var(--occasio-color-surface);
     border-color: var(--occasio-color-border);
     color: var(--occasio-color-text);
   }
 
   .btn-secondary:hover {
+    background: var(--occasio-color-surfaceRaised);
     border-color: var(--occasio-color-borderStrong);
   }
 
   .btn-ghost {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.34);
     color: #fff;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* The outline set inverts the emphasis: the primary is a bordered button too,
+     carrying its weight in the label rather than a fill. */
+  .app[data-buttons='outline'] .btn-primary {
+    background: transparent;
+    border-color: var(--occasio-color-brand);
+    color: var(--occasio-color-brand);
+  }
+
+  .app[data-buttons='outline'] .btn-primary:hover {
+    background: var(--occasio-color-brandSubtle);
   }
 
   .btn:focus-visible {
@@ -1027,8 +1142,62 @@
   }
 
   .btn-sm {
-    padding: 8px 15px;
+    padding: 11px 17px;
     font-size: var(--occasio-type-caption-size);
+    gap: 7px;
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+
+  /* A text link that behaves like a call to action — the reference's "PLAY NOW →". */
+  .linkcta {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--occasio-color-text);
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-overline-size);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .linkcta .ic {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--occasio-motion-fast) ease;
+  }
+
+  .linkcta:hover .ic {
+    transform: translateX(4px);
+  }
+
+  /* A large field, the way the reference sets its search row. */
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+    height: 62px;
+    border-radius: 16px;
+    background: var(--occasio-color-surface);
+    border: 1px solid var(--occasio-color-border);
+    color: var(--occasio-color-textFaint);
+    font-size: var(--occasio-type-body-size);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .btn-tall {
+    height: 62px;
+    padding: 0 30px;
   }
 
   /* -- screens & entrance --------------------------------------------------- */
@@ -1355,13 +1524,14 @@
 </style>
 
 <div class="app" id="app">
-  <nav class="nav">
-    <div class="nav-inner">
+  <nav class="rail" id="tabs" role="tablist" aria-label="Sections"></nav>
+  <div class="main">
+    <header class="topbar">
       <span class="brandmark" id="brandmark"></span>
-      <div class="tabs" id="tabs" role="tablist"></div>
-    </div>
-  </nav>
-  <div id="body"></div>
+      <div class="topbar-actions" id="topbar-actions"></div>
+    </header>
+    <div id="body"></div>
+  </div>
 </div>
 
 <button class="dock" id="dock" type="button" aria-label="Change event or theme">
@@ -1390,6 +1560,16 @@
     <div id="opt-fonts"></div>
   </div>
 
+  <div class="drawer-group">
+    <h3>Buttons</h3>
+    <div id="opt-buttons"></div>
+  </div>
+
+  <div class="drawer-group">
+    <h3>Icons</h3>
+    <div id="opt-icons"></div>
+  </div>
+
   <p class="drawer-foot">
     Colour, type and spacing come from Occasio's real resolver
     (<code>packages/theme</code>) run over each fixture's own published config. Chalk and CRED are
@@ -1404,6 +1584,53 @@
   const NOW0 = new Date('2026-07-01T09:00:00.000Z').getTime();
   const T0 = Date.now();
   const now = () => NOW0 + (Date.now() - T0);
+
+  /* ----------------------------------------------------------------- icons --
+     One geometry per icon, drawn as strokes. The Icons setting changes the stroke
+     weight, or swaps the whole set for the geometric primitives the reference uses
+     on its splash — a real choice, not four copies of the same thing.            */
+  const ICON_PATHS = {
+    home: '<path d="M3.2 10.6 12 3.6l8.8 7v9.1a1.3 1.3 0 0 1-1.3 1.3h-4.6v-6.4H9.1v6.4H4.5a1.3 1.3 0 0 1-1.3-1.3z"/>',
+    calendar: '<rect x="3.3" y="5" width="17.4" height="16" rx="3"/><path d="M8 3v4M16 3v4M3.3 10h17.4"/>',
+    chat: '<path d="M20.6 12.4c0 4-3.9 7.2-8.6 7.2a10 10 0 0 1-2.6-.33L4.2 21l1.2-4A6.9 6.9 0 0 1 3.4 12.4c0-4 3.9-7.2 8.6-7.2s8.6 3.2 8.6 7.2Z"/>',
+    image: '<rect x="3.2" y="4.6" width="17.6" height="14.8" rx="3"/><circle cx="8.6" cy="10" r="1.7"/><path d="m4.2 17.4 4.9-4.6 4.2 3.9 2.9-2.5 4.5 3.9"/>',
+    info: '<circle cx="12" cy="12" r="8.7"/><path d="M12 11.2v5.2M12 7.9h.01"/>',
+    check: '<rect x="3.4" y="3.4" width="17.2" height="17.2" rx="4.5"/><path d="m8 12.3 2.8 2.8L16.4 9.5"/>',
+    search: '<circle cx="11" cy="11" r="6.6"/><path d="m16.1 16.1 4.2 4.2"/>',
+    arrow: '<path d="M4.6 12h14.4M13.4 6.4 19.4 12l-6 5.6"/>',
+    pin: '<path d="M19.2 10.5c0 5-7.2 10.6-7.2 10.6S4.8 15.5 4.8 10.5a7.2 7.2 0 1 1 14.4 0Z"/><circle cx="12" cy="10.3" r="2.6"/>',
+    clock: '<circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.3 2"/>',
+    heart: '<path d="M12 20.4S3.9 15.6 3.9 9.9A4.5 4.5 0 0 1 12 7.3a4.5 4.5 0 0 1 8.1 2.6c0 5.7-8.1 10.5-8.1 10.5Z"/>',
+    plus: '<path d="M12 5.2v13.6M5.2 12h13.6"/>',
+    user: '<circle cx="12" cy="8.2" r="3.9"/><path d="M4.9 20.2a7.6 7.6 0 0 1 14.2 0"/>',
+    ticket: '<path d="M4 8.4A2.4 2.4 0 0 1 6.4 6h11.2A2.4 2.4 0 0 1 20 8.4v1.9a2 2 0 0 0 0 3.4v1.9a2.4 2.4 0 0 1-2.4 2.4H6.4A2.4 2.4 0 0 1 4 15.6v-1.9a2 2 0 0 0 0-3.4z"/><path d="M13.6 6v12"/>',
+  };
+
+  /* The primitive set: circle, square, triangle, diamond — the reference's own art. */
+  const GLYPHS = {
+    home: '<rect x="5" y="5" width="14" height="14" rx="2"/>',
+    calendar: '<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M5 10h14"/>',
+    chat: '<circle cx="12" cy="12" r="7"/>',
+    image: '<path d="M12 5 19 19H5z"/>',
+    info: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/>',
+    check: '<path d="m12 5 7 7-7 7-7-7z"/>',
+    search: '<circle cx="12" cy="12" r="7"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    pin: '<path d="M12 5 19 19H5z"/>',
+    clock: '<circle cx="12" cy="12" r="7"/><path d="M12 8v4"/>',
+    heart: '<circle cx="12" cy="12" r="7"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    user: '<circle cx="12" cy="12" r="7"/>',
+    ticket: '<rect x="5" y="7" width="14" height="10" rx="2"/>',
+  };
+
+  const icon = (name) => {
+    const set = state.icons === 'glyph' ? GLYPHS : ICON_PATHS;
+    const d = set[name] || set.info;
+    return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  };
+
+  const TAB_ICON = { home: 'home', schedule: 'calendar', gossips: 'chat', media: 'image', info: 'info', tasks: 'check' };
 
   /* --------------------------------------------------------------- scenes --
      Every fill is a theme variable, so one scene works in every skin.        */
@@ -1938,8 +2165,22 @@
     { id: 'humanist', label: 'Humanist', sub: 'Fraunces · DM Sans', d: "'Fraunces', Georgia, serif", b: "'DM Sans', system-ui, sans-serif" },
     { id: 'festival', label: 'Festival', sub: 'Anton · Work Sans', d: "'Anton', Georgia, serif", b: "'Work Sans', system-ui, sans-serif" },
     { id: 'geometric', label: 'Geometric', sub: 'Outfit · Manrope', d: "'Outfit', system-ui, sans-serif", b: "'Manrope', system-ui, sans-serif" },
-    { id: 'handwritten', label: 'Handwritten', sub: 'Caveat · Patrick Hand', d: "'Caveat', cursive", b: "'Patrick Hand', cursive" },
+    { id: 'grotesk', label: 'Grotesk', sub: 'Inter · Inter — tight and bold', d: "'Inter', system-ui, sans-serif", b: "'Inter', system-ui, sans-serif" },
     { id: 'system', label: 'System', sub: 'Whatever the device has', d: 'system-ui, sans-serif', b: 'system-ui, sans-serif' },
+  ];
+
+  const BUTTONS = [
+    { id: 'arcade', label: 'Arcade', sub: 'Rounded rect, solid fill' },
+    { id: 'pill', label: 'Pill', sub: 'Fully rounded' },
+    { id: 'square', label: 'Square', sub: 'Near-sharp corners' },
+    { id: 'outline', label: 'Outline', sub: 'Bordered, weight in the label' },
+  ];
+
+  const ICON_SETS = [
+    { id: 'line', label: 'Line', sub: 'Thin stroke' },
+    { id: 'bold', label: 'Bold', sub: 'Heavier stroke' },
+    { id: 'glyph', label: 'Glyph', sub: 'Circle, square, triangle' },
+    { id: 'none', label: 'None', sub: 'Labels only' },
   ];
 
   const TAB_LABEL = { home: 'Home', schedule: 'Schedule', gossips: 'Gossips', media: 'Gallery', info: 'Info', tasks: 'Tasks' };
@@ -1947,7 +2188,15 @@
   const esc = (s) =>
     String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-  const state = { slug: 'riyanka-sanit', skin: '', font: '', tab: 'home', view: null };
+  const state = {
+    slug: 'riyanka-sanit',
+    skin: '',
+    font: '',
+    buttons: 'arcade',
+    icons: 'line',
+    tab: 'home',
+    view: null,
+  };
 
   const tabsFor = (t) => ['home', ...t.nav.filter((k) => t.features[k]), 'tasks'];
   const labelFor = (t, k) => (k === 'gossips' ? t.copy['gossips.title'] || 'Gossips' : TAB_LABEL[k]);
@@ -1973,7 +2222,7 @@
         <div class="strip">${t.strip.map((s) => photo(s.scene, s.alt)).join('')}</div>
         <div class="count" id="count"></div>
         <div class="row" style="justify-content:center;margin-top:6px">
-          <button class="btn btn-primary" type="button">RSVP</button>
+          <button class="btn btn-primary" type="button">${icon('ticket')} RSVP</button>
           <button class="btn btn-secondary" type="button" data-goto="schedule">See the schedule</button>
         </div>
       </div>
@@ -2004,7 +2253,7 @@
         <p class="t-body" style="max-width:46ch">${esc(t.heroSub)}</p>
         <div class="count" id="count"></div>
         <div class="row" style="margin-top:6px">
-          <button class="btn btn-primary" type="button">RSVP</button>
+          <button class="btn btn-primary" type="button">${icon('ticket')} RSVP</button>
           <button class="btn btn-ghost" type="button" data-goto="schedule">See the schedule</button>
         </div>
       </div>
@@ -2014,9 +2263,14 @@
   function screenHome(t) {
     const next = t.days[0].items.find((i) => !i.cancelled) || t.days[0].items[0];
     return `
+      <div class="row" style="gap:12px;flex-wrap:nowrap">
+        <span class="field">${icon('search')}<span>Search this event</span></span>
+        <button class="btn btn-primary btn-tall" type="button" data-goto="schedule">Schedule</button>
+      </div>
+
       <section class="section">
         <div class="section-head"><h2 class="t-title1">Happening next</h2>
-          <button class="btn btn-secondary btn-sm" type="button" data-goto="schedule">All of it</button></div>
+          <button class="linkcta" type="button" data-goto="schedule">All of it ${icon('arrow')}</button></div>
         <div class="card card-hover" style="flex-direction:row;gap:16px;align-items:center">
           <div style="width:104px;flex:none">${photo(next.scene, next.alt || next.title, 'ratio-sq')}</div>
           <div class="stack" style="gap:5px">
@@ -2062,7 +2316,7 @@
 
       ${t.gallery.length ? `<section class="section">
         <div class="section-head"><h2 class="t-title1">Gallery</h2>
-          <button class="btn btn-secondary btn-sm" type="button" data-goto="media">Open</button></div>
+          <button class="linkcta" type="button" data-goto="media">See all ${icon('arrow')}</button></div>
         <div class="gallery">${t.gallery.slice(0, 3).map((g) => photo(g.scene, g.alt, 'ratio-sq')).join('')}</div>
       </section>` : ''}`;
   }
@@ -2173,7 +2427,7 @@
     <h2 class="t-display2">Gallery</h2>
     <p class="t-body muted">Photos share the board's approval queue, so nothing appears unseen.</p>
     <div class="gallery">${t.gallery.map((g) => photo(g.scene, g.alt, 'ratio-sq')).join('')}</div>
-    <div class="row"><button class="btn btn-primary" type="button">Add photos</button></div>`;
+    <div class="row"><button class="btn btn-primary" type="button">${icon('plus')} Add photos</button></div>`;
 
   const screenInfo = (t) => `
     <h2 class="t-display2">Venue and travel</h2>
@@ -2182,7 +2436,7 @@
         <span class="t-title2">${esc(v.name)}</span>
         ${v.address ? `<span class="t-body muted">${esc(v.address)}</span>` : ''}
         ${v.notes ? `<p class="t-caption muted">${esc(v.notes)}</p>` : ''}
-        <div class="row"><button class="btn btn-secondary btn-sm" type="button">Directions</button></div>
+        <div class="row"><button class="btn btn-secondary btn-sm" type="button">${icon('pin')} Directions</button></div>
       </div>`).join('')}</div>
     <section class="section">
       <h3 class="t-title1">${t.kind === 'wedding' ? 'Your table and shuttle' : t.kind === 'conference' ? 'Rooms' : 'Getting about'}</h3>
@@ -2244,11 +2498,23 @@
       app.style.removeProperty('--occasio-font-body');
     }
 
+    app.dataset.buttons = state.buttons;
+    app.dataset.icons = state.icons;
+
     document.getElementById('brandmark').textContent = t.name;
+    document.getElementById('topbar-actions').innerHTML =
+      `<button class="iconbtn" type="button" aria-label="Search">${icon('search')}</button>` +
+      `<button class="iconbtn" type="button" aria-label="Your profile">${icon('user')}</button>`;
+
     const tabs = tabsFor(t);
     if (!tabs.includes(state.tab)) state.tab = 'home';
     document.getElementById('tabs').innerHTML = tabs
-      .map((k) => `<button class="tab" role="tab" type="button" data-tab="${k}" aria-selected="${k === state.tab}">${esc(labelFor(t, k))}</button>`)
+      .map(
+        (k) => `<button class="railbtn" role="tab" type="button" data-tab="${k}" aria-selected="${k === state.tab}">
+          <span class="ic-wrap">${icon(TAB_ICON[k])}</span>
+          <span>${esc(labelFor(t, k))}</span>
+        </button>`,
+      )
       .join('');
 
     const screens = { home: screenHome, schedule: screenSchedule, gossips: screenGossips, tasks: screenTasks, media: screenMedia, info: screenInfo };
@@ -2269,6 +2535,8 @@
     document.querySelectorAll('#opt-events .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.slug === state.slug)));
     document.querySelectorAll('#opt-skins .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.skin || '') === state.skin)));
     document.querySelectorAll('#opt-fonts .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.font || '') === state.font)));
+    document.querySelectorAll('#opt-buttons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.buttons === state.buttons)));
+    document.querySelectorAll('#opt-icons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.icons === state.icons)));
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
@@ -2320,6 +2588,35 @@
     const b = e.target.closest('.opt');
     if (!b) return;
     state.font = b.dataset.font || '';
+    render();
+  });
+
+  document.getElementById('opt-buttons').innerHTML = BUTTONS.map((o) => `
+    <button class="opt" type="button" data-buttons="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#e9edf3;border-radius:${o.id === 'pill' ? '999px' : o.id === 'square' ? '3px' : '9px'};${o.id === 'outline' ? 'background:transparent;border-color:#8ea2c4' : ''}"></span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-icons').innerHTML = ICON_SETS.map((o) => `
+    <button class="opt" type="button" data-icons="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#1f242c;display:grid;place-items:center;color:#e9edf3">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+          stroke-width="${o.id === 'bold' ? 3 : 1.8}" stroke-linecap="round" stroke-linejoin="round">
+          ${o.id === 'glyph' ? '<circle cx="12" cy="12" r="7"/>' : o.id === 'none' ? '<path d="M6 12h12"/>' : ICON_PATHS.calendar}
+        </svg>
+      </span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-buttons').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.buttons = b.dataset.buttons;
+    render();
+  });
+
+  document.getElementById('opt-icons').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.icons = b.dataset.icons;
     render();
   });
 

@@ -50,15 +50,36 @@ be applied over any event:
 Chalk needs a handwritten face, and `TYPE_SETS` has none, so shipping these means adding a type set
 and a preset. Their colour still comes from the resolver, so the shape is already right.
 
-### Type
+### Type, Buttons, Icons
 
-A **Type** picker sits under Skin, offering Occasio's curated `TYPE_SETS` (Editorial, Modernist,
-Romantic, Humanist, Festival, System) plus Geometric and Handwritten. It writes the two font custom
-properties inline, which beats both the tenant's set and the skin's, so any pairing can be tried
-against any event.
+Three more pickers sit under Skin, so the component layer is a choice rather than a fixed opinion:
 
-Handwriting is opt-in and is never a default — the chalk skins override the generated Caveat back to
-a clean serif/sans pair.
+- **Type** — Occasio's curated `TYPE_SETS` (Editorial, Modernist, Romantic, Humanist, Festival,
+  System) plus Geometric and Grotesk. It writes the two font custom properties inline, which beats
+  both the tenant's set and the skin's, so any pairing can be tried against any event. There is no
+  cursive option; the chalk skins override their generated Caveat back to a clean serif/sans pair.
+- **Buttons** — Arcade (rounded rect), Pill, Square, Outline. Only `--btn-radius` and the primary
+  fill change, so switching shape never moves a layout.
+- **Icons** — Line, Bold (heavier stroke), Glyph (circle/square/triangle primitives), None.
+
+## The component system
+
+The chrome — rail, cards, buttons, fields, icons — follows
+[Chalk Arcade](https://8080-game-mono-chalkarcade.code.prab.ch/), which Sanit picked as the
+reference. What was taken from it:
+
+- A **left icon rail** instead of top tabs, with the active item as a filled pill behind the icon
+  and the label beneath. It becomes a bottom bar under 780px.
+- **No shadows at all.** Depth is a hairline plus a tonal fill, and hover changes the fill rather
+  than lifting the card. This also settles the earlier conflict with Occasio's house style — the
+  reference and `packages/ui` happen to agree.
+- **Generous, consistent radii** (16px controls, 20px+ cards) and **large tap targets** — 62px
+  fields and buttons.
+- **Tight, bold type** with negative tracking on headings, and small uppercase letterspaced
+  eyebrows.
+- Monochrome surfaces with **one accent**, used sparingly — here the event's own brand colour, in
+  the place the reference puts its ochre.
+- A **text-link CTA** (`ALL OF IT →`) for secondary navigation instead of another button.
 
 ## Fidelity — where everything came from
 
@@ -75,16 +96,12 @@ Nothing here is hand-picked. It is generated from Occasio's own source of truth:
 - **Component recipes** — Card is raised tone + hairline + `radius.lg` + `space(4)`; Chip is
   `radius.pill` + caption type; buttons read the `interactive.*` tokens.
 
-### Where it deliberately departs from the house style
+### Motion
 
-`packages/ui/src/primitives/tones.ts` says depth is tonal separation plus a hairline, and no drop
-shadows. This prototype uses soft shadows, glass surfaces, hover lift, a button sheen and entrance
-motion anyway — it is exploring whether the product should feel more modern than that rule allows.
-Every shadow is tinted toward the theme rather than flat black. Treat it as a proposal against the
-house style, not an implementation of it; the rule is still the rule until someone changes it.
-
-Motion is honest about the tenant: the wedding drifts petals, the festival sweeps stage beams, and
-everything collapses under `prefers-reduced-motion`.
+Motion is honest about the tenant: the wedding drifts petals, the festival sweeps stage beams, the
+countdown ticks, and screens rise in on a short stagger. Everything collapses under
+`prefers-reduced-motion`, and each tenant's own motion level still drives the durations — the
+reunion resolves to 0ms.
 
 ### The pictures
 
