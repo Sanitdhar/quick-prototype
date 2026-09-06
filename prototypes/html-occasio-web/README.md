@@ -10,6 +10,18 @@ Open `index.html` in a browser. No install, no build server, no network beyond G
 The attendee site runs full-screen, the way a guest would see it. Everything about *this being a
 prototype* is hidden behind the pill in the bottom-right corner: open it to switch event or skin.
 
+It opens on **Riyanka & Sanit, 22–24 February 2027 at Aura Lawn, Patia, Bhubaneswar** — a real
+event, built from the couple's own save-the-date film: their dates, their venue, their ceremony
+names (Henna & Happiness, Haldi Bliss, Rhythms & Revelry, Forever Begins), their dress codes, and
+their photographs. The other four are Occasio's fixtures.
+
+> **`photos.js` and `index.html` are not committed.** This repo is public and those files carry the
+> couple's own photographs as data URIs, so both are gitignored — you build them locally. A clone
+> without them still works: every event falls back to its drawn scenes.
+>
+> The published artifact does embed the photographs. Artifacts are private until shared, but it is
+> real personal imagery — worth knowing before sending the link on.
+
 Switching event changes the theme, the tab bar, the labels and the content — **and no component
 changes**. That is Occasio's thesis (D2: tenant config is data that drives look *and* behaviour)
 made visible:
@@ -37,6 +49,16 @@ be applied over any event:
 
 Chalk needs a handwritten face, and `TYPE_SETS` has none, so shipping these means adding a type set
 and a preset. Their colour still comes from the resolver, so the shape is already right.
+
+### Type
+
+A **Type** picker sits under Skin, offering Occasio's curated `TYPE_SETS` (Editorial, Modernist,
+Romantic, Humanist, Festival, System) plus Geometric and Handwritten. It writes the two font custom
+properties inline, which beats both the tenant's set and the skin's, so any pairing can be tried
+against any event.
+
+Handwriting is opt-in and is never a default — the chalk skins override the generated Caveat back to
+a clean serif/sans pair.
 
 ## Fidelity — where everything came from
 
@@ -66,8 +88,16 @@ everything collapses under `prefers-reduced-motion`.
 
 ### The pictures
 
-The fixtures ship no image files, so the pictures are drawn: layered inline SVG scenes — a mandap at
-dusk, a mehendi canopy, a stage with a crowd, a lit grove, a lecture hall, a school hall.
+Riyanka & Sanit's screens use their own photographs, cropped from their save-the-date film and
+embedded as data URIs (external images are blocked by the artifact CSP). They are monochrome
+already, which is why the event's theme sets `imagery.treatment: 'mono'` — the skin agrees with the
+photographs rather than fighting them. Their home screen is the film's own triptych on an ivory
+ground with gold confetti, which also shows each photo near its native size instead of stretching a
+video-resolution crop across the viewport.
+
+The four fixture events ship no image files, so their pictures are drawn instead: layered inline SVG
+scenes — a mandap at dusk, a mehendi canopy, a stage with a crowd, a lit grove, a lecture hall, a
+school hall.
 
 Every fill in them is a theme ramp variable rather than a fixed colour, so a scene repaints itself
 for whichever skin is active: the same mandap is rose at dusk on the wedding, near-black with lime
@@ -103,8 +133,13 @@ cp .artifacts/proto-tenants.css ../quick-prototype/prototypes/html-occasio-web/t
 Then rebuild the self-contained page:
 
 ```bash
-node build.mjs        # page.html + tokens.css + skins.css -> index.html
+node build.mjs        # page.html + the generated parts -> index.html
 ```
+
+`photos.js` is rebuilt from the couple's save-the-date film: extract crops (the file's header notes
+the frames and rectangles), then write each as
+`{ name: 'data:image/jpeg;base64,…' }` into `const PHOTOS`. Missing it is fine — the build warns and
+falls back to the drawn scenes.
 
 Edit `page.html`, never `index.html` — the latter is generated.
 

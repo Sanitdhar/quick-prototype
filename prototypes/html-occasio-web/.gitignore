@@ -1,0 +1,5 @@
+# The couple's photographs, and the built page that embeds them as data URIs.
+# Deliberately untracked: this repo is public and these are personal pictures.
+# Regenerate both locally — see README.md ("Regenerating").
+photos.js
+index.html

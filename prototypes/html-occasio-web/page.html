@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;700&family=Nunito:wght@400;600;700&family=Outfit:wght@500;600;700;800&family=Patrick+Hand&family=Sora:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;700&family=Nunito:wght@400;600;700&family=Outfit:wght@500;600;700;800&family=Patrick+Hand&family=Playfair+Display:wght@500;600;700&family=Sora:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
 />
 
 <style>
@@ -11,6 +11,9 @@
      1. TENANT TOKENS — generated from Occasio's real theme resolver.
      ========================================================================== */
   /*__TOKENS__*/
+
+  /* The couple's own event — themed to match their save-the-date film. */
+  /*__RIYANKA__*/
 
   /* ============================================================================
      2. ALTERNATE SKINS — chalk + CRED. Colour still comes from the resolver;
@@ -498,12 +501,30 @@
     --rim: var(--occasio-ramp-brand-9);
   }
 
-  .photo svg {
+  .photo svg,
+  .photo img {
     display: block;
     width: 100%;
     height: 100%;
     position: absolute;
     inset: 0;
+    object-fit: cover;
+  }
+
+  /* The couple's photographs are already monochrome; a skin may re-tone them. */
+  .app[data-skin='cred'] .photo img {
+    filter: grayscale(1) contrast(1.12) brightness(0.92);
+  }
+
+  .app[data-skin='cred'] .photo:has(img)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--occasio-color-brand);
+    mix-blend-mode: color;
+    opacity: 0.24;
+    pointer-events: none;
   }
 
   .photo::after {
@@ -534,6 +555,19 @@
   .app[data-skin^='chalk'] .photo svg {
     filter: grayscale(1) brightness(2.6) contrast(0.45) opacity(0.34);
     mix-blend-mode: screen;
+  }
+
+  /* Real photographs on a board read as pinned prints: desaturated, slightly lifted. */
+  .app[data-skin^='chalk'] .photo img {
+    filter: grayscale(1) contrast(1.06) brightness(1.04);
+    opacity: 0.94;
+  }
+
+  /* The generated chalk blocks ask for a handwritten face. Handwriting is an opt-in
+     choice in the Type picker, not a default — so override it back to a clean pair. */
+  .app[data-skin^='chalk'] {
+    --occasio-font-display: 'Cormorant Garamond', Georgia, serif;
+    --occasio-font-body: 'Inter', system-ui, sans-serif;
   }
 
   .ratio-hero {
@@ -704,6 +738,104 @@
     }
     to {
       transform: rotate(24deg);
+    }
+  }
+
+  /* -- save-the-date hero ---------------------------------------------------
+     A triptych on an ivory ground, the way the couple's own film is set. It also
+     shows each photograph near its native size instead of stretching one across
+     the viewport.                                                              */
+
+  .std {
+    position: relative;
+    padding: 54px 0 44px;
+    background: var(--occasio-color-surface);
+    border-bottom: 1px solid var(--occasio-color-border);
+    overflow: hidden;
+  }
+
+  .std-inner {
+    position: relative;
+    max-width: var(--occasio-max-content-width);
+    margin: 0 auto;
+    padding: 0 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .std-inner p {
+    text-wrap: balance;
+  }
+
+  .std-rule {
+    width: 54px;
+    height: 1px;
+    background: var(--occasio-color-brand);
+    opacity: 0.7;
+  }
+
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    background: var(--occasio-color-bg);
+    border: 1px solid var(--occasio-color-border);
+  }
+
+  .strip .photo {
+    aspect-ratio: 1;
+    border-radius: 0;
+  }
+
+  .confetti {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* The count tiles are built for white-on-photo; on the ivory ground they take
+     the theme's own colours instead. */
+  .std .count {
+    justify-content: center;
+  }
+
+  .std .count-cell {
+    background: var(--occasio-color-bg);
+    border-color: var(--occasio-color-border);
+    color: var(--occasio-color-text);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .std .count-lab {
+    color: var(--occasio-color-textMuted);
+    opacity: 1;
+  }
+
+  .confetti i {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--occasio-color-brand);
+    opacity: 0.5;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.18;
+      transform: scale(0.85);
+    }
+    50% {
+      opacity: 0.72;
+      transform: scale(1.12);
     }
   }
 
@@ -1253,6 +1385,11 @@
     <div id="opt-skins"></div>
   </div>
 
+  <div class="drawer-group">
+    <h3>Type</h3>
+    <div id="opt-fonts"></div>
+  </div>
+
   <p class="drawer-foot">
     Colour, type and spacing come from Occasio's real resolver
     (<code>packages/theme</code>) run over each fixture's own published config. Chalk and CRED are
@@ -1262,6 +1399,8 @@
 </aside>
 
 <script>
+  /*__PHOTOS__*/
+
   const NOW0 = new Date('2026-07-01T09:00:00.000Z').getTime();
   const T0 = Date.now();
   const now = () => NOW0 + (Date.now() - T0);
@@ -1502,12 +1641,88 @@
     },
   };
 
-  const photo = (scene, alt, cls) =>
-    `<div class="photo ${cls || ''}" role="img" aria-label="${esc(alt || '')}">${(SCENES[scene] || SCENES.type)()}</div>`;
+  /* A picture is either a real photograph (the couple's own) or a drawn scene for the
+     fixture events, which ship no image files. Both fill the same frame. */
+  const photo = (ref, alt, cls) => {
+    const inner =
+      ref && PHOTOS[ref]
+        ? `<img src="${PHOTOS[ref]}" alt="${esc(alt || '')}" loading="lazy" />`
+        : (SCENES[ref] || SCENES.type)();
+    return `<div class="photo ${cls || ''}" role="img" aria-label="${esc(alt || '')}">${inner}</div>`;
+  };
 
   /* ----------------------------------------------------------------- data -- */
 
   const TENANTS = {
+    /* The real event, from the couple's own save-the-date film. Everything below —
+       dates, venue, ceremony names, dress codes — is theirs; only the app is mine. */
+    'riyanka-sanit': {
+      name: 'Riyanka & Sanit', kind: 'wedding', preset: 'Editorial', swatch: '#a2804a',
+      treatment: 'mono', mote: 'petal', scheme: 'light',
+      when: '22–24 February 2027', where: 'Aura Lawn, Patia, Bhubaneswar',
+      tz: 'Asia/Kolkata (IST)', startsOn: '2027-02-22T18:00:00+05:30',
+      visibility: 'unlisted', joinCode: 'RS2027',
+      nav: ['schedule', 'gossips', 'media', 'info'],
+      features: { schedule: true, gossips: true, media: true, info: true },
+      defaultView: 'stories', tracks: false,
+      copy: { 'gossips.title': 'Whispers', 'gossips.empty': 'No whispers yet. Be the first.' },
+      hero: { scene: 'couple-b', alt: 'Riyanka and Sanit' },
+      /* The triptych from their own save-the-date. */
+      strip: [
+        { scene: 'couple-a', alt: 'Riyanka and Sanit larking about' },
+        { scene: 'couple-b', alt: 'Riyanka and Sanit' },
+        { scene: 'couple-c', alt: 'Pulling faces' },
+      ],
+      heroEyebrow: 'Save the date · 24 February 2027',
+      heroTitle: 'Riyanka & Sanit',
+      heroSub: "We're getting married. Celebrate our special day with us.",
+      days: [
+        { label: 'Monday 22 February', items: [
+          { time: 'TBC', title: 'Henna & Happiness', venue: 'Aura Lawn', desc: 'Garden Glam — floral outfits and fresh green shades.', scene: 'pose', alt: 'Riyanka on the day out' },
+        ] },
+        { label: 'Tuesday 23 February', items: [
+          { time: '09:00', title: 'Haldi Bliss', venue: 'Aura Lawn', desc: 'Sunshine Squad — yellow and white.', scene: 'couple-c', alt: 'The couple larking about' },
+          { time: '19:00', title: 'Rhythms & Revelry', venue: 'Aura Lawn', desc: 'Bollywood Bling — glitter, metallics and glam.', scene: 'table', alt: 'Candles on the table' },
+        ] },
+        { label: 'Wednesday 24 February', items: [
+          { time: '19:00', title: 'Forever Begins', venue: 'Aura Lawn', desc: 'Royal Radiance — rich ethnic wear in elegant colours. Followed by dinner, drinks and dancing.', scene: 'chairs', alt: 'Chairs set out for the ceremony' },
+        ] },
+      ],
+      announcements: [
+        { pinned: true, title: 'Consider this your unofficial summons', body: 'The fancy invite is on its way — but you had better be there from 22nd February 2027.' },
+        { title: 'The venue is outdoors', body: 'So make sure you dress according to the theme… nahi toh sabki khair nahi!' },
+      ],
+      people: [
+        { name: 'Riyanka', role: 'Bride' },
+        { name: 'Sanit', role: 'Groom' },
+      ],
+      gossips: [
+        { persona: 'Golden Peacock', body: 'Aree yaar, they are actually getting married.', reactions: [['❤️', 24], ['😂', 9]] },
+        { persona: 'Palm Tree Bandit', body: 'Whoever picked an outdoor lawn in February — excellent call.', reactions: [['🔥', 11]] },
+      ],
+      pendingGossip: { persona: 'Golden Peacock', body: 'Does "Bollywood Bling" mean I can finally wear the sequin jacket?' },
+      myTasks: [{ title: 'Book travel to Bhubaneswar', due: 'Before 22 Feb', status: 'todo', priority: 'high' }],
+      crewTasks: [
+        { title: 'Confirm the shuttle from the hotel', who: 'You', status: 'doing' },
+        { title: 'Send the sangeet playlist', who: 'You', status: 'todo', note: 'Bollywood Bling, apparently.' },
+      ],
+      rsvps: [{ session: 'Forever Begins', status: 'going', guests: 2 }],
+      gallery: [
+        { scene: 'couple-b', alt: 'Riyanka and Sanit' },
+        { scene: 'couple-a', alt: 'Larking about on the terrace' },
+        { scene: 'couple-c', alt: 'Pulling faces' },
+        { scene: 'couple-d', alt: 'Out for the day' },
+        { scene: 'rings', alt: 'Their hands, and the rings' },
+        { scene: 'shoes', alt: 'The shoes and the bouquet' },
+        { scene: 'chairs', alt: 'Chairs set out for the ceremony' },
+        { scene: 'venue', alt: 'The lawn, before everyone arrives' },
+        { scene: 'table', alt: 'Candles on the table' },
+        { scene: 'pose', alt: 'A day out' },
+      ],
+      venues: [{ name: 'Aura Lawn', address: 'Patia, Bhubaneswar', notes: 'The venue is outdoors — dress for the lawn, and for February evenings.' }],
+      units: [{ label: 'Ceremony seating', detail: 'Aura Lawn · 7:00 PM', you: 'Two seats held for you.' }],
+    },
+
     'sanit-riyanks': {
       name: 'Sanit & Riya', kind: 'wedding', preset: 'Romantic', swatch: '#b46c8d',
       treatment: 'warm', mote: 'petal', scheme: 'light',
@@ -1713,12 +1928,26 @@
     { id: 'cred', label: 'CRED', sub: 'Near-black, one vivid accent', sw: '#ccff33' },
   ];
 
+  /* Occasio's curated TYPE_SETS (packages/theme/src/typography.ts), plus the handwritten
+     pair the chalk boards suggest — offered, never imposed. */
+  const FONTS = [
+    { id: '', label: "The event's own set", sub: 'From its published config' },
+    { id: 'editorial', label: 'Editorial', sub: 'Playfair Display · Inter', d: "'Playfair Display', Georgia, serif", b: "'Inter', system-ui, sans-serif" },
+    { id: 'modernist', label: 'Modernist', sub: 'Sora · Inter', d: "'Sora', Georgia, serif", b: "'Inter', system-ui, sans-serif" },
+    { id: 'romantic', label: 'Romantic', sub: 'Cormorant Garamond · Nunito', d: "'Cormorant Garamond', Georgia, serif", b: "'Nunito', system-ui, sans-serif" },
+    { id: 'humanist', label: 'Humanist', sub: 'Fraunces · DM Sans', d: "'Fraunces', Georgia, serif", b: "'DM Sans', system-ui, sans-serif" },
+    { id: 'festival', label: 'Festival', sub: 'Anton · Work Sans', d: "'Anton', Georgia, serif", b: "'Work Sans', system-ui, sans-serif" },
+    { id: 'geometric', label: 'Geometric', sub: 'Outfit · Manrope', d: "'Outfit', system-ui, sans-serif", b: "'Manrope', system-ui, sans-serif" },
+    { id: 'handwritten', label: 'Handwritten', sub: 'Caveat · Patrick Hand', d: "'Caveat', cursive", b: "'Patrick Hand', cursive" },
+    { id: 'system', label: 'System', sub: 'Whatever the device has', d: 'system-ui, sans-serif', b: 'system-ui, sans-serif' },
+  ];
+
   const TAB_LABEL = { home: 'Home', schedule: 'Schedule', gossips: 'Gossips', media: 'Gallery', info: 'Info', tasks: 'Tasks' };
 
   const esc = (s) =>
     String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-  const state = { slug: 'sanit-riyanks', skin: '', tab: 'home', view: null };
+  const state = { slug: 'riyanka-sanit', skin: '', font: '', tab: 'home', view: null };
 
   const tabsFor = (t) => ['home', ...t.nav.filter((k) => t.features[k]), 'tasks'];
   const labelFor = (t, k) => (k === 'gossips' ? t.copy['gossips.title'] || 'Gossips' : TAB_LABEL[k]);
@@ -1727,7 +1956,32 @@
 
   /* ---------------------------------------------------------------- screens -- */
 
+  function heroStrip(t) {
+    const dots = Array.from({ length: 26 }, (_, i) => {
+      const x = (i * 37 + 11) % 100;
+      const y = (i * 53 + 7) % 100;
+      const s = 3 + ((i * 7) % 5);
+      return `<i style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;animation-delay:${-(i * 0.31).toFixed(2)}s"></i>`;
+    }).join('');
+    return `<header class="std">
+      <div class="confetti">${dots}</div>
+      <div class="std-inner">
+        <span class="t-overline muted">${esc(t.heroEyebrow)}</span>
+        <h1 class="t-display1">${esc(t.heroTitle)}</h1>
+        <span class="std-rule"></span>
+        <p class="t-body muted" style="max-width:42ch">${esc(t.heroSub)}</p>
+        <div class="strip">${t.strip.map((s) => photo(s.scene, s.alt)).join('')}</div>
+        <div class="count" id="count"></div>
+        <div class="row" style="justify-content:center;margin-top:6px">
+          <button class="btn btn-primary" type="button">RSVP</button>
+          <button class="btn btn-secondary" type="button" data-goto="schedule">See the schedule</button>
+        </div>
+      </div>
+    </header>`;
+  }
+
   function heroBlock(t) {
+    if (t.strip) return heroStrip(t);
     const motes =
       t.mote === 'petal'
         ? `<div class="motes">${Array.from({ length: 14 }, (_, i) => {
@@ -1764,7 +2018,7 @@
         <div class="section-head"><h2 class="t-title1">Happening next</h2>
           <button class="btn btn-secondary btn-sm" type="button" data-goto="schedule">All of it</button></div>
         <div class="card card-hover" style="flex-direction:row;gap:16px;align-items:center">
-          <div class="photo ratio-sq" style="width:104px;flex:none">${(SCENES[next.scene] || SCENES.type)()}</div>
+          <div style="width:104px;flex:none">${photo(next.scene, next.alt || next.title, 'ratio-sq')}</div>
           <div class="stack" style="gap:5px">
             <span class="t-overline muted">${esc(t.days[0].label)}</span>
             <span class="t-title2">${esc(next.title)}</span>
@@ -1979,6 +2233,17 @@
     if (state.skin) app.dataset.skin = state.skin;
     else delete app.dataset.skin;
 
+    /* An inline custom property beats every attribute rule, so the Type choice wins
+       over both the tenant's own set and the skin's. */
+    const font = FONTS.find((f) => f.id === state.font);
+    if (font && font.d) {
+      app.style.setProperty('--occasio-font-display', font.d);
+      app.style.setProperty('--occasio-font-body', font.b);
+    } else {
+      app.style.removeProperty('--occasio-font-display');
+      app.style.removeProperty('--occasio-font-body');
+    }
+
     document.getElementById('brandmark').textContent = t.name;
     const tabs = tabsFor(t);
     if (!tabs.includes(state.tab)) state.tab = 'home';
@@ -2003,6 +2268,7 @@
 
     document.querySelectorAll('#opt-events .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.slug === state.slug)));
     document.querySelectorAll('#opt-skins .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.skin || '') === state.skin)));
+    document.querySelectorAll('#opt-fonts .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.font || '') === state.font)));
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
@@ -2038,10 +2304,22 @@
     render();
   });
 
+  document.getElementById('opt-fonts').innerHTML = FONTS.map((f) => `
+    <button class="opt" type="button" data-font="${f.id}" aria-pressed="false">
+      <span class="opt-sw" style="display:grid;place-items:center;font-size:15px;background:#1f242c;${f.d ? `font-family:${f.d}` : ''}">Aa</span>
+      <span>${esc(f.label)}<small>${esc(f.sub)}</small></span></button>`).join('');
+
   document.getElementById('opt-skins').addEventListener('click', (e) => {
     const b = e.target.closest('.opt');
     if (!b) return;
     state.skin = b.dataset.skin || '';
+    render();
+  });
+
+  document.getElementById('opt-fonts').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.font = b.dataset.font || '';
     render();
   });
 
