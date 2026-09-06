@@ -355,7 +355,7 @@
   .railbtn .ic-wrap {
     width: 58px;
     height: 44px;
-    border-radius: 16px;
+    border-radius: var(--btn-radius);
     display: grid;
     place-items: center;
     transition: background var(--occasio-motion-fast) ease, color var(--occasio-motion-fast) ease;
@@ -386,6 +386,7 @@
     flex: 1;
     min-width: 0;
     max-width: calc(var(--occasio-max-content-width) + 120px);
+    margin: 0 auto;
   }
 
   .topbar {
@@ -409,7 +410,7 @@
     cursor: pointer;
     width: 42px;
     height: 42px;
-    border-radius: 14px;
+    border-radius: var(--btn-radius);
     display: grid;
     place-items: center;
     color: inherit;
@@ -589,7 +590,7 @@
   .photo {
     position: relative;
     overflow: hidden;
-    border-radius: var(--occasio-image-radius);
+    border-radius: var(--img-radius);
     background: var(--occasio-ramp-brand-4);
     --s1: var(--occasio-ramp-brand-2);
     --s2: var(--occasio-ramp-brand-4);
@@ -767,7 +768,7 @@
   .count-cell {
     min-width: 62px;
     padding: 9px 12px;
-    border-radius: 14px;
+    border-radius: var(--btn-radius);
     background: rgba(255, 255, 255, 0.13);
     border: 1px solid rgba(255, 255, 255, 0.22);
     backdrop-filter: blur(10px);
@@ -954,13 +955,109 @@
 
   /* -- surfaces & depth ----------------------------------------------------- */
 
-  /* One card recipe: a tonal fill inside a hairline, generously rounded. Hover
-     changes the fill, not the elevation — nothing lifts off the page. */
+  /* ============================================================================
+     COMPONENT TOKENS — the layer a Template swaps.
+
+     Theme tokens say what colour the event is. These say what the components are
+     made of: how a surface is bounded, how round anything is, how much air it
+     gets. Every component below reads only from here, so changing template
+     changes the whole body, not just the buttons.
+     ========================================================================== */
+  .app {
+    --c-bg: var(--occasio-color-surface);
+    --c-bg-hover: var(--occasio-color-surfaceRaised);
+    --c-border-w: 1px;
+    --c-border-c: var(--occasio-color-border);
+    --c-radius: calc(var(--occasio-radius-lg) + 4px);
+    --c-pad: 22px;
+    --c-shadow: none;
+    --chip-radius: 999px;
+    --chip-bg: var(--occasio-color-surfaceRaised);
+    --chip-border-w: 1px;
+    --btn-radius: 16px;
+    --field-radius: 16px;
+    --img-radius: var(--occasio-image-radius);
+    --sec-gap: 34px;
+    --head-transform: none;
+    --head-spacing: -0.02em;
+    --head-align: left;
+  }
+
+  /* Editorial — the invitation: no boxes at all, just rules and air. */
+  .app[data-template='editorial'] {
+    --c-bg: transparent;
+    --c-bg-hover: transparent;
+    --c-border-w: 0px;
+    --c-radius: 0px;
+    --c-pad: 0px;
+    --chip-radius: 0px;
+    --chip-bg: transparent;
+    --btn-radius: 0px;
+    --field-radius: 0px;
+    --img-radius: 0px;
+    --sec-gap: 54px;
+    --head-transform: uppercase;
+    --head-spacing: 0.14em;
+    --head-align: center;
+  }
+
+  /* Soft — tonal fills, no borders, gentle depth. */
+  .app[data-template='soft'] {
+    --c-bg: var(--occasio-color-surfaceRaised);
+    --c-bg-hover: var(--occasio-color-brandSubtle);
+    --c-border-w: 0px;
+    --c-radius: 20px;
+    --c-pad: 24px;
+    --c-shadow: 0 1px 2px color-mix(in srgb, var(--occasio-ramp-neutral-12) 7%, transparent),
+      0 10px 24px -16px color-mix(in srgb, var(--occasio-ramp-neutral-12) 30%, transparent);
+    --chip-bg: var(--occasio-color-brandSubtle);
+    --chip-border-w: 0px;
+    --btn-radius: 14px;
+    --field-radius: 14px;
+  }
+
+  /* Brutal — heavy rules, hard offsets, nothing rounded. */
+  .app[data-template='brutal'] {
+    --c-bg: var(--occasio-color-bg);
+    --c-bg-hover: var(--occasio-color-brandSubtle);
+    --c-border-w: 2px;
+    --c-border-c: var(--occasio-color-text);
+    --c-radius: 0px;
+    --c-pad: 20px;
+    --c-shadow: 5px 5px 0 var(--occasio-color-text);
+    --chip-radius: 0px;
+    --chip-bg: transparent;
+    --chip-border-w: 2px;
+    --btn-radius: 0px;
+    --field-radius: 0px;
+    --img-radius: 0px;
+    --head-transform: uppercase;
+    --head-spacing: -0.01em;
+  }
+
+  /* Console — near-black panels, big radii, one vivid accent. */
+  .app[data-template='console'] {
+    --c-bg: var(--occasio-color-surfaceRaised);
+    --c-bg-hover: var(--occasio-color-surface);
+    --c-border-w: 1px;
+    --c-radius: 24px;
+    --c-pad: 26px;
+    --chip-radius: 10px;
+    --btn-radius: 999px;
+    --field-radius: 999px;
+    --img-radius: 24px;
+    --sec-gap: 40px;
+    --head-transform: uppercase;
+    --head-spacing: -0.03em;
+  }
+
+  /* One card recipe, built entirely from component tokens. */
   .card {
-    background: var(--occasio-color-surface);
-    border: 1px solid var(--occasio-color-border);
-    border-radius: calc(var(--occasio-radius-lg) + 4px);
-    padding: 22px;
+    background: var(--c-bg);
+    border: var(--c-border-w) solid var(--c-border-c);
+    border-radius: var(--c-radius);
+    padding: var(--c-pad);
+    box-shadow: var(--c-shadow);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -968,9 +1065,15 @@
       border-color var(--occasio-motion-fast) ease;
   }
 
+  /* With no border and no padding there is nothing to see a card by, so the
+     borderless templates separate items with a rule instead. */
+  .app[data-template='editorial'] .card {
+    border-top: 1px solid var(--occasio-color-divider);
+    padding: 20px 0 4px;
+  }
+
   .card-hover:hover {
-    background: var(--occasio-color-surfaceRaised);
-    border-color: var(--occasio-color-borderStrong);
+    background: var(--c-bg-hover);
   }
 
   .glasscard {
@@ -992,9 +1095,9 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-radius: 999px;
-    border: 1px solid var(--occasio-color-border);
-    background: var(--occasio-color-surfaceRaised);
+    border-radius: var(--chip-radius);
+    border: var(--chip-border-w) solid var(--occasio-color-border);
+    background: var(--chip-bg);
     color: var(--occasio-color-text);
     padding: 5px 12px;
     font-size: var(--occasio-type-caption-size);
@@ -1060,6 +1163,10 @@
      shapes disagree about; everything else stays constant so swapping shape never
      moves a layout. */
   .app {
+    --btn-radius: 16px;
+  }
+
+  .app[data-buttons='arcade'] {
     --btn-radius: 16px;
   }
 
@@ -1186,8 +1293,8 @@
     gap: 12px;
     padding: 0 20px;
     height: 62px;
-    border-radius: 16px;
-    background: var(--occasio-color-surface);
+    border-radius: var(--field-radius);
+    background: var(--c-bg);
     border: 1px solid var(--occasio-color-border);
     color: var(--occasio-color-textFaint);
     font-size: var(--occasio-type-body-size);
@@ -1206,7 +1313,7 @@
     padding: 34px 0 90px;
     display: flex;
     flex-direction: column;
-    gap: 34px;
+    gap: var(--sec-gap);
   }
 
   .screen > * {
@@ -1249,6 +1356,14 @@
     gap: 14px;
   }
 
+  .section h2,
+  .section h3,
+  .section-head h2,
+  .section-head h3 {
+    text-transform: var(--head-transform);
+    letter-spacing: var(--head-spacing);
+  }
+
   .section-head {
     display: flex;
     align-items: baseline;
@@ -1267,7 +1382,7 @@
 
   .viewtoggle {
     display: inline-flex;
-    border-radius: 999px;
+    border-radius: var(--chip-radius);
     padding: 4px;
     gap: 3px;
     background: var(--occasio-color-surfaceRaised);
@@ -1301,7 +1416,7 @@
 
   .story {
     position: relative;
-    border-radius: var(--occasio-image-radius);
+    border-radius: var(--img-radius);
     overflow: hidden;
     min-height: 300px;
     display: flex;
@@ -1360,6 +1475,20 @@
   .list-time {
     font-variant-numeric: tabular-nums;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .list-time .ic {
+    width: 16px;
+    height: 16px;
+    color: var(--occasio-color-textFaint);
+  }
+
+  .chip .ic {
+    width: 14px;
+    height: 14px;
   }
 
   .day-head {
@@ -1386,7 +1515,7 @@
   .avatar {
     width: 38px;
     height: 38px;
-    border-radius: 999px;
+    border-radius: var(--chip-radius);
     flex: none;
     display: grid;
     place-items: center;
@@ -1405,6 +1534,32 @@
     display: flex;
     align-items: center;
     gap: 11px;
+  }
+
+  .avatar-lg {
+    width: 84px;
+    height: 84px;
+    font-size: 24px;
+  }
+
+  .circles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+  }
+
+  /* "Circles" means circles, whatever the template does to every other corner. */
+  .circle .avatar {
+    border-radius: 999px;
+  }
+
+  .circle {
+    margin: 0;
+    width: 108px;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    text-align: center;
   }
 
   .react {
@@ -1551,6 +1706,11 @@
   </div>
 
   <div class="drawer-group">
+    <h3>Template</h3>
+    <div id="opt-templates"></div>
+  </div>
+
+  <div class="drawer-group">
     <h3>Skin</h3>
     <div id="opt-skins"></div>
   </div>
@@ -1568,6 +1728,11 @@
   <div class="drawer-group">
     <h3>Icons</h3>
     <div id="opt-icons"></div>
+  </div>
+
+  <div class="drawer-group">
+    <h3>Hosts</h3>
+    <div id="opt-hosts"></div>
   </div>
 
   <p class="drawer-foot">
@@ -2169,7 +2334,24 @@
     { id: 'system', label: 'System', sub: 'Whatever the device has', d: 'system-ui, sans-serif', b: 'system-ui, sans-serif' },
   ];
 
+  /* A template is the component layer: how a surface is bounded, how round things
+     are, how much air they get. The skin stays in charge of colour. */
+  const TEMPLATES = [
+    { id: 'arcade', label: 'Arcade', sub: 'Hairline cards, generous radii' },
+    { id: 'editorial', label: 'Editorial', sub: 'No boxes — rules, air, centred caps' },
+    { id: 'soft', label: 'Soft', sub: 'Tonal fills, no borders, gentle depth' },
+    { id: 'brutal', label: 'Brutal', sub: 'Heavy rules, hard offsets, sharp' },
+    { id: 'console', label: 'Console', sub: 'Big radii, pill controls' },
+  ];
+
+  const HOSTS = [
+    { id: 'card', label: 'Cards', sub: 'One card each, with the bio' },
+    { id: 'list', label: 'List', sub: 'Compact rows' },
+    { id: 'circles', label: 'Circles', sub: 'Avatars only' },
+  ];
+
   const BUTTONS = [
+    { id: '', label: 'From the template', sub: 'Whatever the template says' },
     { id: 'arcade', label: 'Arcade', sub: 'Rounded rect, solid fill' },
     { id: 'pill', label: 'Pill', sub: 'Fully rounded' },
     { id: 'square', label: 'Square', sub: 'Near-sharp corners' },
@@ -2192,8 +2374,10 @@
     slug: 'riyanka-sanit',
     skin: '',
     font: '',
-    buttons: 'arcade',
+    template: 'arcade',
+    buttons: '',
     icons: 'line',
+    hosts: 'card',
     tab: 'home',
     view: null,
   };
@@ -2260,6 +2444,51 @@
     </header>`;
   }
 
+  /** Hosts, in whichever of the three shapes is selected. */
+  function hostsBlock(t) {
+    if (state.hosts === 'circles') {
+      return `<div class="circles">${t.people
+        .map(
+          (p) => `<figure class="circle">
+            <span class="avatar avatar-lg">${esc(initials(p.name))}</span>
+            <figcaption>
+              <span class="t-caption" style="display:block;font-weight:600">${esc(p.name)}</span>
+              <span class="t-caption faint">${esc(p.role)}</span>
+            </figcaption>
+          </figure>`,
+        )
+        .join('')}</div>`;
+    }
+
+    if (state.hosts === 'list') {
+      return `<div class="card" style="gap:0">${t.people
+        .map(
+          (p, i) => `${i ? '<hr class="divider" />' : ''}
+          <div class="post-head" style="padding:13px 0">
+            <span class="avatar">${esc(initials(p.name))}</span>
+            <span style="min-width:0">
+              <span class="t-bodyStrong" style="display:block">${esc(p.name)}</span>
+              <span class="t-caption muted">${esc(p.role)}</span>
+            </span>
+          </div>`,
+        )
+        .join('')}</div>`;
+    }
+
+    return `<div class="stack">${t.people
+      .map(
+        (p) => `<div class="card card-hover">
+          <div class="post-head">
+            <span class="avatar">${esc(initials(p.name))}</span>
+            <span><span class="t-bodyStrong" style="display:block">${esc(p.name)}</span>
+            <span class="t-caption muted">${esc(p.role)}</span></span>
+          </div>
+          ${p.bio ? `<p class="t-body muted">${esc(p.bio)}</p>` : ''}
+        </div>`,
+      )
+      .join('')}</div>`;
+  }
+
   function screenHome(t) {
     const next = t.days[0].items.find((i) => !i.cancelled) || t.days[0].items[0];
     return `
@@ -2303,15 +2532,7 @@
 
       <section class="section">
         <h2 class="t-title1">${t.kind === 'conference' ? 'Speakers' : t.kind === 'festival' ? 'Line-up' : 'Your hosts'}</h2>
-        <div class="stack">${t.people.map((p) => `
-          <div class="card card-hover">
-            <div class="post-head">
-              <span class="avatar">${esc(initials(p.name))}</span>
-              <span><span class="t-bodyStrong" style="display:block">${esc(p.name)}</span>
-              <span class="t-caption muted">${esc(p.role)}</span></span>
-            </div>
-            ${p.bio ? `<p class="t-body muted">${esc(p.bio)}</p>` : ''}
-          </div>`).join('')}</div>
+        ${hostsBlock(t)}
       </section>
 
       ${t.gallery.length ? `<section class="section">
@@ -2328,11 +2549,11 @@
         <div class="day-head"><h3 class="t-title1">${esc(d.label)}</h3></div>
         <div>${d.items.map((i) => `
           <div class="list-row ${i.cancelled ? 'cancelled' : ''}">
-            <div class="list-time t-bodyStrong">${esc(i.time)}${i.end ? `<span class="t-caption faint" style="display:block;font-weight:400">–${esc(i.end)}</span>` : ''}</div>
+            <div class="list-time t-bodyStrong">${icon('clock')}${esc(i.time)}${i.end ? `<span class="t-caption faint" style="display:block;font-weight:400">–${esc(i.end)}</span>` : ''}</div>
             <div class="stack" style="gap:7px">
               <span class="t-title2 list-title">${esc(i.title)}</span>
               <div class="row">
-                ${i.venue ? chip(i.venue) : ''}
+                ${i.venue ? `<span class="chip">${icon('pin')}${esc(i.venue)}</span>` : ''}
                 ${t.tracks && i.track ? chip(i.track, 'brand') : ''}
                 ${i.cancelled ? chip('Cancelled', 'danger') : ''}
                 ${i.clash ? chip('Clashes with the headliner', 'warning') : ''}
@@ -2498,7 +2719,9 @@
       app.style.removeProperty('--occasio-font-body');
     }
 
-    app.dataset.buttons = state.buttons;
+    app.dataset.template = state.template;
+    if (state.buttons) app.dataset.buttons = state.buttons;
+    else delete app.dataset.buttons;
     app.dataset.icons = state.icons;
 
     document.getElementById('brandmark').textContent = t.name;
@@ -2537,6 +2760,8 @@
     document.querySelectorAll('#opt-fonts .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.font || '') === state.font)));
     document.querySelectorAll('#opt-buttons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.buttons === state.buttons)));
     document.querySelectorAll('#opt-icons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.icons === state.icons)));
+    document.querySelectorAll('#opt-templates .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.template === state.template)));
+    document.querySelectorAll('#opt-hosts .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hosts === state.hosts)));
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
@@ -2605,6 +2830,36 @@
         </svg>
       </span>
       <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-templates').innerHTML = TEMPLATES.map((o) => `
+    <button class="opt" type="button" data-template="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#e9edf3;border-radius:${
+        o.id === 'brutal' || o.id === 'editorial' ? '2px' : o.id === 'console' ? '12px' : '7px'
+      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}"></span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-hosts').innerHTML = HOSTS.map((o) => `
+    <button class="opt" type="button" data-hosts="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#1f242c;display:grid;place-items:center;color:#e9edf3">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          ${o.id === 'circles' ? '<circle cx="8" cy="12" r="3.4"/><circle cx="16" cy="12" r="3.4"/>' : o.id === 'list' ? '<path d="M4 8h16M4 12h16M4 16h10"/>' : '<rect x="4" y="5" width="16" height="6" rx="1.6"/><rect x="4" y="14" width="16" height="6" rx="1.6"/>'}
+        </svg>
+      </span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-templates').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.template = b.dataset.template;
+    render();
+  });
+
+  document.getElementById('opt-hosts').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.hosts = b.dataset.hosts;
+    render();
+  });
 
   document.getElementById('opt-buttons').addEventListener('click', (e) => {
     const b = e.target.closest('.opt');

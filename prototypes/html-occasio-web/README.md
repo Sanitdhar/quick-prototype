@@ -50,17 +50,40 @@ be applied over any event:
 Chalk needs a handwritten face, and `TYPE_SETS` has none, so shipping these means adding a type set
 and a preset. Their colour still comes from the resolver, so the shape is already right.
 
-### Type, Buttons, Icons
+### Template
 
-Three more pickers sit under Skin, so the component layer is a choice rather than a fixed opinion:
+The design system itself is a choice. **Template** sets the component layer — how a surface is
+bounded, how round anything is, how much air it gets — while the skin stays in charge of colour:
+
+| Template | What it is |
+| --- | --- |
+| Arcade | Hairline cards, generous radii, big targets (the Chalk Arcade reading) |
+| Editorial | No boxes at all — rules, air, centred letterspaced caps |
+| Soft | Tonal fills, no borders, gentle depth |
+| Brutal | 2px rules, hard offset shadows, nothing rounded |
+| Console | Big radii, pill controls, near-black panels |
+
+This works because the components read from a **component-token layer**
+(`--c-bg`, `--c-border-w`, `--c-radius`, `--c-pad`, `--chip-radius`, `--btn-radius`, `--sec-gap`,
+`--head-transform`, …) that sits between the theme tokens and the CSS. A template redefines those
+tokens, so changing it changes cards, chips, fields, avatars, images, section headings and spacing
+throughout the body — not just the buttons.
+
+### Type, Buttons, Icons, Hosts
+
+Four more pickers, each overriding the template where you want something specific:
 
 - **Type** — Occasio's curated `TYPE_SETS` (Editorial, Modernist, Romantic, Humanist, Festival,
   System) plus Geometric and Grotesk. It writes the two font custom properties inline, which beats
   both the tenant's set and the skin's, so any pairing can be tried against any event. There is no
   cursive option; the chalk skins override their generated Caveat back to a clean serif/sans pair.
-- **Buttons** — Arcade (rounded rect), Pill, Square, Outline. Only `--btn-radius` and the primary
-  fill change, so switching shape never moves a layout.
-- **Icons** — Line, Bold (heavier stroke), Glyph (circle/square/triangle primitives), None.
+- **Buttons** — defaults to the template, or force Arcade / Pill / Square / Outline. Only
+  `--btn-radius` and the primary fill change, so switching shape never moves a layout.
+- **Icons** — Line, Bold (heavier stroke), Glyph (circle/square/triangle primitives), None. Icons
+  appear in the rail, the top bar, primary actions, schedule times and venue chips, so the setting
+  is visible in the body rather than only in the chrome.
+- **Hosts** — Cards (one card each, with the bio), List (compact rows), Circles (avatars only).
+  Circles stay round whatever the template does to every other corner.
 
 ## The component system
 
