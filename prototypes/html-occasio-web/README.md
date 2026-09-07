@@ -9,6 +9,9 @@ Open `index.html` in a browser. No install, no build server, no network beyond G
 
 The attendee site runs full-screen, the way a guest would see it. Everything about *this being a
 prototype* is hidden behind the pill in the bottom-right corner: open it to switch event or skin.
+The pill is also drag-and-droppable — press and drag it anywhere on screen; a plain tap still opens
+the drawer. On phone widths it now sits above the tab bar by default rather than on top of it, after
+it turned out to be parked directly over the Info tab's icon, hiding it.
 
 It opens on **Riyanka & Sanit, 22–24 February 2027 at Aura Lawn, Patia, Bhubaneswar** — a real
 event, built from the couple's own save-the-date film: their dates, their venue, their ceremony
@@ -32,6 +35,13 @@ made visible:
 | Anandhara                   | Festival   | dark   | Schedule, Gallery, **The Wall**, Info      |
 | DevCon 25                   | Conference | light  | Schedule, Info, **Backchannel** (no Gallery — `media` disabled) |
 | Maple Grove, Class of 1999  | Minimal    | light  | Schedule, Info only (`gossips`, `media` off) |
+
+Anandhara reads as a diya-lighting mela rather than a generic festival night: the hero art is a row
+of lit diyas under a marigold-light garland (drawn in the tenant's own real theme colours, with its
+real `warning` token for the flames — not an invented palette), the drifting hero particles are
+rising embers rather than sweeping stage beams, and the schedule runs a rangoli workshop, a Grove
+set, a diya lighting & aarti at a new "Diya Court" venue, a headline act and a dhol ensemble. Same
+real tenant colours and time slots underneath — a different night told through them.
 
 Screens: Home, Schedule (story cards ↔ list), Gossips, Gallery, Info, Tasks. Any gallery or schedule
 photo opens a lightbox with previous/next; the topbar's search, bell and profile icons are real
@@ -70,6 +80,7 @@ bounded, how round anything is, how much air it gets — while the skin stays in
 | NeoPOP | [CRED-CLUB/neopop-web](https://github.com/CRED-CLUB/neopop-web)'s actual design system, not just its colours (that's the CRED skin): a hard-edged, solid offset duplicate of every control's shape sits behind it — drawn with `box-shadow`, not blur — and collapses flat on `:active` to read as a physical press. Chunkier than Brutal (moderate radii, not sharp) and livelier (an animated press where Brutal is static). |
 | Atlassian | The Atlassian Design System reading: dense, an 8px-grid feel, `3px` radii (an actual ADS constant, not a rounded-off number), and one real but genuinely quiet elevation shadow. Every other template here has an opinion about being distinctive — this one has an opinion about staying out of the way. The enterprise-software antidote to the rest of the list. |
 | Apple | Human Interface Guidelines: San Francisco's generous whitespace, `20px` continuous "squircle" corners, pill buttons, and depth from a soft diffuse shadow plus light vibrancy rather than a hairline. The gentlest template here — nothing in it has a hard edge. |
+| Chalk UI | The neutral Webflow starter kit at [chalk-ui-cf.webflow.io](https://chalk-ui-cf.webflow.io/system/style-guide): flat panels with no border, one consistent `8px` radius for every shape on the page (buttons, fields, images, cards alike) and no shadow anywhere — all measured off its own live style guide (rendered and inspected directly, not guessed) rather than its undisclosed hex values. A plain, dense, wireframe-kit register between Atlassian's `3px` and Apple's `20px`. |
 
 This works because the components read from a **component-token layer**
 (`--c-bg`, `--c-border-w`, `--c-radius`, `--c-pad`, `--chip-radius`, `--btn-radius`, `--sec-gap`,
@@ -116,7 +127,13 @@ Four more pickers, each overriding the template where you want something specifi
 
 Alternate skins (Chalk, CRED) now also define their own `success`/`warning`/`danger`/`info` roles
 rather than leaving them tied to whichever tenant theme sat underneath — a "waiting for approval"
-chip was staying in the wedding's amber even under CRED's near-black, which read as unstyled.
+chip was staying in the wedding's amber even under CRED's near-black, which read as unstyled. Tasks'
+priority and status chips read those same tone classes, so the fix already reached them too.
+
+The Schedule Stories/List toggle read the raw brand colour and a hardcoded `999px` pill radius
+directly, bypassing the component-token layer every other control goes through — so it never moved
+with Template and only followed Skin's brand colour, never Button colour. Rewired to
+`--btn-fill`/`--btn-label`/`--btn-radius`, the same tokens real Buttons read.
 
 ### Check-in
 
@@ -221,8 +238,8 @@ ground with gold confetti, which also shows each photo near its native size inst
 video-resolution crop across the viewport.
 
 The four fixture events ship no image files, so their pictures are drawn instead: layered inline SVG
-scenes — a mandap at dusk, a mehendi canopy, a stage with a crowd, a lit grove, a lecture hall, a
-school hall.
+scenes — a mandap at dusk, a mehendi canopy, a stage with a crowd, a lit grove, a row of diyas under
+a marigold-light garland, a lecture hall, a school hall.
 
 Every fill in them is a theme ramp variable rather than a fixed colour, so a scene repaints itself
 for whichever skin is active: the same mandap is rose at dusk on the wedding, near-black with lime
@@ -235,7 +252,8 @@ They are stylised, not photographic — swap in real photography and the layout 
 
 - The wedding's `draft` "Farewell brunch" and DevCon's unpublished "Day two changes" never render —
   attendees only see published rows.
-- The festival's `cancelled` "Sunset yoga" renders struck through, because cancelled is not deleted.
+- The festival's `cancelled` "Rangoli workshop" renders struck through, because cancelled is not
+  deleted.
 - Gossips show approved posts plus *your own* pending one, marked "waiting for a host to approve" —
   the moderation guarantee, and the silent-block behaviour from ADR-0006.
 - Sessions with no hero image fall back to the neutral ramp rather than a grey rectangle.

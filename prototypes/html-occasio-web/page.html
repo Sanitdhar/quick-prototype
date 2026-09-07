@@ -189,9 +189,15 @@
     -webkit-backdrop-filter: blur(16px);
     color: #f2f4f7;
     font: 600 13px/1 'Inter', system-ui, sans-serif;
-    cursor: pointer;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
     box-shadow: 0 10px 34px rgba(0, 0, 0, 0.46);
     transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .dock:active {
+    cursor: grabbing;
   }
 
   .dock:hover {
@@ -533,6 +539,14 @@
     .wrap {
       padding-left: 18px;
       padding-right: 18px;
+    }
+
+    /* The rail becomes a bottom bar at this width — sitting the dock at its usual
+       bottom:18px would land it squarely on top of the second-to-last tab. Float it
+       above the bar instead, matching the rail's own measured height + a gap. Once
+       dragged, inline left/top from the drag handler take over from this default. */
+    .dock {
+      bottom: calc(92px + 14px + env(safe-area-inset-bottom, 0px));
     }
   }
 
@@ -897,6 +911,34 @@
     }
   }
 
+  /* Diya festival: rising embers, warm sparks drifting up rather than falling —
+     the same .mote span, a different keyframe and anchor edge. */
+  .mote.ember {
+    top: auto;
+    bottom: -6%;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 10px 2px currentColor;
+    animation-name: rise;
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translate3d(0, 6vh, 0) scale(0.5);
+      opacity: 0;
+    }
+    16% {
+      opacity: 0.9;
+    }
+    78% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate3d(var(--dx, 20px), -104vh, 0) scale(1.1);
+      opacity: 0;
+    }
+  }
+
   /* -- save-the-date hero ---------------------------------------------------
      A triptych on an ivory ground, the way the couple's own film is set. It also
      shows each photograph near its native size instead of stretching one across
@@ -1228,6 +1270,30 @@
   .app[data-template='apple'] .card {
     backdrop-filter: blur(10px) saturate(1.4);
     -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  }
+
+  /* Chalk UI — the neutral Webflow starter kit (chalk-ui-cf.webflow.io): flat
+     panels with no border, one consistent 8px radius for every shape on the
+     page (buttons, fields, images, cards alike) and no shadow anywhere, all
+     measured off its own live style guide rather than guessed. Where the last
+     nine templates each reach for a signature move, this one's move is having
+     none — a plain, dense, wireframe-kit register between Atlassian's 3px and
+     Apple's 20px. */
+  .app[data-template='chalkui'] {
+    --c-bg: var(--occasio-color-surfaceRaised);
+    --c-bg-hover: var(--occasio-color-surface);
+    --c-border-w: 0px;
+    --c-radius: 8px;
+    --c-pad: 22px;
+    --c-shadow: none;
+    --chip-radius: 4px;
+    --chip-border-w: 0px;
+    --btn-radius: 8px;
+    --field-radius: 8px;
+    --img-radius: 8px;
+    --sec-gap: 32px;
+    --head-transform: none;
+    --head-spacing: normal;
   }
 
   /* One card recipe, built entirely from component tokens. */
@@ -1843,7 +1909,7 @@
     border: 0;
     cursor: pointer;
     padding: 7px 16px;
-    border-radius: 999px;
+    border-radius: var(--btn-radius);
     font-family: var(--occasio-font-body);
     font-size: var(--occasio-type-caption-size);
     font-weight: 600;
@@ -1851,9 +1917,12 @@
     transition: background 180ms ease, color 180ms ease;
   }
 
+  /* Indirected through --btn-fill/--btn-label, the same tokens real Buttons use,
+     so this segmented control moves with Button colour and Template exactly like
+     any other primary control instead of being pinned to the raw brand token. */
   .viewtoggle button[aria-pressed='true'] {
-    background: var(--occasio-color-brand);
-    color: var(--occasio-color-onBrand);
+    background: var(--btn-fill);
+    color: var(--btn-label);
   }
 
   .stories {
@@ -2898,6 +2967,43 @@
         </g>
       </svg>`;
     },
+    diya: () => {
+      const u = ++uid;
+      const flames = Array.from({ length: 11 }, (_, i) => {
+        const x = 40 + i * 72;
+        const y = 480 - (i % 2 === 0 ? 0 : 14);
+        return `<ellipse cx="${x}" cy="${y + 18}" rx="30" ry="30" fill="url(#dyf${u})"/>
+          <path d="M${x - 26} ${y + 14} Q${x} ${y + 30} ${x + 26} ${y + 14} Q${x + 22} ${y + 2} ${x} ${y + 4} Q${x - 22} ${y + 2} ${x - 26} ${y + 14}Z" fill="var(--ink)"/>
+          <ellipse cx="${x}" cy="${y - 6}" rx="5" ry="10" fill="var(--occasio-color-warning)"><animate attributeName="opacity" values="${(0.6 + (i % 3) * 0.1).toFixed(1)};1;${(0.6 + (i % 3) * 0.1).toFixed(1)}" dur="${(1.6 + (i % 4) * 0.3).toFixed(1)}s" repeatCount="indefinite"/></ellipse>`;
+      }).join('');
+      const garlandDots = Array.from({ length: 14 }, (_, i) => {
+        const x = 20 + i * 58;
+        const y = 64 + Math.sin(i * 0.9) * 38;
+        return `<circle cx="${x}" cy="${y}" r="6"/>`;
+      }).join('');
+      /* A row of lit diyas along the base, a marigold-string garland overhead — the
+         tenant's own dusk gradient and ink silhouette, its --occasio-color-warning
+         for the flames, so the warmth comes from a real theme token, not an invented one. */
+      return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="dy${u}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--s6)"/><stop offset="55%" stop-color="var(--s4)"/>
+            <stop offset="100%" stop-color="var(--s2)"/>
+          </linearGradient>
+          <radialGradient id="dyf${u}" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="var(--occasio-color-warning)" stop-opacity=".95"/>
+            <stop offset="100%" stop-color="var(--occasio-color-warning)" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="800" height="560" fill="url(#dy${u})"/>
+        <g stroke="var(--rim)" stroke-width="2.4" fill="none" opacity=".55">
+          <path d="M-20 60 Q140 130 300 62"/><path d="M300 62 Q460 132 620 58"/><path d="M620 58 Q780 108 820 64"/>
+        </g>
+        <g fill="var(--rim)" opacity=".85">${garlandDots}</g>
+        <g>${flames}</g>
+        <ellipse cx="400" cy="530" rx="380" ry="40" fill="var(--ink)" opacity=".4"/>
+      </svg>`;
+    },
     grove: () => {
       const u = ++uid;
       return `<svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -3211,54 +3317,55 @@
 
     anandhara: {
       name: 'Anandhara', kind: 'festival', preset: 'Festival', swatch: '#4b9682',
-      treatment: 'duotone', mote: 'beam', scheme: 'dark',
+      treatment: 'duotone', mote: 'ember', scheme: 'dark',
       when: '19 September 2026', where: 'Goa', tz: 'Asia/Kolkata (IST)',
       startsOn: '2026-09-19T12:00:00+05:30', visibility: 'public', joinCode: null,
       nav: ['schedule', 'media', 'gossips', 'info'],
       features: { schedule: true, gossips: true, media: true, info: true },
       defaultView: 'list', tracks: false,
       copy: { 'gossips.title': 'The Wall' },
-      hero: { scene: 'stage', alt: 'The mainstage crowd at dusk' },
-      heroEyebrow: 'Saturday 19 September · 21:00',
+      hero: { scene: 'diya', alt: 'Rows of lit diyas along the water at dusk' },
+      heroEyebrow: 'Saturday 19 September · 18:30',
       heroTitle: 'Anandhara',
-      heroSub: 'Three stages, one field, until the shuttles stop.',
+      heroSub: 'A hundred lamps lit at dusk, then three stages until the shuttles stop.',
       days: [
         { label: 'Saturday 19 September', items: [
-          { time: '07:00', title: 'Sunset yoga', cancelled: true, desc: 'Cancelled — the field is under water.' },
+          { time: '07:00', title: 'Rangoli workshop', cancelled: true, desc: 'Cancelled — the field is under water.' },
           { time: '12:00', title: 'Gates open' },
-          { time: '15:30', end: '16:30', title: 'Moss Telegraph', venue: 'The Grove', scene: 'grove', alt: 'Strings of lights through trees' },
-          { time: '18:00', end: '19:30', title: 'Ruhi', venue: 'Bass Dome' },
-          { time: '21:00', end: '22:30', title: 'Kavi & the Long Way Home', venue: 'Mainstage', desc: 'The one everybody came for.', scene: 'stage', alt: 'The mainstage crowd at dusk' },
-          { time: '21:30', end: '23:59', title: 'Late set · Bass Dome', venue: 'Bass Dome', clash: true },
+          { time: '15:30', end: '16:30', title: 'Anahad', venue: 'The Grove', scene: 'grove', alt: 'Strings of lights through trees' },
+          { time: '18:00', end: '19:30', title: 'Diya lighting & aarti', venue: 'Diya Court', desc: 'A thousand lamps lit together as the sky turns.', scene: 'diya', alt: 'Rows of lit diyas along the water' },
+          { time: '21:00', end: '22:30', title: 'Sur & the Marigolds', venue: 'Mainstage', desc: 'The one everybody came for.', scene: 'stage', alt: 'The mainstage crowd at dusk' },
+          { time: '21:30', end: '23:59', title: 'Dhol Tarang · Diya Court', venue: 'Diya Court', clash: true },
         ] },
       ],
-      announcements: [{ pinned: true, title: 'Water is free at every bar', body: 'Ask at any bar for tap water. You do not need to queue at the water point for it.' }],
+      announcements: [{ pinned: true, title: 'Diyas and sparklers — handle with care', body: "Please don't leave a lit diya unattended near tents or dry grass. Water points are marked in blue near every court." }],
       people: [
-        { name: 'Kavi & the Long Way Home', role: 'Headliner' },
-        { name: 'Moss Telegraph', role: 'Live' },
-        { name: 'Ruhi', role: 'DJ set' },
+        { name: 'Sur & the Marigolds', role: 'Headliner' },
+        { name: 'Anahad', role: 'Live' },
+        { name: 'Dhol Tarang', role: 'Dhol ensemble' },
       ],
       gossips: [
         { persona: 'Neon Owl', body: 'Whoever is running the chai stall has saved this festival.', reactions: [['flame', 31], ['coffee', 12]], day: 'Saturday 19 September' },
-        { persona: 'Damp Fern', body: 'Lost a green jacket at the Grove. It has my keys in it.', reactions: [], day: 'Saturday 19 September' },
+        { persona: 'Damp Fern', body: 'Lost a shawl near the Diya Court, my keys were wrapped in it.', reactions: [], day: 'Saturday 19 September' },
       ],
       pendingGossip: { persona: 'Damp Fern', body: 'Queue for water is twenty minutes.', day: 'Saturday 19 September' },
       myTasks: [],
       crewTasks: [
         { title: 'Open the second water point', who: 'Rafi Ahmed', status: 'doing', priority: 'high', note: 'Due 19 Sep, 14:00' },
-        { title: 'Tape the cable run at the Dome', who: 'Rafi Ahmed', status: 'todo' },
+        { title: 'Tape the cable run at Diya Court', who: 'Rafi Ahmed', status: 'todo' },
       ],
       rsvps: [],
       gallery: [
+        { scene: 'diya', alt: 'Rows of lit diyas along the water' },
         { scene: 'stage', alt: 'The mainstage crowd at dusk' },
         { scene: 'grove', alt: 'Strings of lights through trees' },
-        { scene: 'sangeet', alt: 'The Bass Dome at midnight' },
+        { scene: 'sangeet', alt: 'String lights over Diya Court at midnight' },
         { scene: 'type', alt: 'Sunrise over the campsite' },
       ],
       venues: [
         { name: 'Mainstage', address: 'Aravalli Grounds, Goa' },
         { name: 'The Grove', notes: 'Acoustic only. Bring a blanket.' },
-        { name: 'Bass Dome', notes: 'Ear protection at the door.' },
+        { name: 'Diya Court', notes: 'Bring a lighter — spare diyas at the gate.' },
       ],
       units: [
         { label: 'Shuttle A · every 20 min', detail: '30 seats' },
@@ -3379,6 +3486,7 @@
     { id: 'neopop', label: 'NeoPOP', sub: "CRED's hard-edge 3D pop" },
     { id: 'atlassian', label: 'Atlassian', sub: 'Dense, 3px radii, one quiet shadow' },
     { id: 'apple', label: 'Apple', sub: 'HIG — pill controls, soft depth, air' },
+    { id: 'chalkui', label: 'Chalk UI', sub: 'Flat wireframe kit — 8px, no shadow' },
   ];
 
   const HOSTS = [
@@ -3510,7 +3618,14 @@
           }).join('')}</div>`
         : t.mote === 'beam'
           ? `<div class="beams"><span class="beam" style="left:26%;animation-delay:-1.4s"></span><span class="beam" style="left:52%"></span><span class="beam" style="left:70%;animation-delay:-3.1s"></span></div>`
-          : '';
+          : t.mote === 'ember'
+            ? `<div class="motes">${Array.from({ length: 16 }, (_, i) => {
+                const l = (i * 6.1 + 3) % 98;
+                const d = 4 + ((i * 7) % 5);
+                const s = 5 + ((i * 3) % 6);
+                return `<span class="mote ember" style="left:${l}%;width:${s}px;height:${s}px;color:var(--occasio-color-warning);animation-duration:${d}s;animation-delay:${-(i * 1.1).toFixed(1)}s;--dx:${(i % 2 ? 1 : -1) * (14 + (i % 4) * 10)}px"></span>`;
+              }).join('')}</div>`
+            : '';
 
     return `<header class="hero">
       ${photo(t.hero.scene, t.hero.alt)}
@@ -3966,7 +4081,69 @@
     drawer.dataset.open = String(open);
     scrim.dataset.open = String(open);
   };
-  document.getElementById('dock').addEventListener('click', () => setDrawer(drawer.dataset.open !== 'true'));
+  /* Drag-and-drop for the dock: a pointerdown/move/up trio that swaps its default
+     right/bottom anchoring for explicit left/top once the pointer has actually
+     travelled past a small threshold, so a tap still opens the drawer and only a
+     real drag moves the pill. Clamped to stay fully on-screen, re-clamped on resize
+     so rotating a phone can't strand it off the edge. */
+  const dock = document.getElementById('dock');
+  const dockDrag = { active: false, moved: false, startX: 0, startY: 0, baseX: 0, baseY: 0 };
+
+  const clampDock = (x, y) => {
+    const r = dock.getBoundingClientRect();
+    const margin = 8;
+    const maxX = Math.max(margin, window.innerWidth - r.width - margin);
+    const maxY = Math.max(margin, window.innerHeight - r.height - margin);
+    return { x: Math.min(Math.max(x, margin), maxX), y: Math.min(Math.max(y, margin), maxY) };
+  };
+
+  dock.addEventListener('pointerdown', (e) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    const r = dock.getBoundingClientRect();
+    dockDrag.active = true;
+    dockDrag.moved = false;
+    dockDrag.startX = e.clientX;
+    dockDrag.startY = e.clientY;
+    dockDrag.baseX = r.left;
+    dockDrag.baseY = r.top;
+    dock.setPointerCapture(e.pointerId);
+  });
+
+  dock.addEventListener('pointermove', (e) => {
+    if (!dockDrag.active) return;
+    const dx = e.clientX - dockDrag.startX;
+    const dy = e.clientY - dockDrag.startY;
+    if (!dockDrag.moved && Math.hypot(dx, dy) < 5) return;
+    dockDrag.moved = true;
+    const { x, y } = clampDock(dockDrag.baseX + dx, dockDrag.baseY + dy);
+    dock.style.left = `${x}px`;
+    dock.style.top = `${y}px`;
+    dock.style.right = 'auto';
+    dock.style.bottom = 'auto';
+  });
+
+  const endDockDrag = (e) => {
+    if (!dockDrag.active) return;
+    dockDrag.active = false;
+    if (dock.hasPointerCapture(e.pointerId)) dock.releasePointerCapture(e.pointerId);
+  };
+  dock.addEventListener('pointerup', endDockDrag);
+  dock.addEventListener('pointercancel', endDockDrag);
+
+  window.addEventListener('resize', () => {
+    if (!dock.style.left) return;
+    const { x, y } = clampDock(parseFloat(dock.style.left), parseFloat(dock.style.top));
+    dock.style.left = `${x}px`;
+    dock.style.top = `${y}px`;
+  });
+
+  dock.addEventListener('click', () => {
+    if (dockDrag.moved) {
+      dockDrag.moved = false;
+      return;
+    }
+    setDrawer(drawer.dataset.open !== 'true');
+  });
   document.getElementById('drawer-close').addEventListener('click', () => setDrawer(false));
   scrim.addEventListener('click', () => setDrawer(false));
 
