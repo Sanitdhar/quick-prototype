@@ -68,12 +68,20 @@ bounded, how round anything is, how much air it gets — while the skin stays in
 | Mono | Flat and near-square: every surface the same value as the page, bounded by a single-colour hairline |
 | Glass | Translucent, blurred panels over the ground — the one template that spends depth on something other than a hairline |
 | NeoPOP | [CRED-CLUB/neopop-web](https://github.com/CRED-CLUB/neopop-web)'s actual design system, not just its colours (that's the CRED skin): a hard-edged, solid offset duplicate of every control's shape sits behind it — drawn with `box-shadow`, not blur — and collapses flat on `:active` to read as a physical press. Chunkier than Brutal (moderate radii, not sharp) and livelier (an animated press where Brutal is static). |
+| Atlassian | The Atlassian Design System reading: dense, an 8px-grid feel, `3px` radii (an actual ADS constant, not a rounded-off number), and one real but genuinely quiet elevation shadow. Every other template here has an opinion about being distinctive — this one has an opinion about staying out of the way. The enterprise-software antidote to the rest of the list. |
+| Apple | Human Interface Guidelines: San Francisco's generous whitespace, `20px` continuous "squircle" corners, pill buttons, and depth from a soft diffuse shadow plus light vibrancy rather than a hairline. The gentlest template here — nothing in it has a hard edge. |
 
 This works because the components read from a **component-token layer**
 (`--c-bg`, `--c-border-w`, `--c-radius`, `--c-pad`, `--chip-radius`, `--btn-radius`, `--sec-gap`,
-`--head-transform`, …) that sits between the theme tokens and the CSS. A template redefines those
-tokens, so changing it changes cards, chips, fields, avatars, images, section headings and spacing
+`--head-transform`, `--head-align`, …) that sits between the theme tokens and the CSS. A template
+redefines those tokens, so changing it changes cards, chips, fields, avatars, images, section headings and spacing
 throughout the body — not just the buttons.
+
+`--head-align` was one of those tokens from the start — Editorial's whole description is "centred
+letterspaced caps" — but nothing ever read it: dead CSS, and the reason Editorial's screen titles
+quietly stayed left-aligned despite claiming otherwise. Fixed by actually wiring it up (and by
+widening the heading rule to reach `screenHead()`'s own `.t-display2`, which sits outside `.section`
+and `.section-head` and so wasn't covered by the original selector either).
 
 ### Type, Buttons, Icons, Hosts
 

@@ -1183,6 +1183,53 @@
     border-color: var(--occasio-color-text);
   }
 
+  /* Atlassian — the enterprise-software antidote to the last six: dense, tight
+     3px radii (an actual Atlassian Design System constant, not a rounded
+     number), an 8px-grid feel, and one real but barely-there elevation shadow
+     rather than anything anyone would call a flourish. Every other template
+     here has an opinion about being distinctive; this one has an opinion
+     about staying out of the way. */
+  .app[data-template='atlassian'] {
+    --c-bg: var(--occasio-color-surface);
+    --c-bg-hover: var(--occasio-color-surfaceRaised);
+    --c-border-w: 1px;
+    --c-radius: 3px;
+    --c-pad: 16px;
+    --c-shadow: 0 1px 1px color-mix(in srgb, var(--occasio-ramp-neutral-12) 20%, transparent),
+      0 0 1px color-mix(in srgb, var(--occasio-ramp-neutral-12) 31%, transparent);
+    --chip-radius: 999px;
+    --btn-radius: 3px;
+    --field-radius: 3px;
+    --img-radius: 3px;
+    --sec-gap: 24px;
+  }
+
+  /* Apple — Human Interface Guidelines: San Francisco's generous whitespace,
+     continuous "squircle" corners, pill controls, and depth from a soft
+     diffuse shadow and light vibrancy rather than a hairline. The gentlest
+     template here — nothing in it is drawn with a hard edge. */
+  .app[data-template='apple'] {
+    --c-bg: color-mix(in srgb, var(--occasio-color-surfaceRaised) 88%, transparent);
+    --c-bg-hover: var(--occasio-color-surfaceRaised);
+    --c-border-w: 0px;
+    --c-radius: 20px;
+    --c-pad: 22px;
+    --c-shadow: 0 1px 2px color-mix(in srgb, var(--occasio-ramp-neutral-12) 6%, transparent),
+      0 12px 28px -14px color-mix(in srgb, var(--occasio-ramp-neutral-12) 26%, transparent);
+    --chip-radius: 999px;
+    --chip-border-w: 0px;
+    --chip-bg: var(--occasio-color-brandSubtle);
+    --btn-radius: 999px;
+    --field-radius: 14px;
+    --img-radius: 20px;
+    --sec-gap: 40px;
+  }
+
+  .app[data-template='apple'] .card {
+    backdrop-filter: blur(10px) saturate(1.4);
+    -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  }
+
   /* One card recipe, built entirely from component tokens. */
   .card {
     background: var(--c-bg);
@@ -1629,6 +1676,7 @@
   .crumbs {
     display: flex;
     align-items: center;
+    justify-content: var(--head-align);
     gap: 8px;
     font-family: var(--occasio-font-body);
     font-size: var(--occasio-type-caption-size);
@@ -1667,12 +1715,18 @@
     height: 14px;
   }
 
+  /* .t-display2 covers the screen-level title screenHead() renders (Schedule,
+     Gallery, Venue and travel, …) — it's a direct child of .screen, not
+     wrapped in .section, so the two selectors above it don't reach it on
+     their own. */
   .section h2,
   .section h3,
   .section-head h2,
-  .section-head h3 {
+  .section-head h3,
+  .screen > .t-display2 {
     text-transform: var(--head-transform);
     letter-spacing: var(--head-spacing);
+    text-align: var(--head-align);
   }
 
   .section-head {
@@ -1681,6 +1735,19 @@
     justify-content: space-between;
     gap: 14px;
     flex-wrap: wrap;
+  }
+
+  /* A centred heading paired with a right-aligned action (e.g. "Announcements"
+     next to nothing, or "Happening next" next to "All of it") can't just take
+     text-align: the row itself is still pinned to the edges. Editorial is the
+     one template that asks for --head-align: center, so it's the one place
+     this reorients the whole row instead of only the text inside it. */
+  .app[data-template='editorial'] .section-head {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
   }
 
   .stack {
@@ -3310,6 +3377,8 @@
     { id: 'mono', label: 'Mono', sub: 'Flat, near-square, one-colour rules' },
     { id: 'glass', label: 'Glass', sub: 'Translucent, blurred panels' },
     { id: 'neopop', label: 'NeoPOP', sub: "CRED's hard-edge 3D pop" },
+    { id: 'atlassian', label: 'Atlassian', sub: 'Dense, 3px radii, one quiet shadow' },
+    { id: 'apple', label: 'Apple', sub: 'HIG — pill controls, soft depth, air' },
   ];
 
   const HOSTS = [
@@ -4246,12 +4315,12 @@
   document.getElementById('opt-templates').innerHTML = TEMPLATES.map((o) => `
     <button class="opt" type="button" data-template="${o.id}" aria-pressed="false">
       <span class="opt-sw" style="background:#e9edf3;border-radius:${
-        o.id === 'brutal' || o.id === 'editorial' || o.id === 'mono'
+        o.id === 'brutal' || o.id === 'editorial' || o.id === 'mono' || o.id === 'atlassian'
           ? '2px'
-          : o.id === 'console' || o.id === 'glass'
+          : o.id === 'console' || o.id === 'glass' || o.id === 'apple'
             ? '12px'
             : '7px'
-      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}${o.id === 'glass' ? 'background:rgba(233,237,243,0.45);backdrop-filter:blur(3px);border:1px solid rgba(233,237,243,0.7)' : ''}${o.id === 'mono' ? 'background:transparent;border:1px solid #e9edf3' : ''}${o.id === 'neopop' ? 'border:2px solid #e9edf3;box-shadow:3px 3px 0 #7ea2ff' : ''}"></span>
+      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}${o.id === 'glass' ? 'background:rgba(233,237,243,0.45);backdrop-filter:blur(3px);border:1px solid rgba(233,237,243,0.7)' : ''}${o.id === 'mono' ? 'background:transparent;border:1px solid #e9edf3' : ''}${o.id === 'neopop' ? 'border:2px solid #e9edf3;box-shadow:3px 3px 0 #7ea2ff' : ''}${o.id === 'atlassian' ? 'box-shadow:0 1px 1px rgba(9,30,66,.25),0 0 1px rgba(9,30,66,.31)' : ''}${o.id === 'apple' ? 'box-shadow:0 8px 20px -10px rgba(9,30,66,.5)' : ''}"></span>
       <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
 
   document.getElementById('opt-hosts').innerHTML = HOSTS.map((o) => `
