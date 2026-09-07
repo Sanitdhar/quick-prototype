@@ -33,7 +33,10 @@ made visible:
 | DevCon 25                   | Conference | light  | Schedule, Info, **Backchannel** (no Gallery — `media` disabled) |
 | Maple Grove, Class of 1999  | Minimal    | light  | Schedule, Info only (`gossips`, `media` off) |
 
-Screens: Home, Schedule (story cards ↔ list), Gossips, Gallery, Info, Tasks.
+Screens: Home, Schedule (story cards ↔ list), Gossips, Gallery, Info, Tasks. Any gallery or schedule
+photo opens a lightbox with previous/next; the topbar's search, bell and profile icons are real
+popovers, not decoration; and Home's announcements are a horizontally-paged carousel rather than a
+stack once there's more than one.
 
 ### Proposed skins
 
@@ -62,6 +65,8 @@ bounded, how round anything is, how much air it gets — while the skin stays in
 | Soft | Tonal fills, no borders, gentle depth |
 | Brutal | 2px rules, hard offset shadows, nothing rounded |
 | Console | Big radii, pill controls, near-black panels |
+| Mono | Flat and near-square: every surface the same value as the page, bounded by a single-colour hairline |
+| Glass | Translucent, blurred panels over the ground — the one template that spends depth on something other than a hairline |
 
 This works because the components read from a **component-token layer**
 (`--c-bg`, `--c-border-w`, `--c-radius`, `--c-pad`, `--chip-radius`, `--btn-radius`, `--sec-gap`,
@@ -77,13 +82,50 @@ Four more pickers, each overriding the template where you want something specifi
   System) plus Geometric and Grotesk. It writes the two font custom properties inline, which beats
   both the tenant's set and the skin's, so any pairing can be tried against any event. There is no
   cursive option; the chalk skins override their generated Caveat back to a clean serif/sans pair.
-- **Buttons** — defaults to the template, or force Arcade / Pill / Square / Outline. Only
-  `--btn-radius` and the primary fill change, so switching shape never moves a layout.
+- **Buttons** — defaults to the template, or force Arcade / Pill / Square / Outline / **Glow** (a
+  soft halo behind the fill, always in the fill's own colour, never black) / **Gradient** (a
+  diagonal fill toward the theme's accent). Only `--btn-radius` and the primary fill change, so
+  switching shape never moves a layout.
+- **Button colour** — independent of shape: Brand (the event's own), Accent, Ink (solid neutral,
+  high contrast), Success. Indirected through `--btn-fill`/`--btn-fill-hover`/`--btn-label`, which
+  Glow and Gradient both read, so a colour and a style choice compose freely.
 - **Icons** — Line, Bold (heavier stroke), Glyph (circle/square/triangle primitives), None. Icons
-  appear in the rail, the top bar, primary actions, schedule times and venue chips, so the setting
-  is visible in the body rather than only in the chrome.
+  appear in the rail, the top bar, primary actions, schedule times, venue chips and gossip
+  reactions (heart/laugh/flame/coffee, standing in for the emoji reactions used to be) — the
+  setting is visible in the body rather than only in the chrome. There are no emoji anywhere in
+  the UI now, including the "Pinned" badge (a thumbtack icon, distinct from the map pin used for
+  venue directions).
 - **Hosts** — Cards (one card each, with the bio), List (compact rows), Circles (avatars only).
   Circles stay round whatever the template does to every other corner.
+
+## Topbar, lightbox, carousel
+
+The search, bell and profile icons in the topbar are functional popovers, not decoration:
+
+- **Search** filters sessions, hosts and venues live as you type, and each result jumps straight to
+  the right tab.
+- **Bell** shows real notifications built from the current tenant's own data (a pending gossip
+  post, a pinned announcement, an upcoming task) — the unread dot only appears when there's
+  something to show.
+- **Profile** shows a stub "you" card with the event name and your RSVP status, and a shortcut into
+  Tasks.
+
+Any photo in the Gallery or the Schedule's story view opens a **lightbox** — previous/next
+buttons, arrow-key navigation, Escape to close — over the same set the screen was already showing,
+whether that's the couple's real photographs or a fixture's drawn scenes.
+
+Home's **announcements** are a native-scroll-snap carousel once there's more than one, with arrow
+buttons and dots. The card width is capped at 420px but never wider than 88% of the track, on
+purpose — narrower than that and two announcements fit the track exactly, leaving nothing to
+scroll; the dot-sync logic maps scroll *progress* (0..1) onto dot index rather than assuming a
+fixed item-width step, since with only two cards most of both can be visible at once.
+
+**A bug worth knowing about if you extend this:** the lightbox and the popover both live *inside*
+`#app`, not beside it. Occasio's `--occasio-*` custom properties are scoped to `[data-tenant]` on
+`#app`, and CSS custom properties only inherit down the DOM tree — a sibling of `#app` can't see
+them at all, which silently made an early version of the popover and lightbox render with no
+background, no border and no themed photo fills. The dock, scrim and drawer are correctly *outside*
+`#app`, because they intentionally use the fixed chrome palette (`--ink*`), never the tenant's.
 
 ## The component system
 

@@ -1051,6 +1051,47 @@
     --head-spacing: -0.03em;
   }
 
+  /* Mono — ultra-flat: everything the same value as the page, bounded by a
+     single-colour hairline in ink rather than the theme's border colour. */
+  .app[data-template='mono'] {
+    --c-bg: var(--occasio-color-bg);
+    --c-bg-hover: var(--occasio-color-surface);
+    --c-border-w: 1px;
+    --c-border-c: var(--occasio-color-text);
+    --c-radius: 2px;
+    --c-pad: 18px;
+    --chip-radius: 2px;
+    --chip-border-w: 1px;
+    --btn-radius: 2px;
+    --field-radius: 2px;
+    --img-radius: 2px;
+    --sec-gap: 30px;
+    --head-transform: uppercase;
+    --head-spacing: 0.02em;
+  }
+
+  /* Glass — translucent panels over a blurred ground. The one template that
+     spends depth on something other than a hairline, deliberately. */
+  .app[data-template='glass'] {
+    --c-bg: color-mix(in srgb, var(--occasio-color-surfaceRaised) 55%, transparent);
+    --c-bg-hover: color-mix(in srgb, var(--occasio-color-surfaceRaised) 78%, transparent);
+    --c-border-w: 1px;
+    --c-border-c: color-mix(in srgb, var(--occasio-color-borderStrong) 55%, transparent);
+    --c-radius: 26px;
+    --c-pad: 24px;
+    --chip-bg: color-mix(in srgb, var(--occasio-color-surfaceRaised) 60%, transparent);
+    --btn-radius: 20px;
+    --field-radius: 20px;
+    --sec-gap: 36px;
+  }
+
+  .app[data-template='glass'] .card,
+  .app[data-template='glass'] .field,
+  .app[data-template='glass'] .chip {
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  }
+
   /* One card recipe, built entirely from component tokens. */
   .card {
     background: var(--c-bg);
@@ -1201,15 +1242,70 @@
       border-color var(--occasio-motion-fast) ease, color var(--occasio-motion-fast) ease;
   }
 
+  /* The primary fill is indirected through --btn-fill*, so a colour choice and a
+     style choice (glow, gradient) can both act on it without knowing about each
+     other. Default is the theme's own interactive role. */
+  .app {
+    --btn-fill: var(--occasio-color-interactive-rest);
+    --btn-fill-hover: var(--occasio-color-interactive-hover);
+    --btn-label: var(--occasio-color-onBrand);
+  }
+
+  .app[data-btncolor='accent'] {
+    --btn-fill: var(--occasio-color-accent);
+    --btn-fill-hover: color-mix(in srgb, var(--occasio-color-accent) 82%, black);
+    --btn-label: var(--occasio-color-onAccent);
+  }
+
+  .app[data-btncolor='ink'] {
+    --btn-fill: var(--occasio-ramp-neutral-12);
+    --btn-fill-hover: var(--occasio-ramp-neutral-11);
+    --btn-label: var(--occasio-ramp-neutral-1);
+  }
+
+  .app[data-btncolor='success'] {
+    --btn-fill: var(--occasio-color-success);
+    --btn-fill-hover: color-mix(in srgb, var(--occasio-color-success) 82%, black);
+    --btn-label: var(--occasio-color-onSuccess);
+  }
+
   .btn-primary {
-    background: var(--occasio-color-interactive-rest);
-    border-color: var(--occasio-color-interactive-rest);
-    color: var(--occasio-color-onBrand);
+    background: var(--btn-fill);
+    border-color: var(--btn-fill);
+    color: var(--btn-label);
   }
 
   .btn-primary:hover {
-    background: var(--occasio-color-interactive-hover);
-    border-color: var(--occasio-color-interactive-hover);
+    background: var(--btn-fill-hover);
+    border-color: var(--btn-fill-hover);
+  }
+
+  /* Glow: the fill floats on a soft halo in its own colour — the one button style
+     that spends a shadow, and only ever in the brand hue, never black. */
+  .app[data-buttons='glow'] .btn-primary {
+    box-shadow: 0 8px 28px -6px color-mix(in srgb, var(--btn-fill) 60%, transparent);
+  }
+
+  .app[data-buttons='glow'] .btn-primary:hover {
+    box-shadow: 0 10px 34px -6px color-mix(in srgb, var(--btn-fill) 75%, transparent);
+  }
+
+  /* Gradient: a diagonal two-tone fill between the fill colour and the theme accent. */
+  .app[data-buttons='gradient'] .btn-primary {
+    background: linear-gradient(
+      135deg,
+      var(--btn-fill),
+      color-mix(in srgb, var(--btn-fill) 55%, var(--occasio-color-accent))
+    );
+    border-color: transparent;
+  }
+
+  .app[data-buttons='gradient'] .btn-primary:hover {
+    background: linear-gradient(
+      135deg,
+      var(--btn-fill-hover),
+      color-mix(in srgb, var(--btn-fill-hover) 55%, var(--occasio-color-accent))
+    );
   }
 
   .btn-secondary {
@@ -1376,6 +1472,76 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+
+  /* -- carousel --------------------------------------------------------------
+     Native scroll-snap does the paging; the arrows and dots are a thin layer
+     of sugar over scrollBy/scrollLeft so the row is fully usable by touch,
+     trackpad or the buttons alone.                                            */
+
+  .carousel-wrap {
+    position: relative;
+  }
+
+  .carousel {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 2px 2px 6px;
+    margin: -2px -2px 0;
+  }
+
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Capped at 420px so a card stays a readable width on a wide screen, but never
+     so narrow relative to the track that two of them exactly fill it with nothing
+     left to page through. */
+  .carousel-item {
+    flex: 0 0 min(420px, 88%);
+    scroll-snap-align: start;
+  }
+
+  .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 14px;
+  }
+
+  .carousel-nav .iconbtn {
+    background: var(--occasio-color-surfaceRaised);
+    border: 1px solid var(--occasio-color-border);
+    width: 38px;
+    height: 38px;
+    border-radius: var(--btn-radius);
+  }
+
+  .carousel-nav .iconbtn:hover {
+    background: var(--occasio-color-surface);
+  }
+
+  .carousel-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--occasio-color-border);
+    transition: background var(--occasio-motion-fast) ease, width var(--occasio-motion-fast) ease;
+  }
+
+  .dot[data-active='true'] {
+    background: var(--occasio-color-brand);
+    width: 20px;
   }
 
   /* -- schedule ------------------------------------------------------------- */
@@ -1582,6 +1748,11 @@
     transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms ease;
   }
 
+  .react .ic {
+    width: 14px;
+    height: 14px;
+  }
+
   .react:hover {
     transform: scale(1.09);
     border-color: var(--occasio-color-brandBorder);
@@ -1623,6 +1794,12 @@
     color: var(--occasio-color-onBrand);
     cursor: pointer;
     transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .checkbox .ic {
+    width: 13px;
+    height: 13px;
+    stroke-width: 3;
   }
 
   .checkbox:hover {
@@ -1683,6 +1860,249 @@
       padding: 12px 8px;
     }
   }
+
+  /* ============================================================================
+     LIGHTBOX — opens on any gallery or schedule photo, pages with the arrows,
+     the keyboard, or a swipe.
+     ========================================================================== */
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: rgba(6, 7, 9, 0.94);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    justify-items: center;
+    gap: 8px;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+  }
+
+  .lightbox[data-open='true'] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lb-frame {
+    grid-column: 2;
+    max-width: min(720px, 100%);
+    max-height: 74vh;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .lb-frame .photo {
+    width: 100%;
+    height: 100%;
+    max-height: 74vh;
+    border-radius: 12px;
+  }
+
+  .lb-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.82);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+  }
+
+  .lb-close,
+  .lb-nav {
+    appearance: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    transition: background 160ms ease, transform 160ms ease;
+  }
+
+  .lb-close:hover,
+  .lb-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+  }
+
+  .lb-close .ic {
+    width: 18px;
+    height: 18px;
+  }
+
+  .lb-nav {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    flex: none;
+  }
+
+  .lb-nav .ic {
+    width: 22px;
+    height: 22px;
+  }
+
+  .lb-nav:disabled {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .lb-nav:hover {
+    transform: scale(1.06);
+  }
+
+  @media (max-width: 640px) {
+    .lightbox {
+      grid-template-columns: 1fr;
+      padding: 16px;
+    }
+    .lb-frame {
+      grid-column: 1;
+      max-height: 60vh;
+    }
+    .lb-nav {
+      position: absolute;
+      bottom: 90px;
+      top: auto;
+    }
+    .lb-prev {
+      left: 16px;
+    }
+    .lb-next {
+      right: 16px;
+    }
+  }
+
+  /* ============================================================================
+     POPOVER — the topbar's search / notifications / profile panels. One shell,
+     different content, positioned under whichever icon opened it.
+     ========================================================================== */
+
+  .popover {
+    position: fixed;
+    z-index: 55;
+    width: 320px;
+    max-width: calc(100vw - 32px);
+    background: var(--occasio-color-surfaceRaised);
+    border: 1px solid var(--occasio-color-border);
+    border-radius: var(--btn-radius);
+    padding: 18px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .popover[data-open='true'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .popover h4 {
+    margin: 0;
+    font-family: var(--occasio-font-body);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--occasio-color-textFaint);
+  }
+
+  .popover-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .popover-item .ic {
+    width: 18px;
+    height: 18px;
+    color: var(--occasio-color-brand);
+    flex: none;
+    margin-top: 1px;
+  }
+
+  .popover-empty {
+    font-size: 13px;
+    color: var(--occasio-color-textMuted);
+  }
+
+  .popover .field {
+    height: 48px;
+    padding: 0 14px;
+  }
+
+  .popover .field input {
+    appearance: none;
+    background: none;
+    border: 0;
+    outline: 0;
+    color: var(--occasio-color-text);
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-body-size);
+    width: 100%;
+  }
+
+  .popover .field input::placeholder {
+    color: var(--occasio-color-textFaint);
+  }
+
+  .search-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--occasio-color-text);
+    background: none;
+    border: 0;
+    width: 100%;
+    text-align: left;
+    font-family: var(--occasio-font-body);
+    font-size: 13px;
+  }
+
+  .search-result:hover {
+    background: var(--occasio-color-surface);
+  }
+
+  /* The bell's unread dot. */
+  .iconbtn {
+    position: relative;
+  }
+
+  .badge {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--occasio-color-brand);
+    border: 2px solid var(--occasio-color-surface);
+  }
 </style>
 
 <div class="app" id="app">
@@ -1694,6 +2114,21 @@
     </header>
     <div id="body"></div>
   </div>
+
+  <!-- Both live inside .app, not beside it: they read the tenant's own
+       --occasio-* custom properties, which are scoped to [data-tenant] on
+       .app and do not inherit into siblings outside it. The dock, scrim and
+       drawer are deliberately outside — they use the fixed chrome palette,
+       never the tenant's, so they read the same in every skin. -->
+  <div class="lightbox" id="lightbox" data-open="false" role="dialog" aria-modal="true" aria-label="Photo">
+    <button class="lb-close" id="lb-close" type="button" aria-label="Close"></button>
+    <button class="lb-nav lb-prev" id="lb-prev" type="button" aria-label="Previous photo"></button>
+    <div class="lb-frame" id="lb-frame"></div>
+    <button class="lb-nav lb-next" id="lb-next" type="button" aria-label="Next photo"></button>
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
+
+  <div class="popover" id="popover" data-open="false"></div>
 </div>
 
 <button class="dock" id="dock" type="button" aria-label="Change event or theme">
@@ -1704,7 +2139,7 @@
 <div class="scrim" id="scrim"></div>
 
 <aside class="drawer" id="drawer" data-open="false" aria-label="Event and theme">
-  <button class="drawer-close" id="drawer-close" type="button" aria-label="Close">✕</button>
+  <button class="drawer-close" id="drawer-close" type="button" aria-label="Close"></button>
   <h2>Preview</h2>
 
   <div class="drawer-group">
@@ -1730,6 +2165,11 @@
   <div class="drawer-group">
     <h3>Buttons</h3>
     <div id="opt-buttons"></div>
+  </div>
+
+  <div class="drawer-group">
+    <h3>Button colour</h3>
+    <div id="opt-btncolor"></div>
   </div>
 
   <div class="drawer-group">
@@ -1776,6 +2216,16 @@
     plus: '<path d="M12 5.2v13.6M5.2 12h13.6"/>',
     user: '<circle cx="12" cy="8.2" r="3.9"/><path d="M4.9 20.2a7.6 7.6 0 0 1 14.2 0"/>',
     ticket: '<path d="M4 8.4A2.4 2.4 0 0 1 6.4 6h11.2A2.4 2.4 0 0 1 20 8.4v1.9a2 2 0 0 0 0 3.4v1.9a2.4 2.4 0 0 1-2.4 2.4H6.4A2.4 2.4 0 0 1 4 15.6v-1.9a2 2 0 0 0 0-3.4z"/><path d="M13.6 6v12"/>',
+    bell: '<path d="M6 9.4a6 6 0 0 1 12 0c0 4 1.4 5.6 2 6.4H4c.6-.8 2-2.4 2-6.4Z"/><path d="M9.6 19.4a2.4 2.4 0 0 0 4.8 0"/>',
+    close: '<path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/>',
+    chevronLeft: '<path d="M15 4.5 6.5 12l8.5 7.5"/>',
+    chevronRight: '<path d="M9 4.5 17.5 12 9 19.5"/>',
+    flame: '<path d="M12 21a6.4 6.4 0 0 1-6.4-6.4c0-3.6 3-5.6 3.6-9.1.9 1.2 1.5 2 1.5 3.6 0-2.4 1-3.7 2-5.1 1.6 3.2 5.7 5.6 5.7 10.6A6.4 6.4 0 0 1 12 21Z"/>',
+    laugh: '<circle cx="12" cy="12" r="8.6"/><path d="M8 10.4h.01M16 10.4h.01M7.6 13.6a5 5 0 0 0 8.8 0"/>',
+    coffee: '<path d="M5 9h11v6.2A3.8 3.8 0 0 1 12.2 19H9A3.8 3.8 0 0 1 5.2 15.2V9Z"/><path d="M16 10.6h1.4a2.2 2.2 0 0 1 0 4.4H16"/><path d="M8 4.6c-.6.7-.6 1.3 0 2M11.3 4.6c-.6.7-.6 1.3 0 2"/>',
+    /* A thumbtack — distinct from the map-pin used for venues, so "pinned" and
+       "directions" read as two different things even though both are pin-shaped. */
+    pinned: '<circle cx="12" cy="7" r="3.6"/><path d="M12 10.6V21"/>',
   };
 
   /* The primitive set: circle, square, triangle, diamond — the reference's own art. */
@@ -1794,6 +2244,14 @@
     plus: '<path d="M12 5v14M5 12h14"/>',
     user: '<circle cx="12" cy="12" r="7"/>',
     ticket: '<rect x="5" y="7" width="14" height="10" rx="2"/>',
+    bell: '<path d="M12 4 19 19H5z"/>',
+    close: '<path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/>',
+    chevronLeft: '<path d="M15 4.5 6.5 12l8.5 7.5"/>',
+    chevronRight: '<path d="M9 4.5 17.5 12 9 19.5"/>',
+    flame: '<path d="M12 5 19 19H5z"/>',
+    laugh: '<circle cx="12" cy="12" r="7"/>',
+    coffee: '<rect x="5" y="7" width="14" height="10" rx="2"/>',
+    pinned: '<circle cx="12" cy="10" r="7"/>',
   };
 
   const icon = (name) => {
@@ -2042,12 +2500,21 @@
 
   /* A picture is either a real photograph (the couple's own) or a drawn scene for the
      fixture events, which ship no image files. Both fill the same frame. */
-  const photo = (ref, alt, cls) => {
+  /**
+   * `lb`, when given as `{ set, index }`, makes the frame open the lightbox on that
+   * named set (populated in LIGHTBOX_SETS by whichever screen is rendering) at that
+   * position — the same element carries its own picture and its own click target,
+   * so there's no wrapper to fight the CSS grid it sits in.
+   */
+  const photo = (ref, alt, cls, lb) => {
     const inner =
       ref && PHOTOS[ref]
         ? `<img src="${PHOTOS[ref]}" alt="${esc(alt || '')}" loading="lazy" />`
         : (SCENES[ref] || SCENES.type)();
-    return `<div class="photo ${cls || ''}" role="img" aria-label="${esc(alt || '')}">${inner}</div>`;
+    const interactive = lb
+      ? `role="button" tabindex="0" data-lightbox="${lb.set}" data-index="${lb.index}"`
+      : `role="img"`;
+    return `<div class="photo ${cls || ''}" ${interactive} aria-label="${esc(alt || '')}">${inner}</div>`;
   };
 
   /* ----------------------------------------------------------------- data -- */
@@ -2096,8 +2563,8 @@
         { name: 'Sanit', role: 'Groom' },
       ],
       gossips: [
-        { persona: 'Golden Peacock', body: 'Aree yaar, they are actually getting married.', reactions: [['❤️', 24], ['😂', 9]] },
-        { persona: 'Palm Tree Bandit', body: 'Whoever picked an outdoor lawn in February — excellent call.', reactions: [['🔥', 11]] },
+        { persona: 'Golden Peacock', body: 'Aree yaar, they are actually getting married.', reactions: [['heart', 24], ['laugh', 9]] },
+        { persona: 'Palm Tree Bandit', body: 'Whoever picked an outdoor lawn in February — excellent call.', reactions: [['flame', 11]] },
       ],
       pendingGossip: { persona: 'Golden Peacock', body: 'Does "Bollywood Bling" mean I can finally wear the sequin jacket?' },
       myTasks: [{ title: 'Book travel to Bhubaneswar', due: 'Before 22 Feb', status: 'todo', priority: 'high' }],
@@ -2155,8 +2622,8 @@
         { name: 'Vikram Kapoor', role: "Bride's father", bio: 'Master of ceremonies, self-appointed.' },
       ],
       gossips: [
-        { persona: 'Curious Lantern', body: 'The groom practised his entrance for an hour. It shows, and not in the way he hoped.', reactions: [['😂', 14], ['❤️', 6]] },
-        { persona: 'Restless Peacock', body: 'Whoever made the gulab jamun: marry me instead.', reactions: [['😂', 22]] },
+        { persona: 'Curious Lantern', body: 'The groom practised his entrance for an hour. It shows, and not in the way he hoped.', reactions: [['laugh', 14], ['heart', 6]] },
+        { persona: 'Restless Peacock', body: 'Whoever made the gulab jamun: marry me instead.', reactions: [['laugh', 22]] },
       ],
       pendingGossip: { persona: 'Curious Lantern', body: 'Table 4 has started a conga line. It is 6pm.' },
       myTasks: [{ title: 'Send the band the do-not-play list', due: 'Due Fri 20 Nov, 12:00', status: 'todo', priority: 'low' }],
@@ -2214,7 +2681,7 @@
         { name: 'Ruhi', role: 'DJ set' },
       ],
       gossips: [
-        { persona: 'Neon Owl', body: 'Whoever is running the chai stall has saved this festival.', reactions: [['🔥', 31], ['☕', 12]] },
+        { persona: 'Neon Owl', body: 'Whoever is running the chai stall has saved this festival.', reactions: [['flame', 31], ['coffee', 12]] },
         { persona: 'Damp Fern', body: 'Lost a green jacket at the Grove. It has my keys in it.', reactions: [] },
       ],
       pendingGossip: { persona: 'Damp Fern', body: 'Queue for water is twenty minutes.' },
@@ -2272,7 +2739,7 @@
         { name: 'Tomás Ferreira', role: 'Speaker' },
         { name: 'Yuki Tanaka', role: 'Speaker' },
       ],
-      gossips: [{ persona: 'Quiet Kite', body: 'The coffee is better than last year. Low bar, cleared.', reactions: [['☕', 9]] }],
+      gossips: [{ persona: 'Quiet Kite', body: 'The coffee is better than last year. Low bar, cleared.', reactions: [['coffee', 9]] }],
       pendingGossip: { persona: 'Quiet Kite', body: 'Studio 2 is freezing. Bring a jumper.' },
       myTasks: [],
       crewTasks: [
@@ -2349,6 +2816,8 @@
     { id: 'soft', label: 'Soft', sub: 'Tonal fills, no borders, gentle depth' },
     { id: 'brutal', label: 'Brutal', sub: 'Heavy rules, hard offsets, sharp' },
     { id: 'console', label: 'Console', sub: 'Big radii, pill controls' },
+    { id: 'mono', label: 'Mono', sub: 'Flat, near-square, one-colour rules' },
+    { id: 'glass', label: 'Glass', sub: 'Translucent, blurred panels' },
   ];
 
   const HOSTS = [
@@ -2363,6 +2832,16 @@
     { id: 'pill', label: 'Pill', sub: 'Fully rounded' },
     { id: 'square', label: 'Square', sub: 'Near-sharp corners' },
     { id: 'outline', label: 'Outline', sub: 'Bordered, weight in the label' },
+    { id: 'glow', label: 'Glow', sub: 'Soft ambient light behind the fill' },
+    { id: 'gradient', label: 'Gradient', sub: 'Two-tone diagonal fill' },
+  ];
+
+  /* Independent of shape: which theme role the primary fill takes. */
+  const BUTTON_COLORS = [
+    { id: '', label: 'Brand', sub: "The event's own colour" },
+    { id: 'accent', label: 'Accent', sub: "The event's accent role" },
+    { id: 'ink', label: 'Ink', sub: 'Solid neutral, high contrast' },
+    { id: 'success', label: 'Success', sub: 'The status-green role' },
   ];
 
   const ICON_SETS = [
@@ -2377,12 +2856,17 @@
   const esc = (s) =>
     String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
+  /* Populated by whichever screen last rendered a navigable set of photos, so the
+     lightbox can page through the same set the user was looking at. */
+  const LIGHTBOX_SETS = {};
+
   const state = {
     slug: 'riyanka-sanit',
     skin: '',
     font: '',
     template: 'arcade',
     buttons: '',
+    btnColor: '',
     icons: 'line',
     hosts: 'card',
     tab: 'home',
@@ -2519,11 +3003,19 @@
 
       ${t.announcements.length ? `<section class="section">
         <h2 class="t-title1">Announcements</h2>
-        <div class="stack">${t.announcements.map((a) => `
-          <div class="card card-hover">
-            <div class="row">${a.pinned ? chip('📌 Pinned', 'brand') : ''}<span class="t-title2">${esc(a.title)}</span></div>
-            <p class="t-body muted">${esc(a.body)}</p>
-          </div>`).join('')}</div>
+        <div class="carousel-wrap">
+          <div class="carousel" data-carousel="ann">${t.announcements.map((a) => `
+            <div class="carousel-item card card-hover">
+              <div class="row">${a.pinned ? `<span class="chip chip-brand">${icon('pinned')}Pinned</span>` : ''}<span class="t-title2">${esc(a.title)}</span></div>
+              <p class="t-body muted">${esc(a.body)}</p>
+            </div>`).join('')}</div>
+          ${t.announcements.length > 1 ? `
+            <div class="carousel-nav">
+              <button class="iconbtn" type="button" data-carousel-prev="ann" aria-label="Previous announcement">${icon('chevronLeft')}</button>
+              <div class="carousel-dots" data-carousel-dots="ann">${t.announcements.map((_, i) => `<span class="dot" data-i="${i}" data-active="${i === 0}"></span>`).join('')}</div>
+              <button class="iconbtn" type="button" data-carousel-next="ann" aria-label="Next announcement">${icon('chevronRight')}</button>
+            </div>` : ''}
+        </div>
       </section>` : ''}
 
       ${t.rsvps.length ? `<section class="section">
@@ -2545,7 +3037,7 @@
       ${t.gallery.length ? `<section class="section">
         <div class="section-head"><h2 class="t-title1">Gallery</h2>
           <button class="linkcta" type="button" data-goto="media">See all ${icon('arrow')}</button></div>
-        <div class="gallery">${t.gallery.slice(0, 3).map((g) => photo(g.scene, g.alt, 'ratio-sq')).join('')}</div>
+        <div class="gallery">${(LIGHTBOX_SETS.gallery = t.gallery).slice(0, 3).map((g, i) => photo(g.scene, g.alt, 'ratio-sq', { set: 'gallery', index: i })).join('')}</div>
       </section>` : ''}`;
   }
 
@@ -2570,12 +3062,14 @@
           </div>`).join('')}</div>
       </div>`).join('');
 
+    const storyItems = t.days.flatMap((d) => d.items);
+    LIGHTBOX_SETS.schedule = storyItems.map((i) => ({ scene: i.scene, alt: i.alt || i.title, title: i.title }));
     const stories = t.days.map((d) => `
       <div class="section">
         <div class="day-head"><h3 class="t-title1">${esc(d.label)}</h3></div>
         <div class="stories">${d.items.map((i) => `
           <article class="story">
-            ${photo(i.scene || 'type', i.alt || i.title)}
+            ${photo(i.scene || 'type', i.alt || i.title, '', { set: 'schedule', index: storyItems.indexOf(i) })}
             <div class="story-body">
               <span class="t-overline">${esc(i.time)}${i.end ? '–' + esc(i.end) : ''}</span>
               <span class="t-title1">${esc(i.title)}</span>
@@ -2620,8 +3114,8 @@
         <div class="card card-hover">
           <div class="post-head"><span class="avatar">${esc(initials(g.persona))}</span><span class="t-bodyStrong">${esc(g.persona)}</span></div>
           <p class="t-body">${esc(g.body)}</p>
-          <div class="row">${g.reactions.map(([e, n]) => `<button class="react" type="button" data-react>${e} ${n}</button>`).join('')}
-          <button class="react" type="button" data-react>＋</button></div>
+          <div class="row">${g.reactions.map(([r, n]) => `<button class="react" type="button" data-react>${icon(r)}${n}</button>`).join('')}
+          <button class="react" type="button" data-react aria-label="Add a reaction">${icon('plus')}</button></div>
         </div>`).join('')}</div>
       ${!t.gossips.length && !t.pendingGossip ? `<div class="card"><p class="t-body muted">${esc(t.copy['gossips.empty'] || 'Nothing here yet.')}</p></div>` : ''}`;
   }
@@ -2629,7 +3123,7 @@
   const taskRow = (task) => {
     const done = task.status === 'done';
     return `<div class="task ${done ? 'task-done' : ''}">
-      <span class="checkbox" data-done="${done}" data-check>${done ? '✓' : ''}</span>
+      <span class="checkbox" data-done="${done}" data-check>${done ? icon('check') : ''}</span>
       <div class="stack" style="gap:6px">
         <span class="t-body task-title">${esc(task.title)}</span>
         <div class="row">
@@ -2651,11 +3145,14 @@
       <div class="card">${t.crewTasks.map(taskRow).join('<hr class="divider" />')}</div>
     </section>`;
 
-  const screenMedia = (t) => `
+  const screenMedia = (t) => {
+    LIGHTBOX_SETS.gallery = t.gallery;
+    return `
     <h2 class="t-display2">Gallery</h2>
-    <p class="t-body muted">Photos share the board's approval queue, so nothing appears unseen.</p>
-    <div class="gallery">${t.gallery.map((g) => photo(g.scene, g.alt, 'ratio-sq')).join('')}</div>
+    <p class="t-body muted">Photos share the board's approval queue, so nothing appears unseen. Open one to browse.</p>
+    <div class="gallery">${t.gallery.map((g, i) => photo(g.scene, g.alt, 'ratio-sq', { set: 'gallery', index: i })).join('')}</div>
     <div class="row"><button class="btn btn-primary" type="button">${icon('plus')} Add photos</button></div>`;
+  };
 
   const screenInfo = (t) => `
     <h2 class="t-display2">Venue and travel</h2>
@@ -2726,15 +3223,24 @@
       app.style.removeProperty('--occasio-font-body');
     }
 
+    document.getElementById('drawer-close').innerHTML = icon('close');
+    document.getElementById('lb-close').innerHTML = icon('close');
+    document.getElementById('lb-prev').innerHTML = icon('chevronLeft');
+    document.getElementById('lb-next').innerHTML = icon('chevronRight');
+    if (typeof closePopover === 'function') closePopover();
     app.dataset.template = state.template;
     if (state.buttons) app.dataset.buttons = state.buttons;
     else delete app.dataset.buttons;
+    if (state.btnColor) app.dataset.btncolor = state.btnColor;
+    else delete app.dataset.btncolor;
     app.dataset.icons = state.icons;
 
     document.getElementById('brandmark').textContent = t.name;
+    const notifCount = [t.pendingGossip, t.announcements[0], t.myTasks[0]].filter(Boolean).length;
     document.getElementById('topbar-actions').innerHTML =
-      `<button class="iconbtn" type="button" aria-label="Search">${icon('search')}</button>` +
-      `<button class="iconbtn" type="button" aria-label="Your profile">${icon('user')}</button>`;
+      `<button class="iconbtn" type="button" data-popover="search" aria-label="Search">${icon('search')}</button>` +
+      `<button class="iconbtn" type="button" data-popover="notifications" aria-label="Notifications">${icon('bell')}${notifCount ? '<span class="badge"></span>' : ''}</button>` +
+      `<button class="iconbtn" type="button" data-popover="profile" aria-label="Your profile">${icon('user')}</button>`;
 
     const tabs = tabsFor(t);
     if (!tabs.includes(state.tab)) state.tab = 'home';
@@ -2754,6 +3260,7 @@
       (state.tab === 'home' ? heroBlock(t) : '') +
       `<div class="wrap"><div class="screen">${screens[state.tab](t)}</div></div>`;
     if (state.tab === 'home') renderCount(t);
+    wireCarousels();
 
     document.getElementById('dock-swatch').style.background = state.skin
       ? SKINS.find((s) => s.id === state.skin).sw
@@ -2766,6 +3273,7 @@
     document.querySelectorAll('#opt-skins .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.skin || '') === state.skin)));
     document.querySelectorAll('#opt-fonts .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.font || '') === state.font)));
     document.querySelectorAll('#opt-buttons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.buttons === state.buttons)));
+    document.querySelectorAll('#opt-btncolor .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.btncolor || '') === state.btnColor)));
     document.querySelectorAll('#opt-icons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.icons === state.icons)));
     document.querySelectorAll('#opt-templates .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.template === state.template)));
     document.querySelectorAll('#opt-hosts .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hosts === state.hosts)));
@@ -2792,8 +3300,177 @@
   document.getElementById('dock').addEventListener('click', () => setDrawer(drawer.dataset.open !== 'true'));
   document.getElementById('drawer-close').addEventListener('click', () => setDrawer(false));
   scrim.addEventListener('click', () => setDrawer(false));
+
+  /* -------------------------------------------------------------- lightbox -- */
+
+  const lightbox = document.getElementById('lightbox');
+  const lbFrame = document.getElementById('lb-frame');
+  const lbCaption = document.getElementById('lb-caption');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
+  let lb = { set: null, index: 0 };
+
+  const renderLightbox = () => {
+    const items = LIGHTBOX_SETS[lb.set] || [];
+    const item = items[lb.index];
+    if (!item) return;
+    lbFrame.innerHTML = photo(item.scene, item.alt, 'ratio-hero');
+    lbCaption.textContent = item.title
+      ? item.alt && item.alt !== item.title
+        ? `${item.title} — ${item.alt}`
+        : item.title
+      : item.alt || '';
+    lbPrev.disabled = lb.index === 0;
+    lbNext.disabled = lb.index === items.length - 1;
+  };
+
+  const openLightbox = (setName, index) => {
+    const items = LIGHTBOX_SETS[setName];
+    if (!items || !items.length) return;
+    lb = { set: setName, index };
+    renderLightbox();
+    lightbox.dataset.open = 'true';
+  };
+
+  const closeLightbox = () => {
+    lightbox.dataset.open = 'false';
+  };
+
+  const stepLightbox = (delta) => {
+    const items = LIGHTBOX_SETS[lb.set] || [];
+    const next = lb.index + delta;
+    if (next < 0 || next >= items.length) return;
+    lb.index = next;
+    renderLightbox();
+  };
+
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', () => stepLightbox(-1));
+  document.getElementById('lb-next').addEventListener('click', () => stepLightbox(1));
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  /* -------------------------------------------------------------- popovers --
+     Search, notifications and profile share one shell, positioned under
+     whichever topbar icon opened it. */
+
+  const popover = document.getElementById('popover');
+  let popoverFor = null;
+
+  const buildSearchIndex = (t) => {
+    const idx = [];
+    t.days.forEach((d) =>
+      d.items.forEach((i) => idx.push({ label: i.title, sub: i.venue || d.label, tab: 'schedule' })),
+    );
+    t.people.forEach((p) => idx.push({ label: p.name, sub: p.role, tab: 'home' }));
+    t.venues.forEach((v) => idx.push({ label: v.name, sub: 'Venue', tab: 'info' }));
+    return idx;
+  };
+
+  const POPOVER_BUILDERS = {
+    search: () =>
+      `<span class="field">${icon('search')}<input type="text" id="search-input" placeholder="Search this event" autocomplete="off" /></span>
+       <div id="search-results"></div>`,
+    notifications: (t) => {
+      const items = [];
+      if (t.pendingGossip) items.push({ ic: 'chat', text: 'Your post is waiting for a host to approve.' });
+      if (t.announcements[0]) items.push({ ic: 'pinned', text: t.announcements[0].title });
+      if (t.myTasks[0]) items.push({ ic: 'check', text: t.myTasks[0].title });
+      return (
+        '<h4>Notifications</h4>' +
+        (items.length
+          ? items.map((i) => `<div class="popover-item">${icon(i.ic)}<span class="t-caption">${esc(i.text)}</span></div>`).join('')
+          : '<p class="popover-empty">Nothing new.</p>')
+      );
+    },
+    profile: (t) => `
+      <h4>You</h4>
+      <div class="popover-item">
+        <span class="avatar">YO</span>
+        <span><span class="t-bodyStrong" style="display:block">You</span>
+        <span class="t-caption muted">Attending ${esc(t.name)}</span></span>
+      </div>
+      ${t.rsvps.length ? `<div class="popover-item">${icon('check')}<span class="t-caption">RSVP: ${esc(t.rsvps[0].status)}</span></div>` : ''}
+      <button class="btn btn-secondary btn-sm btn-block" type="button" data-goto="tasks">My action items</button>`,
+  };
+
+  const openPopover = (name, anchorEl) => {
+    const t = TENANTS[state.slug];
+    popoverFor = name;
+    popover.innerHTML = POPOVER_BUILDERS[name](t);
+    const r = anchorEl.getBoundingClientRect();
+    const width = 320;
+    const left = Math.max(12, Math.min(r.right - width, window.innerWidth - width - 12));
+    popover.style.top = `${String(r.bottom + 10)}px`;
+    popover.style.left = `${String(left)}px`;
+    popover.dataset.open = 'true';
+
+    if (name === 'search') {
+      const input = document.getElementById('search-input');
+      const results = document.getElementById('search-results');
+      const idx = buildSearchIndex(t);
+      const renderResults = (q) => {
+        const needle = q.trim().toLowerCase();
+        const filtered = needle
+          ? idx.filter((x) => x.label.toLowerCase().includes(needle) || (x.sub || '').toLowerCase().includes(needle))
+          : idx.slice(0, 5);
+        results.innerHTML = filtered.length
+          ? filtered
+              .slice(0, 6)
+              .map(
+                (x) =>
+                  `<button class="search-result" type="button" data-goto="${x.tab}"><span>${esc(x.label)}</span><span class="t-caption faint">${esc(x.sub || '')}</span></button>`,
+              )
+              .join('')
+          : '<p class="popover-empty">No matches.</p>';
+      };
+      renderResults('');
+      input.addEventListener('input', () => renderResults(input.value));
+      input.focus();
+    }
+  };
+
+  const closePopover = () => {
+    popover.dataset.open = 'false';
+    popoverFor = null;
+  };
+
+  document.getElementById('topbar-actions').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-popover]');
+    if (!b) return;
+    if (popoverFor === b.dataset.popover && popover.dataset.open === 'true') {
+      closePopover();
+      return;
+    }
+    openPopover(b.dataset.popover, b);
+  });
+
+  popover.addEventListener('click', (e) => {
+    const g = e.target.closest('[data-goto]');
+    if (g) {
+      state.tab = g.dataset.goto;
+      render();
+      closePopover();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (popover.dataset.open === 'true' && !popover.contains(e.target) && !e.target.closest('[data-popover]')) {
+      closePopover();
+    }
+  });
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setDrawer(false);
+    if (e.key === 'Escape') {
+      setDrawer(false);
+      closeLightbox();
+      closePopover();
+    }
+    if (lightbox.dataset.open === 'true') {
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
+      if (e.key === 'ArrowRight') stepLightbox(1);
+    }
   });
 
   document.getElementById('opt-events').addEventListener('click', (e) => {
@@ -2825,7 +3502,14 @@
 
   document.getElementById('opt-buttons').innerHTML = BUTTONS.map((o) => `
     <button class="opt" type="button" data-buttons="${o.id}" aria-pressed="false">
-      <span class="opt-sw" style="background:#e9edf3;border-radius:${o.id === 'pill' ? '999px' : o.id === 'square' ? '3px' : '9px'};${o.id === 'outline' ? 'background:transparent;border-color:#8ea2c4' : ''}"></span>
+      <span class="opt-sw" style="background:${o.id === 'gradient' ? 'linear-gradient(135deg,#e9edf3,#9fb3d9)' : '#e9edf3'};border-radius:${o.id === 'pill' ? '999px' : o.id === 'square' ? '3px' : '9px'};${o.id === 'outline' ? 'background:transparent;border-color:#8ea2c4' : ''}${o.id === 'glow' ? 'box-shadow:0 0 0 4px rgba(233,237,243,0.25)' : ''}"></span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-btncolor').innerHTML = BUTTON_COLORS.map((o) => `
+    <button class="opt" type="button" data-btncolor="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:${
+        o.id === 'accent' ? '#8b5cf6' : o.id === 'ink' ? '#1f242c' : o.id === 'success' ? '#2f855a' : '#b46c8d'
+      };border-radius:7px"></span>
       <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
 
   document.getElementById('opt-icons').innerHTML = ICON_SETS.map((o) => `
@@ -2841,8 +3525,12 @@
   document.getElementById('opt-templates').innerHTML = TEMPLATES.map((o) => `
     <button class="opt" type="button" data-template="${o.id}" aria-pressed="false">
       <span class="opt-sw" style="background:#e9edf3;border-radius:${
-        o.id === 'brutal' || o.id === 'editorial' ? '2px' : o.id === 'console' ? '12px' : '7px'
-      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}"></span>
+        o.id === 'brutal' || o.id === 'editorial' || o.id === 'mono'
+          ? '2px'
+          : o.id === 'console' || o.id === 'glass'
+            ? '12px'
+            : '7px'
+      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}${o.id === 'glass' ? 'background:rgba(233,237,243,0.45);backdrop-filter:blur(3px);border:1px solid rgba(233,237,243,0.7)' : ''}${o.id === 'mono' ? 'background:transparent;border:1px solid #e9edf3' : ''}"></span>
       <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
 
   document.getElementById('opt-hosts').innerHTML = HOSTS.map((o) => `
@@ -2875,6 +3563,13 @@
     render();
   });
 
+  document.getElementById('opt-btncolor').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.btnColor = b.dataset.btncolor || '';
+    render();
+  });
+
   document.getElementById('opt-icons').addEventListener('click', (e) => {
     const b = e.target.closest('.opt');
     if (!b) return;
@@ -2891,7 +3586,19 @@
     render();
   });
 
+  document.getElementById('body').addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('[data-lightbox]')) {
+      e.preventDefault();
+      e.target.closest('[data-lightbox]').click();
+    }
+  });
+
   document.getElementById('body').addEventListener('click', (e) => {
+    const lbt = e.target.closest('[data-lightbox]');
+    if (lbt) {
+      openLightbox(lbt.dataset.lightbox, Number(lbt.dataset.index));
+      return;
+    }
     const v = e.target.closest('[data-view]');
     if (v) {
       state.view = v.dataset.view;
@@ -2915,10 +3622,46 @@
     if (c) {
       const done = c.dataset.done !== 'true';
       c.dataset.done = String(done);
-      c.textContent = done ? '✓' : '';
+      c.innerHTML = done ? icon('check') : '';
       c.closest('.task').classList.toggle('task-done', done);
+      return;
+    }
+    const cp = e.target.closest('[data-carousel-prev], [data-carousel-next]');
+    if (cp) {
+      const name = cp.dataset.carouselPrev || cp.dataset.carouselNext;
+      const track = document.querySelector(`[data-carousel="${name}"]`);
+      if (track) {
+        const item = track.querySelector('.carousel-item');
+        const step = item ? item.getBoundingClientRect().width + 16 : track.clientWidth;
+        track.scrollBy({ left: cp.dataset.carouselPrev !== undefined ? -step : step, behavior: 'smooth' });
+      }
+      return;
     }
   });
+
+  /** Keeps each carousel's dots in sync with where the user has actually scrolled to. */
+  const wireCarousels = () => {
+    document.querySelectorAll('[data-carousel]').forEach((track) => {
+      const name = track.dataset.carousel;
+      const dots = document.querySelector(`[data-carousel-dots="${name}"]`);
+      if (!dots) return;
+      /* Scroll progress (0..1) maps onto dot index, rather than assuming one
+         full item-width of scroll separates each pair of dots — with only two
+         cards, most of both are visible at once, so the whole scrollable range
+         can be far shorter than a single card's width. */
+      track.addEventListener(
+        'scroll',
+        () => {
+          const count = dots.querySelectorAll('.dot').length;
+          const maxScroll = track.scrollWidth - track.clientWidth;
+          const ratio = maxScroll > 0 ? track.scrollLeft / maxScroll : 0;
+          const active = Math.round(ratio * (count - 1));
+          dots.querySelectorAll('.dot').forEach((d, i) => d.setAttribute('data-active', String(i === active)));
+        },
+        { passive: true },
+      );
+    });
+  };
 
   render();
 </script>
