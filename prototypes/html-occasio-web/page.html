@@ -42,6 +42,17 @@
     --occasio-color-brandBorder: rgba(244, 247, 239, 0.34);
     --occasio-color-interactive-rest: #f4f7ef;
     --occasio-color-interactive-hover: #ffffff;
+    /* Coloured chalk — a real board has more than one stick of chalk in the tray.
+       Status roles get their own hue rather than inheriting the wedding's amber,
+       which would otherwise be the one thing on the board that never re-skinned. */
+    --occasio-color-success: #8fd4a0;
+    --occasio-color-onSuccess: #16241c;
+    --occasio-color-warning: #f0d78a;
+    --occasio-color-onWarning: #3a2f0f;
+    --occasio-color-danger: #f0a8a0;
+    --occasio-color-onDanger: #3a1512;
+    --occasio-color-info: #9dc6f0;
+    --occasio-color-onInfo: #12233a;
   }
 
   .app[data-skin='chalk-ink'] {
@@ -62,6 +73,14 @@
     --occasio-color-brandBorder: rgba(242, 246, 251, 0.34);
     --occasio-color-interactive-rest: #f2f6fb;
     --occasio-color-interactive-hover: #ffffff;
+    --occasio-color-success: #9fe6b0;
+    --occasio-color-onSuccess: #10261a;
+    --occasio-color-warning: #f3dd94;
+    --occasio-color-onWarning: #362c0f;
+    --occasio-color-danger: #f5a9a2;
+    --occasio-color-onDanger: #3a1512;
+    --occasio-color-info: #a8d0ff;
+    --occasio-color-onInfo: #10233f;
   }
 
   .app[data-skin='chalk-rose'] {
@@ -82,6 +101,14 @@
     --occasio-color-brandBorder: rgba(246, 217, 226, 0.36);
     --occasio-color-interactive-rest: #f6d9e2;
     --occasio-color-interactive-hover: #fdeaf0;
+    --occasio-color-success: #a8dab0;
+    --occasio-color-onSuccess: #142418;
+    --occasio-color-warning: #f0d79a;
+    --occasio-color-onWarning: #362c10;
+    --occasio-color-danger: #f0a6a6;
+    --occasio-color-onDanger: #391414;
+    --occasio-color-info: #a6c8ee;
+    --occasio-color-onInfo: #12213a;
   }
 
   /* CRED: near-black, one vivid accent, geometric type, generous radii. */
@@ -103,6 +130,16 @@
     --occasio-color-brandBorder: rgba(204, 255, 51, 0.32);
     --occasio-color-interactive-rest: #ccff33;
     --occasio-color-interactive-hover: #d9ff66;
+    /* Saturated neon status hues, distinct from the brand lime so a "waiting for
+       approval" chip doesn't read as another primary action. */
+    --occasio-color-success: #4ade80;
+    --occasio-color-onSuccess: #06180c;
+    --occasio-color-warning: #ffb020;
+    --occasio-color-onWarning: #1e1300;
+    --occasio-color-danger: #ff5c7a;
+    --occasio-color-onDanger: #1f0509;
+    --occasio-color-info: #4cc2ff;
+    --occasio-color-onInfo: #04141f;
     --occasio-radius-lg: 22px;
     --occasio-radius-md: 14px;
     --occasio-image-radius: 22px;
@@ -458,6 +495,11 @@
 
   .app[data-icons='none'] .railbtn .ic-wrap {
     height: 0;
+  }
+
+  /* The opposite extreme: icon, no label. */
+  .app[data-icons='iconOnly'] .railbtn span:not(.ic-wrap) {
+    display: none;
   }
 
   @media (max-width: 780px) {
@@ -1092,6 +1134,55 @@
     -webkit-backdrop-filter: blur(16px) saturate(1.3);
   }
 
+  /* NeoPOP — CRED's actual design system (CRED-CLUB/neopop-web), not just its
+     colours (that's the CRED skin). Its signature move: every control gets a
+     hard-edged, solid offset duplicate of its own shape sitting behind it —
+     drawn with box-shadow rather than blur, so it reads as a physical layer,
+     not a soft drop shadow — which collapses flat on press. Chunkier and
+     livelier than Brutal: moderate radii instead of sharp, a coloured edge
+     instead of flat ink, and this animated press where Brutal is static. */
+  .app[data-template='neopop'] {
+    --c-bg: var(--occasio-color-surfaceRaised);
+    --c-bg-hover: var(--occasio-color-surface);
+    --c-border-w: 2px;
+    --c-border-c: var(--occasio-color-text);
+    --c-radius: 14px;
+    --c-pad: 22px;
+    --chip-radius: 8px;
+    --chip-border-w: 2px;
+    --btn-radius: 10px;
+    --field-radius: 10px;
+    --img-radius: 14px;
+    --sec-gap: 36px;
+    --head-transform: uppercase;
+    --head-spacing: -0.01em;
+  }
+
+  .app[data-template='neopop'] .card {
+    box-shadow: 4px 4px 0 0 var(--occasio-color-text);
+  }
+
+  .app[data-template='neopop'] .btn {
+    border: 2px solid var(--occasio-color-text);
+    box-shadow: 5px 5px 0 0 var(--occasio-color-text);
+    transform: translate(0, 0);
+    transition: transform 110ms ease, box-shadow 110ms ease;
+  }
+
+  .app[data-template='neopop'] .btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0 0 var(--occasio-color-text);
+  }
+
+  .app[data-template='neopop'] .btn:active {
+    transform: translate(5px, 5px);
+    box-shadow: 0 0 0 0 var(--occasio-color-text);
+  }
+
+  .app[data-template='neopop'] .btn-primary {
+    border-color: var(--occasio-color-text);
+  }
+
   /* One card recipe, built entirely from component tokens. */
   .card {
     background: var(--c-bg);
@@ -1384,6 +1475,7 @@
 
   /* A large field, the way the reference sets its search row. */
   .field {
+    appearance: none;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -1393,14 +1485,95 @@
     background: var(--c-bg);
     border: 1px solid var(--occasio-color-border);
     color: var(--occasio-color-textFaint);
+    font-family: var(--occasio-font-body);
     font-size: var(--occasio-type-body-size);
+    text-align: left;
     flex: 1;
     min-width: 0;
+  }
+
+  /* When .field is a <button> (Home's search shortcut) rather than the popover's
+     <span>, it should still read as an entry point, not a dead field. */
+  button.field:hover {
+    border-color: var(--occasio-color-borderStrong);
+    color: var(--occasio-color-textMuted);
   }
 
   .btn-tall {
     height: 62px;
     padding: 0 30px;
+  }
+
+  /* The gossip composer — a real field, not placeholder text pretending to be one. */
+  .composer {
+    appearance: none;
+    width: 100%;
+    resize: vertical;
+    min-height: 64px;
+    padding: 14px 16px;
+    border-radius: var(--field-radius);
+    background: var(--c-bg);
+    border: 1px solid var(--occasio-color-border);
+    color: var(--occasio-color-text);
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-body-size);
+    line-height: var(--occasio-type-body-line-height);
+  }
+
+  .composer::placeholder {
+    color: var(--occasio-color-textFaint);
+  }
+
+  .composer:focus-visible {
+    outline: 2px solid var(--occasio-color-interactive-focusRing);
+    outline-offset: 2px;
+  }
+
+  /* -- reaction picker ------------------------------------------------------- */
+
+  .reactpicker {
+    position: fixed;
+    z-index: 60;
+    display: flex;
+    gap: 4px;
+    padding: 7px;
+    background: var(--occasio-color-surfaceRaised);
+    border: 1px solid var(--occasio-color-border);
+    border-radius: 999px;
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 140ms ease, transform 140ms ease;
+  }
+
+  .reactpicker[data-open='true'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .reactpicker button {
+    appearance: none;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    color: var(--occasio-color-text);
+    transition: background 120ms ease, transform 120ms ease;
+  }
+
+  .reactpicker button:hover {
+    background: var(--occasio-color-surface);
+    transform: scale(1.12);
+  }
+
+  .reactpicker .ic {
+    width: 18px;
+    height: 18px;
   }
 
   /* -- screens & entrance --------------------------------------------------- */
@@ -1450,6 +1623,48 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+  }
+
+  /* Breadcrumb alternative to the big display heading. */
+  .crumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--occasio-font-body);
+    font-size: var(--occasio-type-caption-size);
+    color: var(--occasio-color-textMuted);
+  }
+
+  .crumbs button {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: var(--occasio-color-textMuted);
+    font: inherit;
+  }
+
+  .crumbs button:hover {
+    color: var(--occasio-color-text);
+    text-decoration: underline;
+  }
+
+  .crumbs [aria-current='page'] {
+    color: var(--occasio-color-text);
+    font-weight: 600;
+  }
+
+  .crumbs-sep {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+  }
+
+  .crumbs-sep .ic {
+    width: 14px;
+    height: 14px;
   }
 
   .section h2,
@@ -1834,6 +2049,182 @@
     transform: scale(1.04) rotate(-0.6deg);
   }
 
+  /* Collage layout: fixed row tracks instead of an aspect-ratio square, so a
+     photo can span two columns ("wide") or two rows ("tall") and actually
+     read as part of a deliberate mosaic rather than an odd gap in a grid. */
+  .app[data-gallery='collage'] .gallery {
+    grid-auto-flow: dense;
+    grid-auto-rows: 130px;
+  }
+
+  .app[data-gallery='collage'] .gallery .photo {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .app[data-gallery='collage'] .span-wide {
+    grid-column: span 2;
+  }
+
+  .app[data-gallery='collage'] .span-tall {
+    grid-row: span 2;
+  }
+
+  /* -- map preview ------------------------------------------------------------ */
+
+  .mapview {
+    position: relative;
+    border-radius: var(--img-radius);
+    overflow: hidden;
+    border: 1px solid var(--occasio-color-border);
+    height: 130px;
+  }
+
+  .mapview svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mapview-tag {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--occasio-color-bg);
+    border: 1px solid var(--occasio-color-border);
+    border-radius: var(--chip-radius);
+    padding: 4px 10px;
+    font-size: var(--occasio-type-caption-size);
+    font-family: var(--occasio-font-body);
+  }
+
+  .mapview-tag .ic {
+    width: 14px;
+    height: 14px;
+    color: var(--occasio-color-brand);
+  }
+
+  /* -- check-in --------------------------------------------------------------- */
+
+  .checkin-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .checkin-qr {
+    flex: none;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--occasio-color-border);
+    line-height: 0;
+  }
+
+  /* -- staff scanner ------------------------------------------------------------
+     Same full-screen shell as the lightbox, a different job: not a photo, a
+     little simulated hardware. */
+
+  .scanner {
+    position: fixed;
+    inset: 0;
+    z-index: 85;
+    background: rgba(6, 7, 9, 0.94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+  }
+
+  .scanner[data-open='true'] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .scanner-panel {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .scanner-panel .t-overline {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .viewfinder {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .viewfinder-corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--occasio-color-brand, #fff);
+  }
+
+  .vc-tl {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .vc-tr {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
+
+  .vc-bl {
+    bottom: 0;
+    left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+
+  .vc-br {
+    bottom: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  .viewfinder-hint {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .scan-result {
+    width: 100%;
+    background: var(--occasio-color-surfaceRaised, #14171b);
+    border: 1px solid var(--occasio-color-border, rgba(255, 255, 255, 0.12));
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--occasio-color-text, #fff);
+  }
+
+  .scan-tally {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 12px;
+  }
+
   .kv {
     display: grid;
     grid-template-columns: minmax(110px, auto) 1fr;
@@ -2129,6 +2520,24 @@
   </div>
 
   <div class="popover" id="popover" data-open="false"></div>
+
+  <div class="reactpicker" id="reactpicker" data-open="false" role="menu" aria-label="Add a reaction"></div>
+
+  <div class="scanner" id="scanner" data-open="false" role="dialog" aria-modal="true" aria-label="Staff scanner">
+    <button class="lb-close" id="scanner-close" type="button" aria-label="Close"></button>
+    <div class="scanner-panel">
+      <span class="t-overline" id="scanner-mode-label"></span>
+      <div class="viewfinder">
+        <span class="viewfinder-corner vc-tl"></span>
+        <span class="viewfinder-corner vc-tr"></span>
+        <span class="viewfinder-corner vc-bl"></span>
+        <span class="viewfinder-corner vc-br"></span>
+        <span class="t-caption viewfinder-hint">No camera in a preview — point-and-click stands in for it.</span>
+      </div>
+      <button class="btn btn-primary" type="button" id="scanner-simulate">Simulate scan</button>
+      <div id="scanner-result"></div>
+    </div>
+  </div>
 </div>
 
 <button class="dock" id="dock" type="button" aria-label="Change event or theme">
@@ -2182,6 +2591,21 @@
     <div id="opt-hosts"></div>
   </div>
 
+  <div class="drawer-group">
+    <h3>Screen header</h3>
+    <div id="opt-header"></div>
+  </div>
+
+  <div class="drawer-group">
+    <h3>Gallery layout</h3>
+    <div id="opt-gallery"></div>
+  </div>
+
+  <div class="drawer-group">
+    <h3>Map view</h3>
+    <div id="opt-mapview"></div>
+  </div>
+
   <p class="drawer-foot">
     Colour, type and spacing come from Occasio's real resolver
     (<code>packages/theme</code>) run over each fixture's own published config. Chalk and CRED are
@@ -2189,6 +2613,11 @@
     ramp, so they re-skin with the event.
   </p>
 </aside>
+
+<!-- Kazuhiko Arase's qrcode-generator, MIT — the classic pure-JS encoder, pinned.
+     Drawn onto our own <svg> from its isDark()/getModuleCount() rather than its
+     built-in renderer, so the QR takes theme colours instead of fixed black/white. -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 
 <script>
   /*__PHOTOS__*/
@@ -2517,6 +2946,61 @@
     return `<div class="photo ${cls || ''}" ${interactive} aria-label="${esc(alt || '')}">${inner}</div>`;
   };
 
+  /**
+   * A stylised map, not a real one — the app has no network access to real map
+   * tiles, and Occasio's own product deliberately ships no in-app map at all
+   * (D14: a directions button hands off to the OS maps app instead). This is
+   * what "Map view: on" draws in the meantime: an abstract street grid with a
+   * pin at the venue, in the theme's own palette, so switching it on never
+   * looks like a broken third-party embed.
+   */
+  const mapPreview = (venue) => {
+    const seed = String(venue.name).length;
+    const roadY1 = 30 + ((seed * 13) % 30);
+    const roadY2 = 60 + ((seed * 7) % 25);
+    return `<div class="mapview" role="img" aria-label="Map showing roads near ${esc(venue.name)}">
+      <svg viewBox="0 0 300 130" preserveAspectRatio="none" aria-hidden="true">
+        <rect width="300" height="130" fill="var(--occasio-color-surfaceSunken)" />
+        <g stroke="var(--occasio-color-border)" stroke-width="10">
+          <line x1="0" y1="${roadY1}" x2="300" y2="${roadY1}" />
+          <line x1="0" y1="${roadY2}" x2="300" y2="${roadY2}" />
+        </g>
+        <g stroke="var(--occasio-color-border)" stroke-width="7">
+          <line x1="70" y1="0" x2="70" y2="130" />
+          <line x1="210" y1="0" x2="210" y2="130" />
+        </g>
+        <circle cx="150" cy="${Math.round((roadY1 + roadY2) / 2)}" r="9" fill="var(--occasio-color-brand)" />
+        <circle cx="150" cy="${Math.round((roadY1 + roadY2) / 2)}" r="9" fill="none" stroke="var(--occasio-color-bg)" stroke-width="2.5" />
+      </svg>
+      <span class="mapview-tag">${icon('pin')}${esc(venue.name)}</span>
+    </div>`;
+  };
+
+  /**
+   * A real, scannable QR (kazuhikoarase's qrcode-generator, loaded above) drawn
+   * onto our own <svg> module-by-module rather than through the library's own
+   * renderer, so it takes theme colours instead of being stuck at black/white.
+   */
+  const qrSvg = (text, size) => {
+    const qr = qrcode(0, 'M');
+    qr.addData(text);
+    qr.make();
+    const n = qr.getModuleCount();
+    const cell = size / n;
+    let rects = '';
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        if (qr.isDark(r, c)) {
+          rects += `<rect x="${(c * cell).toFixed(2)}" y="${(r * cell).toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}"/>`;
+        }
+      }
+    }
+    return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="Check-in QR code">
+      <rect width="${size}" height="${size}" fill="var(--occasio-color-bg)"/>
+      <g fill="var(--occasio-color-text)">${rects}</g>
+    </svg>`;
+  };
+
   /* ----------------------------------------------------------------- data -- */
 
   const TENANTS = {
@@ -2563,10 +3047,10 @@
         { name: 'Sanit', role: 'Groom' },
       ],
       gossips: [
-        { persona: 'Golden Peacock', body: 'Aree yaar, they are actually getting married.', reactions: [['heart', 24], ['laugh', 9]] },
-        { persona: 'Palm Tree Bandit', body: 'Whoever picked an outdoor lawn in February — excellent call.', reactions: [['flame', 11]] },
+        { persona: 'Golden Peacock', body: 'Aree yaar, they are actually getting married.', reactions: [['heart', 24], ['laugh', 9]], day: 'Monday 22 February' },
+        { persona: 'Palm Tree Bandit', body: 'Whoever picked an outdoor lawn in February — excellent call.', reactions: [['flame', 11]], day: 'Tuesday 23 February' },
       ],
-      pendingGossip: { persona: 'Golden Peacock', body: 'Does "Bollywood Bling" mean I can finally wear the sequin jacket?' },
+      pendingGossip: { persona: 'Golden Peacock', body: 'Does "Bollywood Bling" mean I can finally wear the sequin jacket?', day: 'Tuesday 23 February' },
       myTasks: [{ title: 'Book travel to Bhubaneswar', due: 'Before 22 Feb', status: 'todo', priority: 'high' }],
       crewTasks: [
         { title: 'Confirm the shuttle from the hotel', who: 'You', status: 'doing' },
@@ -2587,6 +3071,13 @@
       ],
       venues: [{ name: 'Aura Lawn', address: 'Patia, Bhubaneswar', notes: 'The venue is outdoors — dress for the lawn, and for February evenings.' }],
       units: [{ label: 'Ceremony seating', detail: 'Aura Lawn · 7:00 PM', you: 'Two seats held for you.' }],
+      helpline: '+91 90000 12345 (demo number)',
+      checkinGuests: [
+        { name: 'Nisha Verma', unit: 'Table 3' },
+        { name: 'Arjun Rao', unit: 'Table 3' },
+        { name: 'Meera Kapoor', unit: 'Table 1 · Family' },
+        { name: 'Rohit Sen', unit: 'Table 5' },
+      ],
     },
 
     'sanit-riyanks': {
@@ -2622,10 +3113,10 @@
         { name: 'Vikram Kapoor', role: "Bride's father", bio: 'Master of ceremonies, self-appointed.' },
       ],
       gossips: [
-        { persona: 'Curious Lantern', body: 'The groom practised his entrance for an hour. It shows, and not in the way he hoped.', reactions: [['laugh', 14], ['heart', 6]] },
-        { persona: 'Restless Peacock', body: 'Whoever made the gulab jamun: marry me instead.', reactions: [['laugh', 22]] },
+        { persona: 'Curious Lantern', body: 'The groom practised his entrance for an hour. It shows, and not in the way he hoped.', reactions: [['laugh', 14], ['heart', 6]], day: 'Saturday 21 November' },
+        { persona: 'Restless Peacock', body: 'Whoever made the gulab jamun: marry me instead.', reactions: [['laugh', 22]], day: 'Friday 20 November' },
       ],
-      pendingGossip: { persona: 'Curious Lantern', body: 'Table 4 has started a conga line. It is 6pm.' },
+      pendingGossip: { persona: 'Curious Lantern', body: 'Table 4 has started a conga line. It is 6pm.', day: 'Saturday 21 November' },
       myTasks: [{ title: 'Send the band the do-not-play list', due: 'Due Fri 20 Nov, 12:00', status: 'todo', priority: 'low' }],
       crewTasks: [
         { title: 'Confirm the flowers for the mandap', who: 'Arjun Rao', status: 'done', priority: 'high' },
@@ -2681,10 +3172,10 @@
         { name: 'Ruhi', role: 'DJ set' },
       ],
       gossips: [
-        { persona: 'Neon Owl', body: 'Whoever is running the chai stall has saved this festival.', reactions: [['flame', 31], ['coffee', 12]] },
-        { persona: 'Damp Fern', body: 'Lost a green jacket at the Grove. It has my keys in it.', reactions: [] },
+        { persona: 'Neon Owl', body: 'Whoever is running the chai stall has saved this festival.', reactions: [['flame', 31], ['coffee', 12]], day: 'Saturday 19 September' },
+        { persona: 'Damp Fern', body: 'Lost a green jacket at the Grove. It has my keys in it.', reactions: [], day: 'Saturday 19 September' },
       ],
-      pendingGossip: { persona: 'Damp Fern', body: 'Queue for water is twenty minutes.' },
+      pendingGossip: { persona: 'Damp Fern', body: 'Queue for water is twenty minutes.', day: 'Saturday 19 September' },
       myTasks: [],
       crewTasks: [
         { title: 'Open the second water point', who: 'Rafi Ahmed', status: 'doing', priority: 'high', note: 'Due 19 Sep, 14:00' },
@@ -2739,8 +3230,8 @@
         { name: 'Tomás Ferreira', role: 'Speaker' },
         { name: 'Yuki Tanaka', role: 'Speaker' },
       ],
-      gossips: [{ persona: 'Quiet Kite', body: 'The coffee is better than last year. Low bar, cleared.', reactions: [['coffee', 9]] }],
-      pendingGossip: { persona: 'Quiet Kite', body: 'Studio 2 is freezing. Bring a jumper.' },
+      gossips: [{ persona: 'Quiet Kite', body: 'The coffee is better than last year. Low bar, cleared.', reactions: [['coffee', 9]], day: 'Tuesday 6 October' }],
+      pendingGossip: { persona: 'Quiet Kite', body: 'Studio 2 is freezing. Bring a jumper.', day: 'Wednesday 7 October' },
       myTasks: [],
       crewTasks: [
         { title: 'Swap the lapel mic in Studio 2', who: 'Sam Okafor', status: 'todo', priority: 'high', note: 'Reminds 30 min before Types at the edges' },
@@ -2818,6 +3309,7 @@
     { id: 'console', label: 'Console', sub: 'Big radii, pill controls' },
     { id: 'mono', label: 'Mono', sub: 'Flat, near-square, one-colour rules' },
     { id: 'glass', label: 'Glass', sub: 'Translucent, blurred panels' },
+    { id: 'neopop', label: 'NeoPOP', sub: "CRED's hard-edge 3D pop" },
   ];
 
   const HOSTS = [
@@ -2848,7 +3340,23 @@
     { id: 'line', label: 'Line', sub: 'Thin stroke' },
     { id: 'bold', label: 'Bold', sub: 'Heavier stroke' },
     { id: 'glyph', label: 'Glyph', sub: 'Circle, square, triangle' },
+    { id: 'iconOnly', label: 'Icon only', sub: 'No label — the opposite of None' },
     { id: 'none', label: 'None', sub: 'Labels only' },
+  ];
+
+  const HEADERS = [
+    { id: 'heading', label: 'Heading', sub: 'A big display title per screen' },
+    { id: 'breadcrumb', label: 'Breadcrumb', sub: 'A small "Event / Screen" trail' },
+  ];
+
+  const GALLERY_LAYOUTS = [
+    { id: 'grid', label: 'Grid', sub: 'Every photo the same size' },
+    { id: 'collage', label: 'Collage', sub: 'Mixed spans — some landscape, some tall' },
+  ];
+
+  const MAP_VIEWS = [
+    { id: '', label: 'Off', sub: "Directions only — Occasio's own default (D14)" },
+    { id: 'on', label: 'Static preview', sub: 'A stylised map alongside Directions' },
   ];
 
   const TAB_LABEL = { home: 'Home', schedule: 'Schedule', gossips: 'Gossips', media: 'Gallery', info: 'Info', tasks: 'Tasks' };
@@ -2869,8 +3377,25 @@
     btnColor: '',
     icons: 'line',
     hosts: 'card',
+    header: 'heading',
+    galleryLayout: 'grid',
+    mapView: '',
     tab: 'home',
     view: null,
+  };
+
+  /** Every non-Home screen opens with either a big display heading (the default)
+      or a small breadcrumb trail back to Home — one setting, applied everywhere,
+      not just on Gallery. */
+  const screenHead = (t, title) => {
+    if (state.header === 'breadcrumb') {
+      return `<nav class="crumbs" aria-label="Breadcrumb">
+        <button type="button" data-goto="home">${esc(t.name)}</button>
+        <span class="crumbs-sep">${icon('chevronRight')}</span>
+        <span aria-current="page">${esc(title)}</span>
+      </nav>`;
+    }
+    return `<h2 class="t-display2">${esc(title)}</h2>`;
   };
 
   const tabsFor = (t) => ['home', ...t.nav.filter((k) => t.features[k]), 'tasks'];
@@ -2984,8 +3509,8 @@
     const next = t.days[0].items.find((i) => !i.cancelled) || t.days[0].items[0];
     return `
       <div class="row" style="gap:12px;flex-wrap:nowrap">
-        <span class="field">${icon('search')}<span>Search this event</span></span>
-        <button class="btn btn-primary btn-tall" type="button" data-goto="schedule">Schedule</button>
+        <button type="button" class="field" style="cursor:pointer" data-popover="search" title="Search sessions, hosts and venues">${icon('search')}<span>Search this event</span></button>
+        <button class="btn btn-primary btn-tall" type="button" data-goto="schedule" title="Jump to the full schedule">Schedule</button>
       </div>
 
       <section class="section">
@@ -3081,7 +3606,7 @@
 
     return `
       <div class="section-head">
-        <h2 class="t-display2">Schedule</h2>
+        ${screenHead(t, 'Schedule')}
         <div class="viewtoggle" role="group" aria-label="View">
           <button type="button" data-view="stories" aria-pressed="${view === 'stories'}">Stories</button>
           <button type="button" data-view="list" aria-pressed="${view === 'list'}">List</button>
@@ -3090,18 +3615,56 @@
       ${view === 'stories' ? stories : list}`;
   }
 
+  /* A pool of masks "New mask" cycles a tenant's poster through. Deliberately
+     generic — the whole point of a mask is that it carries no identity of its
+     own — and shared across tenants, matching persona() in packages/data. */
+  const MASK_POOL = ['Quiet Fox', 'Bright Otter', 'Lucky Sparrow', 'Wandering Deer', 'Salty Pigeon', 'Restless Kite'];
+
+  /** The persona currently posting for a tenant — lazily seeded from its own
+      fixture data the first time, then whatever "New mask" has cycled it to. */
+  const currentPersona = (t) => {
+    if (t.currentPersona === undefined) {
+      t.currentPersona = (t.pendingGossip || t.gossips[0] || { persona: 'Golden Peacock' }).persona;
+    }
+    return t.currentPersona;
+  };
+
   function screenGossips(t) {
     const title = t.copy['gossips.title'] || 'Gossips';
+
+    /* Group the approved feed by day, the same way Schedule groups sessions —
+       a thin rule with the date above it, once per day rather than once per
+       post. */
+    const days = [];
+    for (const g of t.gossips) {
+      const label = g.day || 'Earlier';
+      let group = days.find((d) => d.label === label);
+      if (!group) {
+        group = { label, posts: [] };
+        days.push(group);
+      }
+      group.posts.push(g);
+    }
+
+    const postCard = (g, i) => `
+      <div class="card card-hover">
+        <div class="post-head"><span class="avatar">${esc(initials(g.persona))}</span><span class="t-bodyStrong">${esc(g.persona)}</span></div>
+        <p class="t-body">${esc(g.body)}</p>
+        <div class="row">${(g.reactions || []).map(([r, n]) => `<button class="react" type="button" data-react>${icon(r)}${n}</button>`).join('')}
+        <button class="react" type="button" data-react-add data-gossip-index="${i}" aria-label="Add a reaction">${icon('plus')}</button></div>
+      </div>`;
+
     return `
-      <h2 class="t-display2">${esc(title)}</h2>
+      ${screenHead(t, title)}
       <div class="card glasscard">
         <p class="t-caption muted">Nobody — not the hosts, not us — can see who posted. Posts are rate-limited and blockable by device, and a host approves every one before it appears.</p>
       </div>
       <div class="card">
-        <span class="t-caption muted">Posting as <strong>${esc((t.pendingGossip || t.gossips[0] || { persona: 'Golden Peacock' }).persona)}</strong></span>
-        <div class="row" style="justify-content:space-between">
-          <span class="t-body faint">Say something…</span>
-          <span class="row"><button class="btn btn-secondary btn-sm" type="button">New mask</button><button class="btn btn-primary btn-sm" type="button">Post</button></span>
+        <span class="t-caption muted">Posting as <strong id="persona-name">${esc(currentPersona(t))}</strong></span>
+        <textarea class="composer" id="gossip-input" rows="2" maxlength="600" placeholder="Say something…"></textarea>
+        <div class="row" style="justify-content:flex-end">
+          <button class="btn btn-secondary btn-sm" type="button" id="new-mask" title="Swaps your posting identity for a new one. Old posts keep the old mask — this forfeits any streak.">${icon('user')} New mask</button>
+          <button class="btn btn-primary btn-sm" type="button" id="post-gossip">Post</button>
         </div>
       </div>
       ${t.pendingGossip ? `<div class="card pending">
@@ -3110,13 +3673,14 @@
         <p class="t-body">${esc(t.pendingGossip.body)}</p>
         <div class="row">${chip('Waiting for a host to approve', 'warning')}</div>
       </div>` : ''}
-      <div class="stack">${t.gossips.map((g) => `
-        <div class="card card-hover">
-          <div class="post-head"><span class="avatar">${esc(initials(g.persona))}</span><span class="t-bodyStrong">${esc(g.persona)}</span></div>
-          <p class="t-body">${esc(g.body)}</p>
-          <div class="row">${g.reactions.map(([r, n]) => `<button class="react" type="button" data-react>${icon(r)}${n}</button>`).join('')}
-          <button class="react" type="button" data-react aria-label="Add a reaction">${icon('plus')}</button></div>
-        </div>`).join('')}</div>
+      ${days
+        .map(
+          (d) => `<div class="section">
+            <div class="day-head"><h3 class="t-title1">${esc(d.label)}</h3></div>
+            <div class="stack">${d.posts.map((g) => postCard(g, t.gossips.indexOf(g))).join('')}</div>
+          </div>`,
+        )
+        .join('')}
       ${!t.gossips.length && !t.pendingGossip ? `<div class="card"><p class="t-body muted">${esc(t.copy['gossips.empty'] || 'Nothing here yet.')}</p></div>` : ''}`;
   }
 
@@ -3137,7 +3701,7 @@
   };
 
   const screenTasks = (t) => `
-    <h2 class="t-display2">My action items</h2>
+    ${screenHead(t, 'My action items')}
     <p class="t-body muted">What you personally need to do, and when it is due.</p>
     <div class="card">${t.myTasks.length ? t.myTasks.map(taskRow).join('<hr class="divider" />') : '<p class="t-body muted">Nothing is waiting on you.</p>'}</div>
     <section class="section">
@@ -3145,22 +3709,35 @@
       <div class="card">${t.crewTasks.map(taskRow).join('<hr class="divider" />')}</div>
     </section>`;
 
+  /* Deterministic per-index span, so the same photo always gets the same shape —
+     no layout jitter on re-render, and it still reads as an intentional collage
+     rather than a random one. */
+  const COLLAGE_PATTERN = ['wide', '', '', 'tall', '', 'wide', '', 'tall', '', ''];
+  const collageSpan = (i) => COLLAGE_PATTERN[i % COLLAGE_PATTERN.length];
+
   const screenMedia = (t) => {
     LIGHTBOX_SETS.gallery = t.gallery;
+    const collage = state.galleryLayout === 'collage';
     return `
-    <h2 class="t-display2">Gallery</h2>
+    ${screenHead(t, 'Gallery')}
     <p class="t-body muted">Photos share the board's approval queue, so nothing appears unseen. Open one to browse.</p>
-    <div class="gallery">${t.gallery.map((g, i) => photo(g.scene, g.alt, 'ratio-sq', { set: 'gallery', index: i })).join('')}</div>
+    <div class="gallery">${t.gallery
+      .map((g, i) => {
+        const span = collage ? collageSpan(i) : '';
+        return photo(g.scene, g.alt, `ratio-sq${span ? ' span-' + span : ''}`, { set: 'gallery', index: i });
+      })
+      .join('')}</div>
     <div class="row"><button class="btn btn-primary" type="button">${icon('plus')} Add photos</button></div>`;
   };
 
   const screenInfo = (t) => `
-    <h2 class="t-display2">Venue and travel</h2>
+    ${screenHead(t, 'Venue and travel')}
     <div class="stack">${t.venues.map((v) => `
       <div class="card card-hover">
         <span class="t-title2">${esc(v.name)}</span>
         ${v.address ? `<span class="t-body muted">${esc(v.address)}</span>` : ''}
         ${v.notes ? `<p class="t-caption muted">${esc(v.notes)}</p>` : ''}
+        ${state.mapView === 'on' ? mapPreview(v) : ''}
         <div class="row"><button class="btn btn-secondary btn-sm" type="button">${icon('pin')} Directions</button></div>
       </div>`).join('')}</div>
     <section class="section">
@@ -3179,6 +3756,22 @@
         <span class="muted">Visibility</span><span>${esc(t.visibility)}</span>
         ${t.joinCode ? `<span class="muted">Join code</span><span>${esc(t.joinCode)}</span>` : ''}
       </div></div>
+    </section>
+    <section class="section">
+      <h3 class="t-title1">Check-in</h3>
+      <div class="card checkin-card">
+        <div class="checkin-qr">${qrSvg(`OCCASIO:${state.slug}:guest-demo`, 128)}</div>
+        <div class="stack" style="gap:4px;min-width:0">
+          <span class="t-bodyStrong">Your check-in code</span>
+          <span class="t-caption muted">Show this at the gate — it carries your room, table and helpline in one scan, so nobody is handing out photocopied lists.</span>
+          <span class="t-caption faint">Helpline: ${esc(t.helpline || 'Ask any host on arrival')}</span>
+        </div>
+      </div>
+      <p class="t-caption faint">Below is a staff view, not something a guest sees — for the person on the gate.</p>
+      <div class="row">
+        <button class="btn btn-secondary btn-sm" type="button" data-scanner="checkin">${icon('check')} Scan check-in</button>
+        <button class="btn btn-secondary btn-sm" type="button" data-scanner="gift">${icon('ticket')} Scan return gift</button>
+      </div>
     </section>`;
 
   /* ----------------------------------------------------------------- render -- */
@@ -3227,13 +3820,17 @@
     document.getElementById('lb-close').innerHTML = icon('close');
     document.getElementById('lb-prev').innerHTML = icon('chevronLeft');
     document.getElementById('lb-next').innerHTML = icon('chevronRight');
+    document.getElementById('scanner-close').innerHTML = icon('close');
     if (typeof closePopover === 'function') closePopover();
+    if (typeof closeReactPicker === 'function') closeReactPicker();
+    if (typeof closeScanner === 'function') closeScanner();
     app.dataset.template = state.template;
     if (state.buttons) app.dataset.buttons = state.buttons;
     else delete app.dataset.buttons;
     if (state.btnColor) app.dataset.btncolor = state.btnColor;
     else delete app.dataset.btncolor;
     app.dataset.icons = state.icons;
+    app.dataset.gallery = state.galleryLayout;
 
     document.getElementById('brandmark').textContent = t.name;
     const notifCount = [t.pendingGossip, t.announcements[0], t.myTasks[0]].filter(Boolean).length;
@@ -3277,6 +3874,9 @@
     document.querySelectorAll('#opt-icons .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.icons === state.icons)));
     document.querySelectorAll('#opt-templates .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.template === state.template)));
     document.querySelectorAll('#opt-hosts .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hosts === state.hosts)));
+    document.querySelectorAll('#opt-header .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.header === state.header)));
+    document.querySelectorAll('#opt-gallery .opt').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.gallery === state.galleryLayout)));
+    document.querySelectorAll('#opt-mapview .opt').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.mapview || '') === state.mapView)));
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
@@ -3349,6 +3949,75 @@
   document.getElementById('lb-next').addEventListener('click', () => stepLightbox(1));
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
+  });
+
+  /* -------------------------------------------------------------- scanner --
+     A staff tool, not something a guest ever opens. There is no camera in an
+     artifact preview, so "Simulate scan" stands in for pointing a phone at a
+     badge — cycling the tenant's guest list is the honest way to demonstrate
+     the check-in/return-gift flow without pretending to have hardware access
+     this page cannot actually have. */
+
+  const scanner = document.getElementById('scanner');
+  const scannerResult = document.getElementById('scanner-result');
+  let scannerMode = 'checkin';
+
+  const scanGuests = (t) => t.checkinGuests || t.people.map((p) => ({ name: p.name, unit: p.role }));
+
+  const scanTally = (t) => {
+    const guests = scanGuests(t);
+    const store = scannerMode === 'checkin' ? t.checkins || {} : t.giftsGiven || {};
+    const done = guests.filter((g) => store[g.name]).length;
+    return `${String(done)} of ${String(guests.length)} ${scannerMode === 'checkin' ? 'checked in' : 'gifts given'}`;
+  };
+
+  const renderScanResult = (t, guest) => {
+    const store = scannerMode === 'checkin' ? (t.checkins = t.checkins || {}) : (t.giftsGiven = t.giftsGiven || {});
+    const done = !!store[guest.name];
+    scannerResult.innerHTML = `
+      <div class="scan-result">
+        <div class="post-head">
+          <span class="avatar">${esc(initials(guest.name))}</span>
+          <span><span class="t-bodyStrong" style="display:block">${esc(guest.name)}</span>
+          <span class="t-caption muted">${esc(guest.unit || '')}</span></span>
+        </div>
+        <button class="btn ${done ? 'btn-secondary' : 'btn-primary'} btn-sm" type="button" id="scan-toggle">
+          ${icon('check')} ${done ? (scannerMode === 'checkin' ? 'Checked in — undo' : 'Gift given — undo') : scannerMode === 'checkin' ? 'Mark checked in' : 'Mark gift given'}
+        </button>
+        <span class="scan-tally">${scanTally(t)}</span>
+      </div>`;
+    document.getElementById('scan-toggle').addEventListener('click', () => {
+      store[guest.name] = !store[guest.name];
+      renderScanResult(t, guest);
+    });
+  };
+
+  const openScanner = (mode) => {
+    scannerMode = mode;
+    const t = TENANTS[state.slug];
+    document.getElementById('scanner-mode-label').textContent =
+      mode === 'checkin' ? 'STAFF · SCAN CHECK-IN' : 'STAFF · SCAN RETURN GIFT';
+    scannerResult.innerHTML = '';
+    scanner.dataset.open = 'true';
+    scanner.dataset.scanIndex = '0';
+  };
+
+  const closeScanner = () => {
+    scanner.dataset.open = 'false';
+  };
+
+  document.getElementById('scanner-simulate').addEventListener('click', () => {
+    const t = TENANTS[state.slug];
+    const guests = scanGuests(t);
+    if (!guests.length) return;
+    const i = Number(scanner.dataset.scanIndex || '0') % guests.length;
+    scanner.dataset.scanIndex = String(i + 1);
+    renderScanResult(t, guests[i]);
+  });
+
+  document.getElementById('scanner-close').addEventListener('click', closeScanner);
+  scanner.addEventListener('click', (e) => {
+    if (e.target === scanner) closeScanner();
   });
 
   /* -------------------------------------------------------------- popovers --
@@ -3436,6 +4105,56 @@
     popoverFor = null;
   };
 
+  /* -------------------------------------------------------------- reactions --
+     The "+" on a gossip post opens this instead of guessing at one reaction —
+     a small emoji-style picker anchored right where you clicked. */
+
+  const REACTION_CHOICES = ['heart', 'laugh', 'flame', 'coffee'];
+  const reactpicker = document.getElementById('reactpicker');
+  let reactpickerFor = null;
+
+  const openReactPicker = (anchorEl) => {
+    reactpickerFor = Number(anchorEl.dataset.gossipIndex);
+    reactpicker.innerHTML = REACTION_CHOICES.map(
+      (r) => `<button type="button" data-add-reaction="${r}" aria-label="React with ${r}">${icon(r)}</button>`,
+    ).join('');
+    const r = anchorEl.getBoundingClientRect();
+    reactpicker.style.top = `${String(r.top - 48)}px`;
+    reactpicker.style.left = `${String(Math.max(12, r.left - 60))}px`;
+    reactpicker.dataset.open = 'true';
+  };
+
+  const closeReactPicker = () => {
+    reactpicker.dataset.open = 'false';
+    reactpickerFor = null;
+  };
+
+  reactpicker.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-add-reaction]');
+    if (!b || reactpickerFor === null) return;
+    const t = TENANTS[state.slug];
+    const post = t.gossips[reactpickerFor];
+    if (post) {
+      post.reactions = post.reactions || [];
+      const name = b.dataset.addReaction;
+      const existing = post.reactions.find(([r]) => r === name);
+      if (existing) existing[1] += 1;
+      else post.reactions.push([name, 1]);
+    }
+    closeReactPicker();
+    render();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (
+      reactpicker.dataset.open === 'true' &&
+      !reactpicker.contains(e.target) &&
+      !e.target.closest('[data-react-add]')
+    ) {
+      closeReactPicker();
+    }
+  });
+
   document.getElementById('topbar-actions').addEventListener('click', (e) => {
     const b = e.target.closest('[data-popover]');
     if (!b) return;
@@ -3466,6 +4185,8 @@
       setDrawer(false);
       closeLightbox();
       closePopover();
+      closeReactPicker();
+      closeScanner();
     }
     if (lightbox.dataset.open === 'true') {
       if (e.key === 'ArrowLeft') stepLightbox(-1);
@@ -3530,7 +4251,7 @@
           : o.id === 'console' || o.id === 'glass'
             ? '12px'
             : '7px'
-      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}${o.id === 'glass' ? 'background:rgba(233,237,243,0.45);backdrop-filter:blur(3px);border:1px solid rgba(233,237,243,0.7)' : ''}${o.id === 'mono' ? 'background:transparent;border:1px solid #e9edf3' : ''}"></span>
+      };${o.id === 'brutal' ? 'box-shadow:3px 3px 0 #6b7280' : ''}${o.id === 'editorial' ? 'background:transparent;border-top:2px solid #8ea2c4;border-radius:0' : ''}${o.id === 'glass' ? 'background:rgba(233,237,243,0.45);backdrop-filter:blur(3px);border:1px solid rgba(233,237,243,0.7)' : ''}${o.id === 'mono' ? 'background:transparent;border:1px solid #e9edf3' : ''}${o.id === 'neopop' ? 'border:2px solid #e9edf3;box-shadow:3px 3px 0 #7ea2ff' : ''}"></span>
       <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
 
   document.getElementById('opt-hosts').innerHTML = HOSTS.map((o) => `
@@ -3541,6 +4262,54 @@
         </svg>
       </span>
       <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-header').innerHTML = HEADERS.map((o) => `
+    <button class="opt" type="button" data-header="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#1f242c;display:grid;place-items:center;color:#e9edf3">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          ${o.id === 'breadcrumb' ? '<path d="M4 12h4M11 12h2l3 6M11 12h2l3-6"/>' : '<path d="M5 8h14M5 14h9"/>'}
+        </svg>
+      </span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-gallery').innerHTML = GALLERY_LAYOUTS.map((o) => `
+    <button class="opt" type="button" data-gallery="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#1f242c;display:grid;place-items:center;color:#e9edf3">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          ${o.id === 'collage' ? '<rect x="3" y="4" width="10" height="7" rx="1"/><rect x="15" y="4" width="6" height="16" rx="1"/><rect x="3" y="13" width="10" height="7" rx="1"/>' : '<rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><rect x="3" y="13" width="7" height="7" rx="1"/><rect x="14" y="13" width="7" height="7" rx="1"/>'}
+        </svg>
+      </span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-mapview').innerHTML = MAP_VIEWS.map((o) => `
+    <button class="opt" type="button" data-mapview="${o.id}" aria-pressed="false">
+      <span class="opt-sw" style="background:#1f242c;display:grid;place-items:center;color:#e9edf3">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          ${o.id === 'on' ? '<path d="M4 6v13l6-2 6 2 4-2V4l-4 2-6-2-6 2Z"/><circle cx="10" cy="11" r="1.6" fill="currentColor" stroke="none"/>' : '<path d="M6 6h12v12H6z"/><path d="m6 18 12-12"/>'}
+        </svg>
+      </span>
+      <span>${esc(o.label)}<small>${esc(o.sub)}</small></span></button>`).join('');
+
+  document.getElementById('opt-header').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.header = b.dataset.header;
+    render();
+  });
+
+  document.getElementById('opt-gallery').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.galleryLayout = b.dataset.gallery;
+    render();
+  });
+
+  document.getElementById('opt-mapview').addEventListener('click', (e) => {
+    const b = e.target.closest('.opt');
+    if (!b) return;
+    state.mapView = b.dataset.mapview || '';
+    render();
+  });
 
   document.getElementById('opt-templates').addEventListener('click', (e) => {
     const b = e.target.closest('.opt');
@@ -3635,6 +4404,48 @@
         const step = item ? item.getBoundingClientRect().width + 16 : track.clientWidth;
         track.scrollBy({ left: cp.dataset.carouselPrev !== undefined ? -step : step, behavior: 'smooth' });
       }
+      return;
+    }
+    if (e.target.closest('#new-mask')) {
+      const t = TENANTS[state.slug];
+      const pool = [currentPersona(t), ...MASK_POOL];
+      const next = pool[(pool.indexOf(currentPersona(t)) + 1) % pool.length];
+      t.currentPersona = next;
+      const el = document.getElementById('persona-name');
+      if (el) el.textContent = next;
+      return;
+    }
+    if (e.target.closest('#post-gossip')) {
+      const t = TENANTS[state.slug];
+      const input = document.getElementById('gossip-input');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+      /* Posting again while one post is still pending is the normal case, not
+         an error — the previous one simply reads as having cleared review in
+         the meantime, and joins the approved feed under its own day. */
+      /* Fixture pending posts never carried a `reactions` array — nothing rendered
+         it while a post was still pending — so it has to be added here, the
+         first moment one might actually need it. */
+      if (t.pendingGossip) t.gossips.unshift({ ...t.pendingGossip, reactions: t.pendingGossip.reactions || [] });
+      t.pendingGossip = { persona: currentPersona(t), body: val, day: 'Today', reactions: [] };
+      render();
+      return;
+    }
+    const ra = e.target.closest('[data-react-add]');
+    if (ra) {
+      openReactPicker(ra);
+      return;
+    }
+    /* Home's search shortcut looks like the topbar's search field because it is
+       one — clicking it opens the same popover the topbar icon does. */
+    const pv = e.target.closest('[data-popover]');
+    if (pv) {
+      openPopover(pv.dataset.popover, pv);
+      return;
+    }
+    const sc = e.target.closest('[data-scanner]');
+    if (sc) {
+      openScanner(sc.dataset.scanner);
       return;
     }
   });

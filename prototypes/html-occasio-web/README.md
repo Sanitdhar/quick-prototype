@@ -67,6 +67,7 @@ bounded, how round anything is, how much air it gets — while the skin stays in
 | Console | Big radii, pill controls, near-black panels |
 | Mono | Flat and near-square: every surface the same value as the page, bounded by a single-colour hairline |
 | Glass | Translucent, blurred panels over the ground — the one template that spends depth on something other than a hairline |
+| NeoPOP | [CRED-CLUB/neopop-web](https://github.com/CRED-CLUB/neopop-web)'s actual design system, not just its colours (that's the CRED skin): a hard-edged, solid offset duplicate of every control's shape sits behind it — drawn with `box-shadow`, not blur — and collapses flat on `:active` to read as a physical press. Chunkier than Brutal (moderate radii, not sharp) and livelier (an animated press where Brutal is static). |
 
 This works because the components read from a **component-token layer**
 (`--c-bg`, `--c-border-w`, `--c-radius`, `--c-pad`, `--chip-radius`, `--btn-radius`, `--sec-gap`,
@@ -97,6 +98,40 @@ Four more pickers, each overriding the template where you want something specifi
   venue directions).
 - **Hosts** — Cards (one card each, with the bio), List (compact rows), Circles (avatars only).
   Circles stay round whatever the template does to every other corner.
+- **Screen header** — Heading (the big display title, as it was) or Breadcrumb ("Event / Screen",
+  clickable back to Home) — applied to every non-Home screen.
+- **Gallery layout** — Grid (uniform) or Collage (a fixed wide/tall span per photo index, so it
+  reads as a deliberate mosaic rather than a random one).
+- **Map view** — Off (Occasio's own default — D14 is no in-app map at all, ever) or a stylised
+  static preview (an abstract street grid with a pin, in the theme's own colours) next to
+  Directions on Info.
+
+Alternate skins (Chalk, CRED) now also define their own `success`/`warning`/`danger`/`info` roles
+rather than leaving them tied to whichever tenant theme sat underneath — a "waiting for approval"
+chip was staying in the wedding's amber even under CRED's near-black, which read as unstyled.
+
+### Check-in
+
+An Info-screen "Check-in" card: a real, scannable QR code — [Kazuhiko Arase's
+`qrcode-generator`](https://github.com/kazuhikoarase/qrcode-generator) (MIT, pinned via jsdelivr;
+not on cdnjs for this package), drawn onto our own `<svg>` module-by-module rather than through the
+library's own renderer, so it takes theme colours — plus the attendee's table and a demo helpline
+number.
+
+Below it, a **staff scanner**: a preview page has no camera access, so rather than fake one,
+"Simulate scan" cycles through the tenant's guest list. Two modes, Scan check-in and Scan return
+gift, each toggleable per guest with a running tally.
+
+### Gossips — a working board, not a mock of one
+
+- **Grouped by day**, the same rule-and-date-heading pattern as Schedule.
+- **A real composer** — an actual `<textarea>`, not placeholder text pretending to be one — where
+  Post pushes a genuine pending entry; posting again while one is still pending moves the old one
+  into the approved feed first, the way the real queue clearing it would look.
+- **New mask actually swaps your persona** (cycling a small pool, client-side) and carries a
+  tooltip explaining that this forfeits any streak the old mask had.
+- **A reaction picker** on `+` — heart, laugh, flame, coffee — anchored where you click, rather
+  than adding a fixed reaction blind.
 
 ## Topbar, lightbox, carousel
 
